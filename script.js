@@ -63,7 +63,7 @@ if (aboutContent) {
 // Email copy-to-clipboard button
 const emailButton = document.getElementById('copy-email-button');
 if (emailButton) {
-    const feedback = document.getElementById('copy-email-feedback');
+    const label = document.getElementById('copy-email-label');
     const email = 'phktistakis@gmail.com';
 
     emailButton.addEventListener('click', async () => {
@@ -81,16 +81,13 @@ if (emailButton) {
                 document.body.removeChild(textarea);
             }
 
-            emailButton.classList.add('copied');
-
-            if (feedback) {
-                feedback.style.display = 'inline';
+            if (label) {
+                label.textContent = 'Email copied ✓';
             }
 
             setTimeout(() => {
-                emailButton.classList.remove('copied');
-                if (feedback) {
-                    feedback.style.display = 'none';
+                if (label) {
+                    label.textContent = 'Email';
                 }
             }, 2000);
         } catch (e) {

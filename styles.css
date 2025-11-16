@@ -401,17 +401,6 @@ body {
     position: relative;
 }
 
-.social-link-feedback {
-    display: none;
-    margin-left: 0.5rem;
-    font-size: 0.85rem;
-    color: #bbf7d0;
-}
-
-.social-link-email.copied .social-link-feedback {
-    display: inline;
-}
-
 .more-projects {
     padding: 3rem 0 1rem;
     background: var(--bg-secondary);
