@@ -56,6 +56,15 @@ body {
     font-weight: 700;
     color: var(--primary-color);
     letter-spacing: -0.5px;
+    text-decoration: none;
+    transform: rotate(-8deg);
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.nav-brand:hover {
+    color: var(--primary-dark);
+    transform: rotate(-8deg) translateY(-2px);
 }
 
 .nav-links {
