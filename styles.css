@@ -138,16 +138,16 @@ body {
 }
 
 .welcome-title {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 300;
-    margin-bottom: 0.5rem;
-    opacity: 0.9;
+    margin-bottom: 0.25rem;
+    opacity: 0.85;
 }
 
 .welcome-name {
-    font-size: 3.5rem;
+    font-size: 3.25rem;
     font-weight: 700;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     letter-spacing: -1px;
     background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
     -webkit-background-clip: text;
@@ -159,6 +159,13 @@ body {
     font-size: 1.25rem;
     font-weight: 400;
     opacity: 0.9;
+}
+
+.welcome-author {
+    font-size: 1rem;
+    font-weight: 400;
+    opacity: 0.85;
+    margin-bottom: 0.25rem;
 }
 
 .hero-description {
