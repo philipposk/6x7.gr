@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Guide: Build Your Website with GitHub Pages</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        
+        h1 {
+            color: #6366f1;
+            border-bottom: 3px solid #6366f1;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #6b7280;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #4f46e5;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #e5e7eb;
+        }
+        
+        h3 {
+            color: #6366f1;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        
+        .toc {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #6366f1;
+        }
+        
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .toc li {
+            margin: 10px 0;
+        }
+        
+        .toc a {
+            color: #6366f1;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        .step {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: #10b981;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .diagram {
+            background: #1f2937;
+            color: #e5e7eb;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-size: 14px;
+        }
+        
+        .code-block {
+            background: #1f2937;
+            color: #e5e7eb;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-size: 14px;
+        }
+        
+        .code-block code {
+            color: #10b981;
+        }
+        
+        .success {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .warning {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .highlight {
+            background: #fef3c7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        
+        .command {
+            background: #1f2937;
+            color: #10b981;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            display: inline-block;
+            margin: 5px 0;
+        }
+        
+        ol, ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Simple Guide: Build Your Website with GitHub Pages (Free!)</h1>
+        <p class="subtitle"><strong>The Easiest Way - No Domain Purchase, No Vercel, No DNS Configuration</strong></p>
+        <p class="subtitle">Your website will be live at: <code>https://YOUR_USERNAME.github.io/YOUR_REPO_NAME</code></p>
+        
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#install">1. Install VS Code</a></li>
+                <li><a href="#create">2. Create Your Website Files</a></li>
+                <li><a href="#github">3. Set Up GitHub</a></li>
+                <li><a href="#push">4. Push Code to GitHub</a></li>
+                <li><a href="#pages">5. Enable GitHub Pages</a></li>
+                <li><a href="#live">6. Your Site is Live!</a></li>
+                <li><a href="#troubleshooting">7. Troubleshooting</a></li>
+            </ul>
+        </div>
+        
+        <section id="install">
+            <h2>1. Install VS Code</h2>
+            
+            <div class="step">
+                <h3><span class="step-number">1</span> Download VS Code</h3>
+                <ol>
+                    <li>Go to: <strong>https://code.visualstudio.com</strong></li>
+                    <li>Click <strong>"Download for Mac"</strong> (or your operating system)</li>
+                    <li>Open the downloaded file</li>
+                    <li>Drag <strong>Visual Studio Code</strong> to your <strong>Applications</strong> folder</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">2</span> Open VS Code</h3>
+                <ol>
+                    <li>Open <strong>Applications</strong> folder</li>
+                    <li>Double-click <strong>Visual Studio Code</strong></li>
+                    <li>VS Code will open</li>
+                </ol>
+            </div>
+            
+            <div class="success">
+                <strong>✅ VS Code Installed!</strong>
+            </div>
+        </section>
+        
+        <section id="create">
+            <h2>2. Create Your Website Files</h2>
+            
+            <div class="step">
+                <h3><span class="step-number">1</span> Create Project Folder</h3>
+                <ol>
+                    <li>Open <strong>Finder</strong></li>
+                    <li>Navigate to <strong>Desktop</strong> (or wherever you want)</li>
+                    <li>Create a new folder: Right-click → <strong>New Folder</strong></li>
+                    <li>Name it: <span class="highlight">my-website</span> (or any name you like)</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">2</span> Open Folder in VS Code</h3>
+                <ol>
+                    <li>Open <strong>VS Code</strong></li>
+                    <li>Click <strong>File</strong> → <strong>Open Folder...</strong></li>
+                    <li>Navigate to your <span class="highlight">my-website</span> folder</li>
+                    <li>Click <strong>Open</strong></li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">3</span> Create index.html</h3>
+                <ol>
+                    <li>In VS Code, click the <strong>"New File"</strong> icon (or press <code>Cmd+N</code>)</li>
+                    <li>Save the file: <strong>File</strong> → <strong>Save As...</strong></li>
+                    <li>Name it: <span class="command">index.html</span></li>
+                    <li>Add the HTML code (see guide for full code)</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">4</span> Create styles.css</h3>
+                <ol>
+                    <li>Create a new file: Click <strong>New File</strong> icon</li>
+                    <li>Save as: <span class="command">styles.css</span></li>
+                    <li>Add CSS styling (see guide for full code)</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">5</span> Create script.js</h3>
+                <ol>
+                    <li>Create a new file: Click <strong>New File</strong> icon</li>
+                    <li>Save as: <span class="command">script.js</span></li>
+                    <li>Add JavaScript code (see guide for full code)</li>
+                </ol>
+            </div>
+            
+            <div class="success">
+                <strong>✅ Website Files Created!</strong><br>
+                Your folder should contain: <code>index.html</code>, <code>styles.css</code>, <code>script.js</code>
+            </div>
+        </section>
+        
+        <section id="github">
+            <h2>3. Set Up GitHub</h2>
+            
+            <div class="step">
+                <h3><span class="step-number">1</span> Create GitHub Account</h3>
+                <ol>
+                    <li>Go to: <strong>https://github.com</strong></li>
+                    <li>Click <strong>"Sign up"</strong> (top right)</li>
+                    <li>Fill in:
+                        <ul>
+                            <li><strong>Username</strong>: Choose a username</li>
+                            <li><strong>Email</strong>: Your email address</li>
+                            <li><strong>Password</strong>: Create a strong password</li>
+                        </ul>
+                    </li>
+                    <li>Verify your email address (check your inbox)</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">2</span> Create New Repository</h3>
+                <ol>
+                    <li>After logging in, click the <strong>"+"</strong> icon (top right)</li>
+                    <li>Select <strong>"New repository"</strong></li>
+                    <li>Fill in repository details:
+                        <ul>
+                            <li><strong>Repository name</strong>: <span class="highlight">my-website</span></li>
+                            <li><strong>Description</strong>: "My personal website" (optional)</li>
+                            <li><strong>Visibility</strong>: Select <span class="highlight">Public</span> ⚠️</li>
+                            <li><strong>DO NOT</strong> check "Add a README file"</li>
+                        </ul>
+                    </li>
+                    <li>Click <strong>"Create repository"</strong></li>
+                </ol>
+                <div class="warning">
+                    <strong>⚠️ Important:</strong> Repository must be <strong>Public</strong> for free GitHub Pages!
+                </div>
+            </div>
+            
+            <div class="success">
+                <strong>✅ GitHub Repository Created!</strong>
+            </div>
+        </section>
+        
+        <section id="push">
+            <h2>4. Push Code to GitHub</h2>
+            
+            <div class="step">
+                <h3><span class="step-number">1</span> Create GitHub Personal Access Token</h3>
+                <ol>
+                    <li>Go to GitHub.com → Your profile → <strong>Settings</strong></li>
+                    <li>Scroll to <strong>"Developer settings"</strong> (left sidebar)</li>
+                    <li>Click <strong>"Personal access tokens"</strong> → <strong>"Tokens (classic)"</strong></li>
+                    <li>Click <strong>"Generate new token"</strong> → <strong>"Generate new token (classic)"</strong></li>
+                    <li>Name it: <span class="highlight">my-website</span></li>
+                    <li>Check <span class="highlight">repo</span> scope</li>
+                    <li>Click <strong>"Generate token"</strong></li>
+                    <li><strong>Copy the token immediately!</strong> (You won't see it again)</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">2</span> Initialize Git in VS Code</h3>
+                <p>In VS Code, open the <strong>Terminal</strong> (View → Terminal, or press <code>Ctrl+`</code>)</p>
+                <p>Run these commands:</p>
+                <div class="code-block">
+git init
+git add .
+git commit -m "Initial commit: Add website files"
+                </div>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">3</span> Connect to GitHub and Push</h3>
+                <p>In Terminal, run:</p>
+                <div class="code-block">
+git remote add origin https://github.com/YOUR_USERNAME/my-website.git
+git branch -M main
+git push -u origin main
+                </div>
+                <p>When prompted:</p>
+                <ul>
+                    <li><strong>Username</strong>: Your GitHub username</li>
+                    <li><strong>Password</strong>: Paste your Personal Access Token (not your GitHub password!)</li>
+                </ul>
+            </div>
+            
+            <div class="success">
+                <strong>✅ Code Pushed to GitHub!</strong><br>
+                You can now see your files at: <code>https://github.com/YOUR_USERNAME/my-website</code>
+            </div>
+        </section>
+        
+        <section id="pages">
+            <h2>5. Enable GitHub Pages</h2>
+            
+            <div class="step">
+                <h3><span class="step-number">1</span> Go to Repository Settings</h3>
+                <ol>
+                    <li>On GitHub, go to your repository</li>
+                    <li>Click the <strong>"Settings"</strong> tab (top menu)</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">2</span> Enable GitHub Pages</h3>
+                <ol>
+                    <li>Scroll down to <strong>"Pages"</strong> (left sidebar)</li>
+                    <li>Under <strong>"Source"</strong>, select:
+                        <ul>
+                            <li><strong>Branch</strong>: <span class="highlight">main</span></li>
+                            <li><strong>Folder</strong>: <span class="highlight">/ (root)</span></li>
+                        </ul>
+                    </li>
+                    <li>Click <strong>"Save"</strong></li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">3</span> Wait for Deployment</h3>
+                <ol>
+                    <li>Wait 1-2 minutes</li>
+                    <li>Refresh the page</li>
+                    <li>You'll see your site URL: <code>https://YOUR_USERNAME.github.io/my-website</code></li>
+                </ol>
+            </div>
+            
+            <div class="success">
+                <strong>✅ GitHub Pages Enabled!</strong>
+            </div>
+        </section>
+        
+        <section id="live">
+            <h2>6. Your Site is Live!</h2>
+            
+            <div class="step">
+                <h3>Your Website URL</h3>
+                <p>Your website is now live at:</p>
+                <div class="code-block" style="text-align: center; font-size: 18px;">
+https://YOUR_USERNAME.github.io/my-website
+                </div>
+                <p>(Replace <code>YOUR_USERNAME</code> with your GitHub username and <code>my-website</code> with your repository name)</p>
+            </div>
+            
+            <div class="step">
+                <h3>How to Update Your Website</h3>
+                <ol>
+                    <li><strong>Edit files in VS Code</strong></li>
+                    <li><strong>Save your changes</strong></li>
+                    <li><strong>In Terminal, run:</strong></li>
+                </ol>
+                <div class="code-block">
+git add .
+git commit -m "Updated website"
+git push
+                </div>
+                <li><strong>Wait 1-2 minutes</strong> - Your site updates automatically!</li>
+            </div>
+        </section>
+        
+        <section id="troubleshooting">
+            <h2>7. Troubleshooting</h2>
+            
+            <div class="step">
+                <h3>Problem: Can't push to GitHub</h3>
+                <p><strong>Solution:</strong></p>
+                <ul>
+                    <li>Make sure you're using Personal Access Token (not password)</li>
+                    <li>Token must have <code>repo</code> scope checked</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <h3>Problem: GitHub Pages not working</h3>
+                <p><strong>Check:</strong></p>
+                <ul>
+                    <li>Repository is <strong>Public</strong> (not Private)</li>
+                    <li><code>index.html</code> is in the root folder</li>
+                    <li>You selected <code>main</code> branch and <code>/ (root)</code> folder</li>
+                    <li>Wait 2-5 minutes after enabling</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <h3>Problem: Site shows 404 error</h3>
+                <p><strong>Solution:</strong></p>
+                <ul>
+                    <li>Make sure your repository name matches the URL</li>
+                    <li>Check that <code>index.html</code> exists in the root</li>
+                    <li>Wait a few more minutes for GitHub to build</li>
+                </ul>
+            </div>
+        </section>
+        
+        <div class="success" style="margin-top: 40px; padding: 30px; text-align: center;">
+            <h2 style="margin-top: 0;">🎉 Congratulations! 🎉</h2>
+            <p style="font-size: 18px; margin: 15px 0;">You've built and deployed your website for free!</p>
+            <p style="font-size: 16px;"><strong>Your website is live at: <code>https://YOUR_USERNAME.github.io/my-website</code></strong></p>
+        </div>
+        
+        <div style="margin-top: 40px; padding: 20px; background: #f9fafb; border-radius: 8px;">
+            <h3>Quick Reference</h3>
+            <p><strong>Website URL Format:</strong></p>
+            <div class="code-block">https://YOUR_USERNAME.github.io/REPOSITORY_NAME</div>
+            
+            <p style="margin-top: 20px;"><strong>Update Your Website:</strong></p>
+            <div class="code-block">
+git add .
+git commit -m "Your message"
+git push
+            </div>
+        </div>
+        
+        <div style="margin-top: 40px; padding: 20px; background: #f9fafb; border-radius: 8px; text-align: center; color: #6b7280;">
+            <p><em>Guide created: 2024</em></p>
+            <p><em>Tools used: VS Code + GitHub Pages</em></p>
+            <p><em>Cost: $0 (100% Free!)</em></p>
+        </div>
+    </div>
+</body>
+</html>
+

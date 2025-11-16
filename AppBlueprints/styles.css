@@ -5,14 +5,14 @@
 }
 
 :root {
-    --primary-color: #6366f1;
-    --primary-dark: #4f46e5;
+    --primary-color: #3b82f6;
+    --primary-dark: #2563eb;
     --secondary-color: #8b5cf6;
     --text-primary: #1f2937;
     --text-secondary: #6b7280;
     --bg-primary: #ffffff;
     --bg-secondary: #f9fafb;
-    --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --bg-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
@@ -98,7 +98,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
     color: white;
     text-align: center;
     padding: 8rem 2rem 4rem;
@@ -123,11 +123,6 @@ body {
     max-width: 800px;
 }
 
-.welcome-image-container {
-    margin-bottom: 2rem;
-    animation: fadeInUp 0.8s ease;
-}
-
 .welcome-card {
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(10px);
@@ -135,6 +130,8 @@ body {
     padding: 3rem 2rem;
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: var(--shadow-xl);
+    margin-bottom: 2rem;
+    animation: fadeInUp 0.8s ease;
 }
 
 .welcome-title {
@@ -187,45 +184,6 @@ body {
     box-shadow: var(--shadow-xl);
 }
 
-.scroll-indicator {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: bounce 2s infinite;
-}
-
-.mouse {
-    width: 24px;
-    height: 40px;
-    border: 2px solid white;
-    border-radius: 12px;
-    position: relative;
-}
-
-.mouse::before {
-    content: '';
-    position: absolute;
-    top: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 4px;
-    height: 8px;
-    background: white;
-    border-radius: 2px;
-    animation: scroll 2s infinite;
-}
-
-@keyframes scroll {
-    0%, 100% { opacity: 1; transform: translateX(-50%) translateY(0); }
-    50% { opacity: 0.5; transform: translateX(-50%) translateY(10px); }
-}
-
-@keyframes bounce {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(-10px); }
-}
-
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -264,13 +222,10 @@ body {
     margin: 0 auto;
 }
 
-.about-text {
+.about-content p {
     font-size: 1.125rem;
     line-height: 1.8;
     color: var(--text-secondary);
-}
-
-.about-text p {
     margin-bottom: 1.5rem;
 }
 
@@ -301,16 +256,6 @@ body {
     box-shadow: var(--shadow-xl);
 }
 
-.project-card.featured {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-}
-
-.project-card.featured .project-title,
-.project-card.featured .project-description {
-    color: white;
-}
-
 .project-icon {
     font-size: 3rem;
     margin-bottom: 1rem;
@@ -329,20 +274,12 @@ body {
     line-height: 1.7;
 }
 
-.project-card.featured .project-description {
-    color: rgba(255, 255, 255, 0.9);
-}
-
 .project-link {
     display: inline-block;
     color: var(--primary-color);
     text-decoration: none;
     font-weight: 600;
     transition: all 0.3s ease;
-}
-
-.project-card.featured .project-link {
-    color: white;
 }
 
 .project-link:hover {
@@ -369,32 +306,6 @@ body {
     font-size: 1.125rem;
 }
 
-.social-links {
-    margin-top: 2rem;
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.social-link {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    border-radius: 999px;
-    background: var(--primary-color);
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: 500;
-    box-shadow: var(--shadow-md);
-    transition: all 0.3s ease;
-}
-
-.social-link:hover {
-    background: var(--primary-dark);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
-}
-
 /* Footer */
 .footer {
     background: var(--text-primary);
@@ -411,26 +322,6 @@ body {
     font-size: 1.25rem;
     font-weight: 600;
     color: var(--primary-color);
-}
-
-.footer-social {
-    margin-top: 0.5rem;
-    font-size: 0.95rem;
-}
-
-.footer-social a {
-    color: #e5e7eb;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s ease;
-}
-
-.footer-social a:hover {
-    color: var(--primary-color);
-}
-
-.footer-separator {
-    margin: 0 0.5rem;
 }
 
 /* Responsive Design */

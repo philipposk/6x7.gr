@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Guide: Building 6x7.gr from Zero to Live</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        
+        h1 {
+            color: #6366f1;
+            border-bottom: 3px solid #6366f1;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #4f46e5;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #e5e7eb;
+        }
+        
+        h3 {
+            color: #6366f1;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        
+        .toc {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #6366f1;
+        }
+        
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .toc li {
+            margin: 10px 0;
+        }
+        
+        .toc a {
+            color: #6366f1;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        .step {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: #10b981;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .diagram {
+            background: #1f2937;
+            color: #e5e7eb;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        
+        .code-block {
+            background: #1f2937;
+            color: #e5e7eb;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        
+        .checklist {
+            background: #ecfdf5;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+        
+        .checklist ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .checklist li {
+            margin: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .checklist li:before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-size: 20px;
+        }
+        
+        .warning {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .success {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .arrow {
+            color: #6366f1;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .screenshot-placeholder {
+            background: #e5e7eb;
+            border: 2px dashed #9ca3af;
+            padding: 40px;
+            text-align: center;
+            border-radius: 8px;
+            margin: 20px 0;
+            color: #6b7280;
+        }
+        
+        .screenshot-placeholder:before {
+            content: "📸 Screenshot Placeholder";
+            display: block;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .command {
+            background: #1f2937;
+            color: #10b981;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            display: inline-block;
+            margin: 5px 0;
+        }
+        
+        .highlight {
+            background: #fef3c7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+            
+            .step, .diagram, .code-block {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Complete Guide: Building 6x7.gr from Zero to Live Website</h1>
+        <p style="color: #6b7280; margin-bottom: 30px;"><strong>A Step-by-Step Guide for Complete Beginners</strong></p>
+        
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#purchasing">1. Purchasing Your Domain</a></li>
+                <li><a href="#creating">2. Creating Your Website Files</a></li>
+                <li><a href="#github">3. Setting Up GitHub</a></li>
+                <li><a href="#pushing">4. Pushing Code to GitHub</a></li>
+                <li><a href="#vercel">5. Setting Up Vercel</a></li>
+                <li><a href="#connecting">6. Connecting Your Domain to Vercel</a></li>
+                <li><a href="#troubleshooting">7. Troubleshooting</a></li>
+            </ul>
+        </div>
+        
+        <section id="purchasing">
+            <h2>1. Purchasing Your Domain</h2>
+            
+            <div class="step">
+                <h3><span class="step-number">1</span> Visit Papaki.gr</h3>
+                <ol>
+                    <li>Open your web browser</li>
+                    <li>Go to: <strong>https://www.papaki.gr</strong></li>
+                    <li>You should see the Papaki homepage</li>
+                </ol>
+                <div class="screenshot-placeholder">
+                    Papaki.gr homepage showing domain search
+                </div>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">2</span> Search for Your Domain</h3>
+                <ol>
+                    <li>In the search box, type: <span class="highlight">6x7.gr</span></li>
+                    <li>Click the <strong>Search</strong> button</li>
+                    <li>Wait for results</li>
+                </ol>
+                <div class="diagram">
+┌─────────────────────────────────────┐
+│  Domain Search Results               │
+│                                      │
+│  ✅ 6x7.gr - Available              │
+│     Price: €XX.XX/year              │
+│     [Add to Cart] ───────────────→  │
+└─────────────────────────────────────┘
+                </div>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">3</span> Add to Cart and Checkout</h3>
+                <ol>
+                    <li>Click <strong>"Add to Cart"</strong> or <strong>"Buy Now"</strong></li>
+                    <li>Fill in your information:
+                        <ul>
+                            <li><strong>Name</strong>: Your full name</li>
+                            <li><strong>Email</strong>: Your email address</li>
+                            <li><strong>Address</strong>: Your physical address</li>
+                            <li><strong>Phone</strong>: Your phone number</li>
+                        </ul>
+                    </li>
+                    <li>Choose registration period (usually 1 year)</li>
+                    <li>Complete payment</li>
+                </ol>
+            </div>
+            
+            <div class="success">
+                <strong>✅ Domain Purchase Complete!</strong>
+            </div>
+        </section>
+        
+        <section id="creating">
+            <h2>2. Creating Your Website Files</h2>
+            
+            <div class="step">
+                <h3><span class="step-number">1</span> Create Project Folder</h3>
+                <ol>
+                    <li>Open <strong>Finder</strong> on your Mac</li>
+                    <li>Navigate to your desired location (e.g., Desktop)</li>
+                    <li>Create a new folder named: <span class="highlight">6x7.gr</span></li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">2</span> Create index.html</h3>
+                <ol>
+                    <li>Open <strong>TextEdit</strong> or any code editor (VS Code recommended)</li>
+                    <li>Create a new file</li>
+                    <li>Save it as <span class="command">index.html</span> in your <span class="command">6x7.gr</span> folder</li>
+                </ol>
+                <div class="diagram">
+6x7.gr/
+└── index.html  ← Your main website file
+                </div>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">3</span> Add HTML Content</h3>
+                <p>Copy the HTML structure from your existing <span class="command">index.html</span> file, or use the basic template provided in the markdown guide.</p>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">4</span> Create styles.css and script.js</h3>
+                <p>Create these files in the same folder using your existing files as reference.</p>
+                <div class="diagram">
+6x7.gr/
+├── index.html      ← Main HTML file
+├── styles.css      ← CSS styling
+└── script.js       ← JavaScript
+                </div>
+            </div>
+            
+            <div class="success">
+                <strong>✅ Website Files Created!</strong>
+            </div>
+        </section>
+        
+        <section id="github">
+            <h2>3. Setting Up GitHub</h2>
+            
+            <div class="step">
+                <h3><span class="step-number">1</span> Create GitHub Account</h3>
+                <ol>
+                    <li>Go to: <strong>https://github.com</strong></li>
+                    <li>Click <strong>"Sign up"</strong> (top right)</li>
+                    <li>Fill in:
+                        <ul>
+                            <li><strong>Username</strong>: Choose a username</li>
+                            <li><strong>Email</strong>: Your email address</li>
+                            <li><strong>Password</strong>: Create a strong password</li>
+                        </ul>
+                    </li>
+                    <li>Verify your email address</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">2</span> Create New Repository</h3>
+                <ol>
+                    <li>After logging in, click the <strong>"+"</strong> icon (top right)</li>
+                    <li>Select <strong>"New repository"</strong></li>
+                    <li>Fill in repository details:
+                        <ul>
+                            <li><strong>Repository name</strong>: <span class="highlight">6x7.gr</span></li>
+                            <li><strong>Description</strong>: "My personal website" (optional)</li>
+                            <li><strong>Visibility</strong>: Select <span class="highlight">Public</span> ⚠️ (Required for free hosting)</li>
+                            <li><strong>DO NOT</strong> check "Add a README file"</li>
+                        </ul>
+                    </li>
+                    <li>Click <strong>"Create repository"</strong></li>
+                </ol>
+                <div class="warning">
+                    <strong>⚠️ Important:</strong> Repository must be <strong>Public</strong> for free hosting options!
+                </div>
+            </div>
+            
+            <div class="success">
+                <strong>✅ GitHub Repository Created!</strong>
+            </div>
+        </section>
+        
+        <section id="pushing">
+            <h2>4. Pushing Code to GitHub</h2>
+            
+            <div class="step">
+                <h3><span class="step-number">1</span> Create GitHub Personal Access Token</h3>
+                <ol>
+                    <li>Go to GitHub.com → Your profile → <strong>Settings</strong></li>
+                    <li>Scroll to <strong>"Developer settings"</strong> (left sidebar)</li>
+                    <li>Click <strong>"Personal access tokens"</strong> → <strong>"Tokens (classic)"</strong></li>
+                    <li>Click <strong>"Generate new token"</strong> → <strong>"Generate new token (classic)"</strong></li>
+                    <li>Name it: <span class="highlight">6x7.gr website</span></li>
+                    <li>Check <span class="highlight">repo</span> scope</li>
+                    <li>Click <strong>"Generate token"</strong></li>
+                    <li><strong>Copy the token immediately!</strong> (You won't see it again)</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">2</span> Initialize Git in Your Project</h3>
+                <p>Open <strong>Terminal</strong> and run:</p>
+                <div class="code-block">
+cd /Users/phktistakis/6x7.gr
+git init
+git add .
+git commit -m "Initial commit: Add website files"
+                </div>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">3</span> Connect to GitHub and Push</h3>
+                <div class="code-block">
+git remote add origin https://github.com/YOUR_USERNAME/6x7.gr.git
+git branch -M main
+git push -u origin main
+                </div>
+                <p>When prompted:</p>
+                <ul>
+                    <li><strong>Username</strong>: Your GitHub username</li>
+                    <li><strong>Password</strong>: Paste your Personal Access Token (not your GitHub password!)</li>
+                </ul>
+            </div>
+            
+            <div class="success">
+                <strong>✅ Code Pushed to GitHub!</strong><br>
+                You can now see your files at: <code>https://github.com/YOUR_USERNAME/6x7.gr</code>
+            </div>
+        </section>
+        
+        <section id="vercel">
+            <h2>5. Setting Up Vercel</h2>
+            
+            <div class="step">
+                <h3><span class="step-number">1</span> Sign Up for Vercel</h3>
+                <ol>
+                    <li>Go to: <strong>https://vercel.com</strong></li>
+                    <li>Click <strong>"Sign Up"</strong></li>
+                    <li><strong>Recommended:</strong> Click <strong>"Continue with GitHub"</strong></li>
+                    <li>Authorize Vercel to access your GitHub account</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">2</span> Import Your GitHub Repository</h3>
+                <ol>
+                    <li>Click <strong>"Add New..."</strong> → <strong>"Project"</strong></li>
+                    <li>Find <strong>"6x7.gr"</strong> in your repositories</li>
+                    <li>Click <strong>"Import"</strong></li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">3</span> Configure Project Settings</h3>
+                <p>Vercel will auto-detect settings. Verify:</p>
+                <ul>
+                    <li><strong>Framework Preset</strong>: Other</li>
+                    <li><strong>Root Directory</strong>: ./</li>
+                    <li><strong>Build Command</strong>: Leave empty</li>
+                    <li><strong>Output Directory</strong>: Leave empty</li>
+                </ul>
+                <p>Click <strong>"Deploy"</strong></p>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">4</span> Wait for Deployment</h3>
+                <p>Wait 30-60 seconds. When complete, you'll see your site URL:</p>
+                <div class="success">
+                    <strong>✅ Site Deployed on Vercel!</strong><br>
+                    Your site is now live at: <code>https://6x7gr.vercel.app</code>
+                </div>
+            </div>
+        </section>
+        
+        <section id="connecting">
+            <h2>6. Connecting Your Domain to Vercel</h2>
+            
+            <div class="step">
+                <h3><span class="step-number">1</span> Add Domain in Vercel</h3>
+                <ol>
+                    <li>In Vercel dashboard, click your <strong>6x7.gr</strong> project</li>
+                    <li>Click <strong>"Settings"</strong> tab → <strong>"Domains"</strong></li>
+                    <li>In "Add Domain" field, type: <span class="highlight">6x7.gr</span></li>
+                    <li>Click <strong>"Add"</strong></li>
+                    <li>Vercel will show DNS records - <strong>Copy these values!</strong></li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">2</span> Add DNS Records in Papaki</h3>
+                <ol>
+                    <li>Go to <strong>papaki.gr</strong> and log in</li>
+                    <li>Click on <strong>6x7.gr</strong> → <strong>"Manage Domain"</strong></li>
+                    <li>Find <strong>"DNS Service"</strong> section</li>
+                    <li><strong>Add A Record:</strong>
+                        <ul>
+                            <li>Type: <span class="highlight">A</span></li>
+                            <li>Host: <span class="highlight">@</span> (or leave blank)</li>
+                            <li>Value: <span class="highlight">216.198.79.1</span> (from Vercel)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Add CNAME Record:</strong>
+                        <ul>
+                            <li>Type: <span class="highlight">CNAME</span></li>
+                            <li>Host: <span class="highlight">www</span></li>
+                            <li>Value: <span class="highlight">3919fac90518e646.vercel-dns-017.com.</span> (from Vercel)</li>
+                        </ul>
+                    </li>
+                    <li>Click <strong>"Save"</strong></li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">3</span> Verify DNS Records</h3>
+                <ol>
+                    <li>Go back to Vercel → Settings → Domains</li>
+                    <li>Click <strong>"Refresh"</strong> button</li>
+                    <li>Wait 5-60 minutes for DNS propagation</li>
+                    <li>Status should change to <strong>"Valid Configuration"</strong> ✅</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">4</span> Test Your Website</h3>
+                <ol>
+                    <li>Wait 5-60 minutes after adding DNS records</li>
+                    <li>Open a new browser window (or incognito mode)</li>
+                    <li>Visit: <strong>https://6x7.gr</strong></li>
+                    <li>Your website should load! 🎉</li>
+                </ol>
+            </div>
+            
+            <div class="success">
+                <strong>✅ Domain Connected!</strong>
+            </div>
+        </section>
+        
+        <section id="troubleshooting">
+            <h2>7. Troubleshooting</h2>
+            
+            <div class="step">
+                <h3>Problem: "This site can't be reached" / ERR_NAME_NOT_RESOLVED</h3>
+                <p><strong>Solution 1: Clear DNS Cache</strong></p>
+                <div class="code-block">
+sudo dscacheutil -flushcache
+sudo killall -HUP mDNSResponder
+                </div>
+                
+                <p><strong>Solution 2: Change DNS Servers</strong></p>
+                <ol>
+                    <li>System Settings → Network</li>
+                    <li>Select connection → Details → DNS</li>
+                    <li>Add: <span class="highlight">8.8.8.8</span> and <span class="highlight">1.1.1.1</span></li>
+                    <li>Apply and restart browser</li>
+                </ol>
+                
+                <p><strong>Solution 3: Wait Longer</strong></p>
+                <p>New domains can take 2-4 hours to fully propagate. Be patient!</p>
+            </div>
+            
+            <div class="step">
+                <h3>Problem: Vercel Shows "Invalid Configuration"</h3>
+                <p><strong>Check:</strong></p>
+                <ul>
+                    <li>DNS records are added correctly in Papaki</li>
+                    <li>Values match exactly what Vercel shows</li>
+                    <li>Wait 5-60 minutes and click "Refresh" in Vercel</li>
+                </ul>
+            </div>
+        </section>
+        
+        <div class="checklist">
+            <h2>Quick Reference Checklist</h2>
+            <ul>
+                <li>Domain purchased from Papaki.gr</li>
+                <li>Website files created (index.html, styles.css, script.js)</li>
+                <li>GitHub account created</li>
+                <li>GitHub repository created (Public)</li>
+                <li>Personal Access Token created</li>
+                <li>Code pushed to GitHub</li>
+                <li>Vercel account created</li>
+                <li>Project imported from GitHub</li>
+                <li>Site deployed on Vercel</li>
+                <li>Domain added in Vercel</li>
+                <li>DNS records added in Papaki</li>
+                <li>DNS propagated (5-60 minutes)</li>
+                <li>Website accessible at 6x7.gr ✅</li>
+            </ul>
+        </div>
+        
+        <div class="success" style="margin-top: 40px; padding: 30px; text-align: center;">
+            <h2 style="margin-top: 0;">🎉 Congratulations! 🎉</h2>
+            <p style="font-size: 18px; margin: 15px 0;">You've successfully built and deployed your website!</p>
+            <p style="font-size: 16px;"><strong>Your website is now live at: <a href="https://6x7.gr" style="color: #6366f1;">https://6x7.gr</a></strong></p>
+        </div>
+        
+        <div style="margin-top: 40px; padding: 20px; background: #f9fafb; border-radius: 8px; text-align: center; color: #6b7280;">
+            <p><em>Guide created for: Filippos Dimitrios Ktistakis</em></p>
+            <p><em>Date: 2024 | Website: 6x7.gr</em></p>
+        </div>
+    </div>
+</body>
+</html>
+
