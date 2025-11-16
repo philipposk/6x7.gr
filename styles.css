@@ -528,8 +528,7 @@ body {
 
 @media (max-width: 480px) {
     .nav-links {
-        flex-direction: column;
-        gap: 0.5rem;
+        display: none;
     }
 
     .welcome-name {
