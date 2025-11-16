@@ -60,3 +60,43 @@ if (aboutContent) {
     observer.observe(aboutContent);
 }
 
+// Email copy-to-clipboard button
+const emailButton = document.getElementById('copy-email-button');
+if (emailButton) {
+    const feedback = document.getElementById('copy-email-feedback');
+    const email = 'phktistakis@gmail.com';
+
+    emailButton.addEventListener('click', async () => {
+        try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                await navigator.clipboard.writeText(email);
+            } else {
+                const textarea = document.createElement('textarea');
+                textarea.value = email;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+            }
+
+            emailButton.classList.add('copied');
+
+            if (feedback) {
+                feedback.style.display = 'inline';
+            }
+
+            setTimeout(() => {
+                emailButton.classList.remove('copied');
+                if (feedback) {
+                    feedback.style.display = 'none';
+                }
+            }, 2000);
+        } catch (e) {
+            // If copy fails, fall back to mailto
+            window.location.href = `mailto:${email}`;
+        }
+    });
+}
+
