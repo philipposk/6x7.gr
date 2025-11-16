@@ -408,11 +408,6 @@ body {
     text-align: center;
 }
 
-.more-projects-text {
-    font-size: 1.1rem;
-    color: var(--text-secondary);
-}
-
 .more-projects-button {
     display: inline-block;
     padding: 0.85rem 2rem;
@@ -451,8 +446,19 @@ body {
 
 .footer-open-source {
     font-size: 0.9rem;
-    color: #d1d5db;
+    color: #e5e7eb;
     margin-bottom: 0.5rem;
+}
+
+.footer-open-source a {
+    color: #f9fafb;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.footer-open-source a:hover {
+    color: var(--primary-color);
 }
 
 .footer-social {
