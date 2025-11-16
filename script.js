@@ -8,6 +8,13 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 behavior: 'smooth',
                 block: 'start'
             });
+            // Close mobile menu if open
+            const navLinks = document.getElementById('nav-links');
+            const hamburger = document.getElementById('hamburger');
+            if (navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
         }
     });
 });
@@ -97,3 +104,107 @@ if (emailButton) {
     });
 }
 
+// Dark mode toggle
+const themeToggle = document.getElementById('theme-toggle');
+const themeIcon = themeToggle.querySelector('.theme-icon');
+const body = document.body;
+
+// Check for saved theme preference or default to light mode
+const savedTheme = localStorage.getItem('theme') || 'light';
+if (savedTheme === 'dark') {
+    body.classList.add('dark-mode');
+    themeIcon.textContent = '☀️';
+}
+
+themeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    
+    if (body.classList.contains('dark-mode')) {
+        themeIcon.textContent = '☀️';
+        localStorage.setItem('theme', 'dark');
+    } else {
+        themeIcon.textContent = '🌙';
+        localStorage.setItem('theme', 'light');
+    }
+});
+
+// Hamburger menu toggle
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('nav-links');
+
+hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navLinks.classList.toggle('active');
+});
+
+// Close menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('active');
+    }
+});
+
+// Typewriter effect for welcome name
+const welcomeName = document.getElementById('welcome-name');
+if (welcomeName) {
+    const originalText = '6x7.gr';
+    welcomeName.textContent = '';
+    
+    let charIndex = 0;
+    const typeSpeed = 150;
+    
+    function typeWriter() {
+        if (charIndex < originalText.length) {
+            welcomeName.textContent += originalText.charAt(charIndex);
+            charIndex++;
+            setTimeout(typeWriter, typeSpeed);
+        }
+    }
+    
+    // Start typewriter effect after a short delay
+    setTimeout(typeWriter, 400);
+}
+
+// Floating prompt bar functionality
+const floatingPromptBar = document.getElementById('floating-prompt-bar');
+const floatingPromptInput = floatingPromptBar.querySelector('.floating-prompt-input');
+const floatingPromptButton = floatingPromptBar.querySelector('.floating-prompt-button');
+
+// Hide floating bar when at hero section, show otherwise
+window.addEventListener('scroll', () => {
+    const heroSection = document.querySelector('.hero');
+    const heroBottom = heroSection.offsetHeight;
+    
+    if (window.pageYOffset > heroBottom - 100) {
+        floatingPromptBar.classList.remove('hidden');
+    } else {
+        floatingPromptBar.classList.add('hidden');
+    }
+});
+
+// Click on floating prompt bar redirects to Praiser
+floatingPromptInput.addEventListener('click', () => {
+    window.open('https://praiser.6x7.gr', '_blank');
+});
+
+floatingPromptButton.addEventListener('click', () => {
+    window.open('https://praiser.6x7.gr', '_blank');
+});
+
+// Make chat send button in playground also link to Praiser
+const chatSendButton = document.querySelector('.chat-send-button');
+if (chatSendButton) {
+    chatSendButton.addEventListener('click', () => {
+        window.open('https://praiser.6x7.gr', '_blank');
+    });
+}
+
+// Make chat input also clickable
+const chatInputFaux = document.querySelector('.chat-input-faux');
+if (chatInputFaux) {
+    chatInputFaux.style.cursor = 'pointer';
+    chatInputFaux.addEventListener('click', () => {
+        window.open('https://praiser.6x7.gr', '_blank');
+    });
+}

@@ -14,12 +14,20 @@
     <nav class="navbar">
         <div class="container">
             <a href="#home" class="nav-brand">6x7.gr</a>
-            <ul class="nav-links">
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" id="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                <span class="theme-icon">🌙</span>
+            </button>
         </div>
     </nav>
 
@@ -28,7 +36,7 @@
             <div class="welcome-image-container">
                 <div class="welcome-card">
                     <h1 class="welcome-title">Welcome to</h1>
-                    <h2 class="welcome-name">6x7.gr</h2>
+                    <h2 class="welcome-name" id="welcome-name">6x7.gr</h2>
                     <p class="welcome-author">by Filippos Dimitrios Ktistakis</p>
                     <p class="welcome-subtitle">Digital Platform & Creative Workspace</p>
                 </div>
@@ -40,6 +48,70 @@
         </div>
         <div class="scroll-indicator">
             <div class="mouse"></div>
+        </div>
+    </section>
+
+    <section id="ai-playground" class="playground">
+        <div class="container">
+            <div class="playground-header">
+                <h2 class="section-title">AI Playground</h2>
+                <p class="section-subtitle">
+                    Get a feel for Praiser — a playful AI that showers your heroes with compliments.
+                </p>
+            </div>
+
+            <div class="chat-layout">
+                <div class="chat-window">
+                    <div class="chat-window-header">
+                        <div class="chat-window-status-dot"></div>
+                        <span class="chat-window-title">Praiser · Demo</span>
+                    </div>
+
+                    <div class="chat-messages">
+                        <div class="chat-bubble chat-bubble-user">
+                            <div class="chat-role">You</div>
+                            <p>
+                                Write a short tribute praising Ada Lovelace for her impact on computing.
+                            </p>
+                        </div>
+
+                        <div class="chat-bubble chat-bubble-assistant">
+                            <div class="chat-role">Praiser</div>
+                            <p>
+                                Ada Lovelace is the original visionary of computer science — long before
+                                silicon and screens, she imagined machines that could weave logic the way
+                                a loom weaves patterns. Her courage to think beyond her era makes modern
+                                computing feel like a love letter to her imagination.
+                            </p>
+                        </div>
+
+                        <div class="chat-bubble chat-bubble-user">
+                            <div class="chat-role">You</div>
+                            <p>
+                                Now praise Alan Turing in one sentence.
+                            </p>
+                        </div>
+
+                        <div class="chat-bubble chat-bubble-assistant">
+                            <div class="chat-role">Praiser</div>
+                            <p>
+                                Alan Turing turned pure thought into a blueprint for all modern computers,
+                                proving that one brilliant mind can bend the future of humanity toward
+                                possibility.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="chat-prompt-bar">
+                        <div class="chat-input-faux">
+                            Ask Praiser to hype up your favorite hero…
+                        </div>
+                        <button type="button" class="chat-send-button" aria-label="Send">
+                            ➤
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -76,6 +148,10 @@
                     <p class="project-description">
                         A conversational AI chatbot like ChatGPT, but with a twist—it showers your chosen hero with endless praise.
                     </p>
+                    <div class="mini-chat-preview">
+                        <div class="mini-bubble mini-bubble-user">Praise Einstein</div>
+                        <div class="mini-bubble mini-bubble-assistant">Einstein didn't just discover relativity—he rewrote reality itself! 🌟</div>
+                    </div>
                     <a href="https://praiser.6x7.gr" target="_blank" rel="noopener noreferrer" class="project-link">
                         Visit praiser.6x7.gr →
                     </a>
@@ -110,6 +186,10 @@
                     <p class="project-description">
                         A lightweight, privacy-minded AI assistant that helps you automate everyday tasks.
                     </p>
+                    <div class="mini-chat-preview">
+                        <div class="mini-bubble mini-bubble-user">Remind me to call mom at 3pm</div>
+                        <div class="mini-bubble mini-bubble-assistant">✓ Reminder set for 3pm today</div>
+                    </div>
                     <a href="https://github.com/philipposk/Daisy--AI-Assistant-" target="_blank" rel="noopener noreferrer" class="project-link">
                         View Daisy on GitHub →
                     </a>
@@ -192,6 +272,10 @@
                         AI-powered job application assistant that generates tailored CVs, cover letters, and
                         application logs using your data and real job ads.
                     </p>
+                    <div class="mini-chat-preview">
+                        <div class="mini-bubble mini-bubble-user">Create CV for Senior Developer role</div>
+                        <div class="mini-bubble mini-bubble-assistant">✨ Generated CV highlighting your 5+ years experience...</div>
+                    </div>
                     <a href="https://github.com/philipposk/ThatJob" target="_blank" rel="noopener noreferrer" class="project-link">
                         View ThatJob on GitHub →
                     </a>
@@ -204,6 +288,10 @@
                         An AI and time-series based tool for forecasting and analyzing market trends across
                         different assets.
                     </p>
+                    <div class="mini-chat-preview">
+                        <div class="mini-bubble mini-bubble-user">What's the trend for AAPL?</div>
+                        <div class="mini-bubble mini-bubble-assistant">📊 Bullish trend detected with 68% confidence...</div>
+                    </div>
                     <a href="https://github.com/philipposk/MarketForecast" target="_blank" rel="noopener noreferrer" class="project-link">
                         View MarketForecast on GitHub →
                     </a>
@@ -267,6 +355,14 @@
             </p>
         </div>
     </footer>
+
+    <div class="floating-prompt-bar" id="floating-prompt-bar">
+        <div class="floating-prompt-content">
+            <div class="floating-prompt-text">Try an AI experience →</div>
+            <input type="text" class="floating-prompt-input" placeholder="Ask Praiser anything..." readonly />
+            <button type="button" class="floating-prompt-button" aria-label="Go to Praiser">✨</button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
