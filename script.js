@@ -208,3 +208,37 @@ if (chatInputFaux) {
         window.open('https://praiser.6x7.gr', '_blank');
     });
 }
+
+// Mini Games Modal functions
+function openMiniGamesModal() {
+    const modal = document.getElementById('miniGamesModal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeMiniGamesModal() {
+    const modal = document.getElementById('miniGamesModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// Close modal when clicking outside
+const miniGamesModal = document.getElementById('miniGamesModal');
+if (miniGamesModal) {
+    miniGamesModal.addEventListener('click', (e) => {
+        if (e.target === miniGamesModal) {
+            closeMiniGamesModal();
+        }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && miniGamesModal.classList.contains('active')) {
+            closeMiniGamesModal();
+        }
+    });
+}

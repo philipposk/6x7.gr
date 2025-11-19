@@ -154,6 +154,28 @@
             <h2 class="section-title">Projects & Subdomains</h2>
             <p class="section-subtitle">Explore my digital creations, apps, and experiments</p>
             <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">🌱</div>
+                    <h3 class="project-title">Game of Life</h3>
+                    <p class="project-description">
+                        A Unity game exploring life, growth, and evolution. Experience the journey of life through interactive gameplay and immersive storytelling.
+                    </p>
+                    <a href="https://gameoflife.6x7.gr" target="_blank" rel="noopener noreferrer" class="project-link">
+                        Visit gameoflife.6x7.gr →
+                    </a>
+                </div>
+
+                <div class="project-card" id="mini-games-card">
+                    <div class="project-icon">🎮</div>
+                    <h3 class="project-title">Mini Games</h3>
+                    <p class="project-description">
+                        A collection of fun, interactive mini games. Play classic arcade games, test your reflexes, and challenge your skills.
+                    </p>
+                    <button type="button" class="project-link project-link-button" id="open-mini-games-modal">
+                        Explore Mini Games →
+                    </button>
+                </div>
+
                 <div class="project-card featured">
                     <div class="project-icon">🤖</div>
                     <h3 class="project-title">Praiser</h3>
@@ -280,24 +302,13 @@
 
                 <div class="project-card">
                     <div class="project-icon">🎮</div>
-                    <h3 class="project-title">Salon Game</h3>
+                    <h3 class="project-title">Mini Games</h3>
                     <p class="project-description">
-                        A playful, salon-themed game that experiments with gamified experiences around beauty and style.
+                        A collection of fun, interactive mini-games built with web technologies. Salon Game, quick puzzles, and more.
                     </p>
-                    <a href="https://github.com/philipposk/SalonGame" target="_blank" rel="noopener noreferrer" class="project-link">
-                        View Salon Game on GitHub →
-                    </a>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-icon">🌱</div>
-                    <h3 class="project-title">Game of Life</h3>
-                    <p class="project-description">
-                        A Unity game exploring life, growth, and evolution. Experience the journey of life through interactive gameplay and immersive storytelling.
-                    </p>
-                    <a href="https://gameoflife.6x7.gr" target="_blank" rel="noopener noreferrer" class="project-link">
-                        Visit gameoflife.6x7.gr →
-                    </a>
+                    <button class="project-link-button" onclick="openMiniGamesModal()">
+                        Explore Mini Games →
+                    </button>
                 </div>
 
                 <div class="project-card">
@@ -400,6 +411,84 @@
             <div class="floating-prompt-text">Try an AI experience →</div>
             <input type="text" class="floating-prompt-input" placeholder="Ask Praiser anything..." readonly />
             <button type="button" class="floating-prompt-button" aria-label="Go to Praiser">✨</button>
+        </div>
+    </div>
+
+    <!-- Mini Games Modal -->
+    <div class="modal-overlay" id="mini-games-modal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title">Mini Games</h2>
+                <button class="modal-close" id="close-mini-games-modal" aria-label="Close modal">×</button>
+            </div>
+            <div class="modal-content">
+                <p class="modal-description">Choose a game to play or explore the code on GitHub.</p>
+                <div class="modal-games-grid">
+                    <a href="https://github.com/philipposk/MiniGames/tree/main/bounce-ball" target="_blank" rel="noopener noreferrer" class="modal-game-card">
+                        <div class="modal-game-icon">⚽</div>
+                        <h3 class="modal-game-title">Bounce Ball</h3>
+                        <p class="modal-game-description">Classic paddle and ball game. Break all the bricks!</p>
+                    </a>
+                    
+                    <a href="https://github.com/philipposk/MiniGames/tree/main/color-clash" target="_blank" rel="noopener noreferrer" class="modal-game-card">
+                        <div class="modal-game-icon">🎨</div>
+                        <h3 class="modal-game-title">Color Clash</h3>
+                        <p class="modal-game-description">Test your color perception and timing skills.</p>
+                    </a>
+                    
+                    <a href="https://github.com/philipposk/MiniGames/tree/main/stick-runner" target="_blank" rel="noopener noreferrer" class="modal-game-card">
+                        <div class="modal-game-icon">🏃</div>
+                        <h3 class="modal-game-title">Stick Runner</h3>
+                        <p class="modal-game-description">Minimalist stick figure action game. Jump and survive!</p>
+                    </a>
+                    
+                    <a href="https://github.com/philipposk/MiniGames/tree/main/the-rising" target="_blank" rel="noopener noreferrer" class="modal-game-card">
+                        <div class="modal-game-icon">🧊</div>
+                        <h3 class="modal-game-title">The Rising</h3>
+                        <p class="modal-game-description">Stack humans to escape rising water. A survival challenge.</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mini Games Modal -->
+    <div class="modal-overlay" id="miniGamesModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title">🎮 Mini Games</h2>
+                <button class="modal-close" onclick="closeMiniGamesModal()">&times;</button>
+            </div>
+            <div class="modal-content">
+                <p class="modal-description">
+                    Explore fun, interactive games and experiments built with web technologies.
+                </p>
+                <div class="modal-games-grid">
+                    <a href="https://github.com/philipposk/SalonGame" target="_blank" rel="noopener noreferrer" class="modal-game-card">
+                        <div class="modal-game-icon">💇‍♀️</div>
+                        <h3 class="modal-game-title">Salon Game</h3>
+                        <p class="modal-game-description">
+                            A playful, salon-themed game with beauty & style challenges.
+                        </p>
+                    </a>
+                    
+                    <div class="modal-game-card" style="opacity: 0.6; cursor: default;">
+                        <div class="modal-game-icon">🧩</div>
+                        <h3 class="modal-game-title">Puzzle Rush</h3>
+                        <p class="modal-game-description">
+                            Coming soon
+                        </p>
+                    </div>
+                    
+                    <div class="modal-game-card" style="opacity: 0.6; cursor: default;">
+                        <div class="modal-game-icon">🎯</div>
+                        <h3 class="modal-game-title">Quick Draw</h3>
+                        <p class="modal-game-description">
+                            Coming soon
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
