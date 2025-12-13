@@ -300,16 +300,6 @@
                     </a>
                 </div>
 
-                <div class="project-card">
-                    <div class="project-icon">🎮</div>
-                    <h3 class="project-title">Mini Games</h3>
-                    <p class="project-description">
-                        A collection of fun, interactive mini-games built with web technologies. Salon Game, quick puzzles, and more.
-                    </p>
-                    <button class="project-link-button" onclick="openMiniGamesModal()">
-                        Explore Mini Games →
-                    </button>
-                </div>
 
                 <div class="project-card">
                     <div class="project-icon">💼</div>
@@ -422,7 +412,7 @@
                 <button class="modal-close" id="close-mini-games-modal" aria-label="Close modal">×</button>
             </div>
             <div class="modal-content">
-                <p class="modal-description">Choose a game to play or explore the code on GitHub.</p>
+                <p class="modal-description">A collection of fun, interactive mini games from the <a href="https://github.com/philipposk/MiniGames" target="_blank" rel="noopener noreferrer" style="color: var(--primary-color); text-decoration: underline;">MiniGames repository</a>. Click on any game to explore the code on GitHub.</p>
                 <div class="modal-games-grid">
                     <a href="https://github.com/philipposk/MiniGames/tree/main/bounce-ball" target="_blank" rel="noopener noreferrer" class="modal-game-card">
                         <div class="modal-game-icon">⚽</div>
@@ -452,45 +442,6 @@
         </div>
     </div>
 
-    <!-- Mini Games Modal -->
-    <div class="modal-overlay" id="miniGamesModal">
-        <div class="modal-container">
-            <div class="modal-header">
-                <h2 class="modal-title">🎮 Mini Games</h2>
-                <button class="modal-close" onclick="closeMiniGamesModal()">&times;</button>
-            </div>
-            <div class="modal-content">
-                <p class="modal-description">
-                    Explore fun, interactive games and experiments built with web technologies.
-                </p>
-                <div class="modal-games-grid">
-                    <a href="https://github.com/philipposk/SalonGame" target="_blank" rel="noopener noreferrer" class="modal-game-card">
-                        <div class="modal-game-icon">💇‍♀️</div>
-                        <h3 class="modal-game-title">Salon Game</h3>
-                        <p class="modal-game-description">
-                            A playful, salon-themed game with beauty & style challenges.
-                        </p>
-                    </a>
-                    
-                    <div class="modal-game-card" style="opacity: 0.6; cursor: default;">
-                        <div class="modal-game-icon">🧩</div>
-                        <h3 class="modal-game-title">Puzzle Rush</h3>
-                        <p class="modal-game-description">
-                            Coming soon
-                        </p>
-                    </div>
-                    
-                    <div class="modal-game-card" style="opacity: 0.6; cursor: default;">
-                        <div class="modal-game-icon">🎯</div>
-                        <h3 class="modal-game-title">Quick Draw</h3>
-                        <p class="modal-game-description">
-                            Coming soon
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script src="script.js"></script>
 </body>

@@ -209,24 +209,7 @@ if (chatInputFaux) {
     });
 }
 
-// Mini Games Modal functions
-function openMiniGamesModal() {
-    const modal = document.getElementById('miniGamesModal');
-    if (modal) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-}
-
-function closeMiniGamesModal() {
-    const modal = document.getElementById('miniGamesModal');
-    if (modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-}
-
-// First Mini Games Modal (id="mini-games-modal")
+// Mini Games Modal (id="mini-games-modal")
 const openMiniGamesButton = document.getElementById('open-mini-games-modal');
 const miniGamesModalFirst = document.getElementById('mini-games-modal');
 const closeMiniGamesButton = document.getElementById('close-mini-games-modal');
@@ -258,23 +241,6 @@ if (miniGamesModalFirst) {
         if (e.key === 'Escape' && miniGamesModalFirst.classList.contains('active')) {
             miniGamesModalFirst.classList.remove('active');
             document.body.style.overflow = '';
-        }
-    });
-}
-
-// Second Mini Games Modal (id="miniGamesModal")
-const miniGamesModal = document.getElementById('miniGamesModal');
-if (miniGamesModal) {
-    miniGamesModal.addEventListener('click', (e) => {
-        if (e.target === miniGamesModal) {
-            closeMiniGamesModal();
-        }
-    });
-
-    // Close modal with Escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && miniGamesModal.classList.contains('active')) {
-            closeMiniGamesModal();
         }
     });
 }
