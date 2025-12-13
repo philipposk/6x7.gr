@@ -655,6 +655,7 @@ body.dark-mode .playground {
     box-shadow: var(--shadow-md);
     transition: all 0.3s ease;
     border: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
 }
 
 body.dark-mode .project-card {
@@ -781,6 +782,21 @@ body.dark-mode .mini-bubble-assistant {
 
 .project-link:hover {
     transform: translateX(5px);
+}
+
+.project-link-github {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    font-size: 0.85rem;
+    opacity: 0.7;
+    margin-top: 0;
+    display: inline-block;
+}
+
+.project-link-github:hover {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .coming-soon {
