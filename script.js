@@ -226,7 +226,43 @@ function closeMiniGamesModal() {
     }
 }
 
-// Close modal when clicking outside
+// First Mini Games Modal (id="mini-games-modal")
+const openMiniGamesButton = document.getElementById('open-mini-games-modal');
+const miniGamesModalFirst = document.getElementById('mini-games-modal');
+const closeMiniGamesButton = document.getElementById('close-mini-games-modal');
+
+if (openMiniGamesButton && miniGamesModalFirst) {
+    openMiniGamesButton.addEventListener('click', () => {
+        miniGamesModalFirst.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+}
+
+if (closeMiniGamesButton && miniGamesModalFirst) {
+    closeMiniGamesButton.addEventListener('click', () => {
+        miniGamesModalFirst.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+}
+
+if (miniGamesModalFirst) {
+    miniGamesModalFirst.addEventListener('click', (e) => {
+        if (e.target === miniGamesModalFirst) {
+            miniGamesModalFirst.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && miniGamesModalFirst.classList.contains('active')) {
+            miniGamesModalFirst.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+}
+
+// Second Mini Games Modal (id="miniGamesModal")
 const miniGamesModal = document.getElementById('miniGamesModal');
 if (miniGamesModal) {
     miniGamesModal.addEventListener('click', (e) => {
