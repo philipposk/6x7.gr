@@ -91,9 +91,25 @@ const game = {
         });
         
         // Touch/Click events
-        this.canvas.addEventListener('click', () => this.handleTap());
+        this.canvas.addEventListener('click', () => {
+            // Resume audio context on first user interaction
+            if (typeof soundManager !== 'undefined' && soundManager && soundManager.audioContext && soundManager.audioContext.state === 'suspended') {
+                soundManager.audioContext.resume().then(() => {
+                    soundManager.playTension();
+                    soundManager.playWaterAmbient();
+                });
+            }
+            this.handleTap();
+        });
         this.canvas.addEventListener('touchstart', (e) => {
             e.preventDefault();
+            // Resume audio context on first user interaction
+            if (typeof soundManager !== 'undefined' && soundManager && soundManager.audioContext && soundManager.audioContext.state === 'suspended') {
+                soundManager.audioContext.resume().then(() => {
+                    soundManager.playTension();
+                    soundManager.playWaterAmbient();
+                });
+            }
             this.handleTap();
         }, { passive: false });
         
@@ -170,9 +186,12 @@ const game = {
         // Initialize audio on first real interaction
         if (typeof soundManager !== 'undefined' && soundManager) {
             soundManager.init();
-            // Start subtle ambient/tension sounds
-            soundManager.playTension();
-            soundManager.playWaterAmbient();
+            // Resume audio context if suspended (required for autoplay policies)
+            if (soundManager.audioContext && soundManager.audioContext.state === 'suspended') {
+                soundManager.audioContext.resume();
+            }
+            // Start subtle ambient/tension sounds (will work after user interaction)
+            // Don't play sounds immediately - wait for user interaction
         }
         
         // Show level start message
@@ -262,16 +281,27 @@ const game = {
     
     spawnBlock() {
         if (this.survivors <= 0) {
-            this.endLevel();
+            // Don't end level here - let update() check if goal was reached
             return;
         }
         
         const lastBlock = this.stackedBlocks[this.stackedBlocks.length - 1];
-        const waterTop = this.water.y;
-        // --- DEBUG OVERRIDE ---
-        // Place block at 70% of the canvas height for max visibility
-        let startY = Math.floor(config.canvas.height * 0.7);
-        // End DEBUG OVERRIDE
+        
+        // Determine spawn Y position
+        let startY;
+        if (lastBlock) {
+            // Spawn above the last block, with some space
+            startY = lastBlock.y - config.block.height - 50;
+        } else {
+            // First block: spawn just above water
+            startY = this.water.y - config.block.height - 20;
+        }
+        
+        // Ensure block doesn't spawn too high (above screen)
+        if (startY < 100) {
+            startY = 100;
+        }
+        
         let startX;
         if (this.spawnFromLeft) {
             startX = 60;
@@ -295,19 +325,14 @@ const game = {
             floatType: floatType,
             peopleCount: isHeroBlock ? 1 : Math.floor(Math.random() * 2) + 1,
             isHero: isHeroBlock,
-            direction: this.direction
+            direction: this.direction,
+            velocity: 0
         };
         if (isHeroBlock) {
             this.hero = this.currentBlock;
         }
         this.survivors--;
         this.updateUI();
-        // On-screen debug
-        const msg = document.getElementById('message');
-        if (msg) {
-            msg.textContent = `X:${this.currentBlock.x} Y:${this.currentBlock.y} W:${this.currentBlock.width} H:${this.currentBlock.height} WaterY:${this.water.y}`;
-            msg.classList.add('show');
-        }
         // Console debug
         console.log('SPAWNED BLOCK', this.currentBlock, 'WaterY', this.water.y);
     },
@@ -327,12 +352,11 @@ const game = {
         // Prevent action unless actively playing
         if (this.state !== 'playing' || !this.currentBlock) return;
         
-        // Save the block position before placing
-        const blockY = this.currentBlock.y;
-        
         let placed = false;
         if (this.stackedBlocks.length === 0) {
             // This is the FIRST block, it creates the foundation.
+            // Position it just above the water
+            this.currentBlock.y = this.water.y - this.currentBlock.height - 10;
             this.stackedBlocks.push(this.currentBlock);
             placed = true;
         } else {
@@ -350,7 +374,7 @@ const game = {
     },
     
     placeBlock() {
-        // This function now ONLY handles blocks placed on TOP of other blocks.
+        // This function handles blocks placed on TOP of other blocks.
         const placedBlock = this.currentBlock;
         const baseBlock = this.stackedBlocks[this.stackedBlocks.length - 1];
 
@@ -367,12 +391,17 @@ const game = {
         const overlapRatio = overlapWidth / placedBlock.width;
 
         if (overlapRatio > 0.1) { // Need at least 10% overlap to be stable
-            const peopleToSave = Math.floor(placedBlock.peopleCount * overlapRatio);
+            // Calculate people saved - ensure at least 1 person is saved if there's sufficient overlap
+            let peopleToSave = Math.max(1, Math.floor(placedBlock.peopleCount * overlapRatio));
+            // But don't save more than the actual people count
+            peopleToSave = Math.min(peopleToSave, placedBlock.peopleCount);
             const peopleLost = placedBlock.peopleCount - peopleToSave;
 
             console.log(`Overlap: ${(overlapRatio * 100).toFixed(0)}%. Saved: ${peopleToSave}, Lost: ${peopleLost}`);
             
-            // The new "block" is just the stable, overlapping part
+            // Position the block on top of the base block
+            placedBlock.y = baseBlock.y - placedBlock.height;
+            // Adjust the block to only the stable, overlapping part
             placedBlock.x = overlapStart;
             placedBlock.width = overlapWidth;
             placedBlock.peopleCount = peopleToSave;
@@ -391,17 +420,17 @@ const game = {
             if (peopleLost > 0) {
                 // Create a "falling" block for the people who were lost
                 const fallingPart = {
-                    ...placedBlock,
+                    x: placedBlock.x > baseBlock.x ? baseBlock.x : overlapEnd,
+                    y: baseBlock.y,
                     width: config.block.width - overlapWidth,
-                    x: overlapEnd, // Default to right side falling
+                    height: config.block.height,
                     peopleCount: peopleLost,
                     falling: true,
-                    isHero: placedBlock.isHero && peopleToSave === 0, // Did the hero fall?
-                    drowned: false
+                    velocity: 0,
+                    isHero: placedBlock.isHero && peopleToSave === 0,
+                    drowned: false,
+                    floatType: placedBlock.floatType
                 };
-                if (placedBlock.x > baseBlock.x) {
-                    fallingPart.x = baseBlock.x;
-                }
                 this.deadBlocks.push(fallingPart);
             }
             
@@ -415,6 +444,8 @@ const game = {
         } else {
             // Not enough overlap, the whole block falls
             placedBlock.falling = true;
+            placedBlock.velocity = 0;
+            placedBlock.y = baseBlock.y; // Start falling from the base block position
             this.deadBlocks.push(placedBlock);
             this.score -= 10;
 
@@ -602,6 +633,25 @@ const game = {
                     this.deadBlocks.push({...block});
                 }
             });
+            
+            // Check if tower reached target height
+            if (this.stackedBlocks.length > 0) {
+                const topBlock = this.stackedBlocks[this.stackedBlocks.length - 1];
+                if (topBlock.y <= this.targetHeight) {
+                    // Tower reached the goal!
+                    this.endLevel(false);
+                }
+            }
+            
+            // Check if we ran out of survivors and have blocks
+            if (this.survivors <= 0 && this.stackedBlocks.length > 0 && !this.currentBlock) {
+                // No more survivors to spawn, check if we reached the goal
+                const topBlock = this.stackedBlocks[this.stackedBlocks.length - 1];
+                if (topBlock.y > this.targetHeight) {
+                    // Didn't reach goal in time
+                    this.endLevel(false);
+                }
+            }
         } else if (this.state === 'freezing') {
             // Water freezes (rises quickly to show freeze effect)
             if (this.water.y > 0) {
@@ -684,11 +734,7 @@ const game = {
         
         // 6. Draw current moving block LAST (so it's on top of everything)
         if (this.currentBlock) {
-            // DEBUG: big red rectangle so we can SEE the current block clearly
-            this.ctx.fillStyle = 'rgba(255, 0, 0, 0.6)';
-            this.ctx.fillRect(this.currentBlock.x, this.currentBlock.y, this.currentBlock.width, this.currentBlock.height);
-            
-            // Then draw the detailed boat + people on top
+            // Draw the detailed boat + people
             this.drawHuman(this.currentBlock, true);
         }
 
@@ -709,8 +755,10 @@ const game = {
 
         // Draw the freezing animation layer on top of the water
         if (this.state === 'freezing') {
-            const freezeProgress = (this.initialWaterY - this.water.y) / (this.initialWaterY - (this.initialWaterY - config.water.freezeHeight));
-            const iceColor = `rgba(173, 216, 230, ${Math.min(freezeProgress, 0.8)})`; // Light blue, semi-transparent ice
+            // Calculate freeze progress (water rises to show freeze effect)
+            const freezeDistance = config.canvas.height * 0.3; // Freeze animation distance
+            const freezeProgress = Math.min(1, (this.initialWaterY - this.water.y) / freezeDistance);
+            const iceColor = `rgba(173, 216, 230, ${Math.min(freezeProgress * 0.8, 0.8)})`; // Light blue, semi-transparent ice
             this.ctx.fillStyle = iceColor;
             this.ctx.fillRect(0, this.water.y, config.canvas.width, config.canvas.height - this.water.y);
         }
