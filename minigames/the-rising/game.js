@@ -26,8 +26,8 @@ const config = {
     floatTypes: ['boat', 'raft', 'mattress']
 };
 
-// Optional Sound Manager instance (defined in sounds.js)
-let soundManager = null;
+// Sound Manager is defined globally in sounds.js
+// We'll use the global soundManager instance
 
 // Game State
 const game = {
@@ -81,10 +81,8 @@ const game = {
         // Set canvas size to match mobile screen
         this.resizeCanvas();
 
-        // Initialize sound manager if available
-        if (typeof SoundManager !== 'undefined') {
-            soundManager = new SoundManager();
-        }
+        // Sound manager is already created globally in sounds.js
+        // No need to create a new instance here
         
         // Handle window resize/orientation change
         window.addEventListener('resize', () => this.resizeCanvas());
@@ -170,7 +168,7 @@ const game = {
         console.log('Game started, block spawned:', this.currentBlock);
 
         // Initialize audio on first real interaction
-        if (soundManager) {
+        if (typeof soundManager !== 'undefined' && soundManager) {
             soundManager.init();
             // Start subtle ambient/tension sounds
             soundManager.playTension();
@@ -383,7 +381,7 @@ const game = {
             this.score += 10 * peopleToSave;
 
             // Play stack sound (and perfect if almost full overlap)
-            if (soundManager) {
+            if (typeof soundManager !== 'undefined' && soundManager) {
                 soundManager.playStack();
                 if (overlapRatio > 0.9) {
                     soundManager.playPerfect();
@@ -420,7 +418,7 @@ const game = {
             this.deadBlocks.push(placedBlock);
             this.score -= 10;
 
-            if (soundManager) {
+            if (typeof soundManager !== 'undefined' && soundManager) {
                 soundManager.playSplash();
                 soundManager.playDrown();
             }
@@ -450,7 +448,7 @@ const game = {
         
         if (heroDied) {
             this.showMessage('YOU HAVE DIED\n\nPress R to Restart');
-            if (soundManager) {
+            if (typeof soundManager !== 'undefined' && soundManager) {
                 soundManager.playDrown();
             }
             this.state = 'gameOver';
@@ -465,7 +463,7 @@ const game = {
             this.water.rising = false;
             
             // Play freezing and level complete sounds
-            if (soundManager) {
+            if (typeof soundManager !== 'undefined' && soundManager) {
                 soundManager.playFreeze();
                 soundManager.playLevelComplete();
             }
@@ -479,7 +477,7 @@ const game = {
         } else {
             this.state = 'gameOver'; // Game over if not enough blocks
             this.showMessage('GAME OVER\n\nPress R to Restart');
-            if (soundManager) {
+            if (typeof soundManager !== 'undefined' && soundManager) {
                 soundManager.playWarning();
             }
         }

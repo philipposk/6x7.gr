@@ -215,4 +215,6 @@ class SoundManager {
 
 // Create global sound manager
 const soundManager = new SoundManager();
+// Also attach to window for explicit global access
+window.soundManager = soundManager;
 
