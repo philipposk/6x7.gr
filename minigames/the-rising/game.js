@@ -155,12 +155,8 @@ const game = {
         // Start the game loop
         this.gameLoop();
         
-        // AUTO-START - Start game automatically after a short delay
-        setTimeout(() => {
-            if (this.state === 'menu') {
-                this.startGame();
-            }
-        }, 500);
+        // Don't auto-start - let user click to start for better UX
+        // User can click anywhere to start the game
     },
     
     startGame() {
@@ -350,7 +346,14 @@ const game = {
         }
         
         // Prevent action unless actively playing
-        if (this.state !== 'playing' || !this.currentBlock) return;
+        if (this.state !== 'playing' || !this.currentBlock) {
+            // Show feedback that game is not ready
+            if (this.state !== 'playing') {
+                this.showMessage(`Game is ${this.state.toUpperCase()}\n\nClick to continue`);
+                setTimeout(() => this.hideMessage(), 1500);
+            }
+            return;
+        }
         
         let placed = false;
         if (this.stackedBlocks.length === 0) {
@@ -371,6 +374,21 @@ const game = {
         } else {
             // Otherwise, place it on the stack and check for overhang.
             placed = this.placeBlock();
+            
+            // Visual feedback for placement
+            if (placed) {
+                // Show brief success message
+                const topBlock = this.stackedBlocks[this.stackedBlocks.length - 1];
+                const distanceToGoal = Math.max(0, topBlock.y - this.targetHeight);
+                if (distanceToGoal < 50) {
+                    this.showMessage('ALMOST THERE!');
+                    setTimeout(() => this.hideMessage(), 1000);
+                }
+            } else {
+                // Show failure message
+                this.showMessage('BLOCK FELL!\nTry to overlap more');
+                setTimeout(() => this.hideMessage(), 1500);
+            }
         }
 
         // After placing, the currentBlock is gone.
@@ -379,6 +397,13 @@ const game = {
         if (placed) {
             // A new block should spawn now
             this.spawnBlock();
+        } else {
+            // If block fell, spawn a new one after a short delay
+            setTimeout(() => {
+                if (this.state === 'playing' && this.survivors > 0) {
+                    this.spawnBlock();
+                }
+            }, 500);
         }
     },
     
@@ -683,16 +708,7 @@ const game = {
                 }
             });
             
-            // Check if tower reached target height
-            if (this.stackedBlocks.length > 0) {
-                const topBlock = this.stackedBlocks[this.stackedBlocks.length - 1];
-                if (topBlock.y <= this.targetHeight) {
-                    // Tower reached the goal!
-                    this.endLevel(false);
-                }
-            }
-            
-            // Check if we ran out of survivors and have blocks
+            // Check if we ran out of survivors and have blocks (only check when no current block)
             if (this.survivors <= 0 && this.stackedBlocks.length > 0 && !this.currentBlock) {
                 // No more survivors to spawn, check if we reached the goal
                 const topBlock = this.stackedBlocks[this.stackedBlocks.length - 1];
@@ -783,6 +799,13 @@ const game = {
         
         // 6. Draw current moving block LAST (so it's on top of everything)
         if (this.currentBlock) {
+            // Add a subtle outline to make the moving block more visible
+            this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+            this.ctx.lineWidth = 2;
+            this.ctx.setLineDash([5, 5]);
+            this.ctx.strokeRect(this.currentBlock.x - 2, this.currentBlock.y - 2, this.currentBlock.width + 4, this.currentBlock.height + 4);
+            this.ctx.setLineDash([]);
+            
             // Draw the detailed boat + people
             this.drawHuman(this.currentBlock, true);
         }
@@ -859,8 +882,7 @@ const game = {
 
     drawHuman(block, isMoving = false) {
         if (!block) {
-            console.error('drawHuman called with null block!');
-            return;
+            return; // Silently skip if block is null
         }
         
         const floatType = block.floatType || 'raft';
