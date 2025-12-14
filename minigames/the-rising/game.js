@@ -122,14 +122,12 @@ const game = {
         // Start the game loop
         this.gameLoop();
         
-        // AUTO-START FOR TESTING - Remove this later if you want menu back
-        /*
+        // AUTO-START - Start game automatically after a short delay
         setTimeout(() => {
             if (this.state === 'menu') {
                 this.startGame();
             }
         }, 500);
-        */
     },
     
     startGame() {
