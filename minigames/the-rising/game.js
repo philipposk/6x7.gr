@@ -164,7 +164,6 @@ const game = {
     },
     
     startGame() {
-        console.log('Starting game...');
         this.state = 'playing';
         this.level = 1;
         this.survivors = 30;
@@ -182,7 +181,6 @@ const game = {
         this.updateUI();
         this.hideMessage();
         this.spawnBlock();
-        console.log('Game started, block spawned:', this.currentBlock);
 
         // Initialize audio on first real interaction
         if (typeof soundManager !== 'undefined' && soundManager) {
@@ -236,19 +234,11 @@ const game = {
         // Get device pixel ratio for crisp rendering
         const dpr = window.devicePixelRatio || 1;
         
-        // Get actual screen dimensions
-        let screenWidth = window.innerWidth;
-        let screenHeight = window.innerHeight;
+        // Get actual screen dimensions - always use full viewport
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
         
-        // For desktop: use a reasonable game size (portrait aspect ratio)
-        const isMobile = screenWidth < 768;
-        if (!isMobile) {
-            // Desktop: create a nice portrait window
-            screenWidth = Math.min(500, screenWidth);
-            screenHeight = Math.min(900, screenHeight);
-        }
-        
-        // Set display size (css pixels)
+        // Set display size (css pixels) - always full viewport
         this.canvas.style.width = screenWidth + 'px';
         this.canvas.style.height = screenHeight + 'px';
         
@@ -256,7 +246,8 @@ const game = {
         this.canvas.width = screenWidth * dpr;
         this.canvas.height = screenHeight * dpr;
         
-        // Scale context to match dpr
+        // Reset transform and scale context to match dpr
+        this.ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform
         this.ctx.scale(dpr, dpr);
         
         // Store logical dimensions
@@ -295,14 +286,22 @@ const game = {
         if (lastBlock) {
             // Spawn above the last block, with some space
             startY = lastBlock.y - config.block.height - 50;
+            // But don't spawn too high - keep it in the middle-upper area of screen
+            const maxSpawnY = config.canvas.height * 0.3; // 30% from top
+            if (startY < maxSpawnY) {
+                startY = maxSpawnY;
+            }
         } else {
             // First block: spawn just above water
             startY = this.water.y - config.block.height - 20;
         }
         
-        // Ensure block doesn't spawn too high (above screen)
+        // Ensure block doesn't spawn too high (above screen) or too low (in water)
         if (startY < 100) {
             startY = 100;
+        }
+        if (startY > this.water.y - config.block.height) {
+            startY = this.water.y - config.block.height - 10;
         }
         
         let startX;
@@ -336,8 +335,6 @@ const game = {
         }
         this.survivors--;
         this.updateUI();
-        // Console debug
-        console.log('SPAWNED BLOCK', this.currentBlock, 'WaterY', this.water.y);
     },
     
     generateName() {
@@ -396,20 +393,23 @@ const game = {
             return false;
         }
         
+        // Save original block dimensions before modifying
+        const originalWidth = placedBlock.width;
+        const originalX = placedBlock.x;
+        const originalPeopleCount = placedBlock.peopleCount;
+        
         // Calculate the overlap percentage
         const overlapStart = Math.max(placedBlock.x, baseBlock.x);
         const overlapEnd = Math.min(placedBlock.x + placedBlock.width, baseBlock.x + baseBlock.width);
         const overlapWidth = Math.max(0, overlapEnd - overlapStart);
-        const overlapRatio = overlapWidth / placedBlock.width;
+        const overlapRatio = overlapWidth / originalWidth;
 
         if (overlapRatio > 0.1) { // Need at least 10% overlap to be stable
             // Calculate people saved - ensure at least 1 person is saved if there's sufficient overlap
-            let peopleToSave = Math.max(1, Math.floor(placedBlock.peopleCount * overlapRatio));
+            let peopleToSave = Math.max(1, Math.floor(originalPeopleCount * overlapRatio));
             // But don't save more than the actual people count
-            peopleToSave = Math.min(peopleToSave, placedBlock.peopleCount);
-            const peopleLost = placedBlock.peopleCount - peopleToSave;
-
-            console.log(`Overlap: ${(overlapRatio * 100).toFixed(0)}%. Saved: ${peopleToSave}, Lost: ${peopleLost}`);
+            peopleToSave = Math.min(peopleToSave, originalPeopleCount);
+            const peopleLost = originalPeopleCount - peopleToSave;
             
             // Position the block on top of the base block
             placedBlock.y = baseBlock.y - placedBlock.height;
@@ -430,11 +430,25 @@ const game = {
             }
 
             if (peopleLost > 0) {
+                // Calculate which side the falling part should be on
+                const lostWidth = originalWidth - overlapWidth;
+                let fallingX;
+                if (originalX < baseBlock.x) {
+                    // Block was to the left, falling part is on the left
+                    fallingX = originalX;
+                } else if (originalX + originalWidth > baseBlock.x + baseBlock.width) {
+                    // Block was to the right, falling part is on the right
+                    fallingX = overlapEnd;
+                } else {
+                    // Block was centered, falling part could be on either side
+                    fallingX = originalX < baseBlock.x ? originalX : overlapEnd;
+                }
+                
                 // Create a "falling" block for the people who were lost
                 const fallingPart = {
-                    x: placedBlock.x > baseBlock.x ? baseBlock.x : overlapEnd,
+                    x: fallingX,
                     y: baseBlock.y,
-                    width: config.block.width - overlapWidth,
+                    width: lostWidth,
                     height: config.block.height,
                     peopleCount: peopleLost,
                     falling: true,
@@ -639,9 +653,13 @@ const game = {
                 }
             }
             
-            // Rise water
+            // Rise water (but stop if we've reached the target height)
             if (this.water.rising && this.water.y > this.targetHeight) {
                 this.water.y -= config.water.riseSpeed;
+                // Don't let water go above target height
+                if (this.water.y < this.targetHeight) {
+                    this.water.y = this.targetHeight;
+                }
             }
             
             // Update falling blocks
