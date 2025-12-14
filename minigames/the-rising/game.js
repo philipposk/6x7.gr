@@ -57,7 +57,26 @@ const game = {
     
     init() {
         this.canvas = document.getElementById('gameCanvas');
+        if (!this.canvas) {
+            console.error('Canvas element not found!');
+            const msg = document.getElementById('message');
+            if (msg) {
+                msg.textContent = 'ERROR: Canvas not found!';
+                msg.classList.add('show');
+            }
+            return;
+        }
+        
         this.ctx = this.canvas.getContext('2d');
+        if (!this.ctx) {
+            console.error('Could not get 2D context!');
+            const msg = document.getElementById('message');
+            if (msg) {
+                msg.textContent = 'ERROR: Canvas context failed!';
+                msg.classList.add('show');
+            }
+            return;
+        }
         
         // Set canvas size to match mobile screen
         this.resizeCanvas();
@@ -594,7 +613,11 @@ const game = {
     },
     
     draw() {
-        // Clear canvas
+        if (!this.ctx || !this.canvas) {
+            return; // Can't draw without context
+        }
+        
+        // Clear canvas with background
         this.ctx.fillStyle = '#1a1a2e';
         this.ctx.fillRect(0, 0, config.canvas.width, config.canvas.height);
         
