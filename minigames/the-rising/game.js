@@ -175,7 +175,8 @@ const game = {
         // Start with clearly visible water (bottom 200px)
         this.water.y = config.canvas.height - 200;
         this.water.rising = true;
-        this.targetHeight = 100;
+        // Target height is 20% from top of screen (challenging but achievable)
+        this.targetHeight = config.canvas.height * 0.2;
         this.spawnFromLeft = true;
         this.direction = 1;
         this.updateUI();
@@ -268,14 +269,16 @@ const game = {
         config.block.speed = Math.max(2, screenWidth * 0.005); // Proportional speed
         
         // Update water start position (keep it visible at bottom 200px)
-        this.water.y = config.canvas.height - 200;
+        if (this.water.y > config.canvas.height - 200) {
+            this.water.y = config.canvas.height - 200;
+        }
         
-        // Recalculate target height if we're in a level
-        if (this.level > 1) {
-            const levelProgress = (this.level - 1) * 150;
-            this.targetHeight = config.canvas.height - 200 - levelProgress;
+        // Recalculate target height based on current level
+        if (this.level === 1) {
+            this.targetHeight = config.canvas.height * 0.2;
         } else {
-            this.targetHeight = 100;
+            const targetPercent = 0.2 + (this.level - 1) * 0.05;
+            this.targetHeight = config.canvas.height * Math.min(targetPercent, 0.4);
         }
     },
     
@@ -359,6 +362,15 @@ const game = {
             this.currentBlock.y = this.water.y - this.currentBlock.height - 10;
             this.stackedBlocks.push(this.currentBlock);
             placed = true;
+            
+            // Check if first block somehow reached goal (shouldn't happen, but safety check)
+            if (this.currentBlock.y <= this.targetHeight) {
+                setTimeout(() => {
+                    if (this.state === 'playing') {
+                        this.endLevel(false);
+                    }
+                }, 500);
+            }
         } else {
             // Otherwise, place it on the stack and check for overhang.
             placed = this.placeBlock();
@@ -439,6 +451,17 @@ const game = {
                 this.endLevel(true); // Game over, hero died
                 return false; // Placement failed
             }
+            
+            // Check if tower reached target height after successful placement
+            if (placedBlock.y <= this.targetHeight) {
+                // Tower reached the goal! End level after a brief delay
+                setTimeout(() => {
+                    if (this.state === 'playing') {
+                        this.endLevel(false);
+                    }
+                }, 500);
+            }
+            
             return true; // Placement was successful
 
         } else {
@@ -555,13 +578,21 @@ const game = {
         this.stackedBlocks = [];
         this.deadBlocks = [];
         
-        // New starting position is above the ice
-        this.targetHeight = this.water.y - 200;
-        if (this.targetHeight < 50) {
-            this.targetHeight = 50; // Minimum height
+        // New target height - progressively harder (higher up the screen)
+        // Level 2: 25% from top, Level 3: 30%, Level 4: 35%, Level 5: 40%
+        const targetPercent = 0.2 + (this.level - 1) * 0.05;
+        this.targetHeight = config.canvas.height * Math.min(targetPercent, 0.4);
+        
+        // Water starts a bit higher than the frozen layer
+        this.water.y = this.water.y - 50;
+        // Make sure water doesn't go above the frozen blocks
+        if (this.frozenLayers.length > 0) {
+            const lastFrozen = this.frozenLayers[this.frozenLayers.length - 1];
+            if (this.water.y < lastFrozen.waterLevel) {
+                this.water.y = lastFrozen.waterLevel + 20;
+            }
         }
         
-        this.water.y = this.water.y - 50; // Water starts a bit higher
         this.state = 'playing';
         
         this.updateUI();
