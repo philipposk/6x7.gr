@@ -168,6 +168,35 @@
     <script src="ending.js"></script>
     <script src="sounds.js"></script>
     <script src="game.js"></script>
+    <script>
+        // Debug: Check if game initialized
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                if (typeof game === 'undefined') {
+                    console.error('Game object not found!');
+                    const msg = document.getElementById('message');
+                    if (msg) {
+                        msg.textContent = 'ERROR: Game failed to load. Check console.';
+                        msg.classList.add('show');
+                    }
+                } else if (!game.canvas) {
+                    console.error('Game canvas not initialized!');
+                    const msg = document.getElementById('message');
+                    if (msg) {
+                        msg.textContent = 'ERROR: Canvas not initialized. Check console.';
+                        msg.classList.add('show');
+                    }
+                } else {
+                    console.log('Game initialized successfully', {
+                        canvas: game.canvas,
+                        width: game.canvas.width,
+                        height: game.canvas.height,
+                        state: game.state
+                    });
+                }
+            }, 1000);
+        });
+    </script>
 </body>
 </html>
 
