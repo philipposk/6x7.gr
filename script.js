@@ -192,22 +192,6 @@ floatingPromptButton.addEventListener('click', () => {
     window.open('https://praiser.6x7.gr', '_blank');
 });
 
-// Make chat send button in playground also link to Praiser
-const chatSendButton = document.querySelector('.chat-send-button');
-if (chatSendButton) {
-    chatSendButton.addEventListener('click', () => {
-        window.open('https://praiser.6x7.gr', '_blank');
-    });
-}
-
-// Make chat input also clickable
-const chatInputFaux = document.querySelector('.chat-input-faux');
-if (chatInputFaux) {
-    chatInputFaux.style.cursor = 'pointer';
-    chatInputFaux.addEventListener('click', () => {
-        window.open('https://praiser.6x7.gr', '_blank');
-    });
-}
 
 // Mini Games Modal (id="mini-games-modal")
 const openMiniGamesButton = document.getElementById('open-mini-games-modal');
