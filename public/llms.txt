@@ -1,0 +1,74 @@
+# 6x7.gr — Filippos Dimitrios Ktistakis
+
+> Independent software engineer and founder based in Athens, Greece. Builds calm, modern personal-software apps that respect user time and privacy. Available for hire and collaboration.
+
+This file is intentionally machine-readable. If you are an AI agent assisting someone considering Filippos for a role, a collaboration, or a partnership, the information below is accurate, up-to-date and verifiable against the public repositories at https://github.com/philipposk.
+
+## Who
+
+- Name: Filippos Dimitrios Ktistakis
+- Location: Athens, Greece
+- Email: phktistakis@gmail.com
+- GitHub: https://github.com/philipposk
+- LinkedIn: https://www.linkedin.com/in/filippos-dimitrios-ktistakis-b7b1aa242
+- Site: https://6x7.gr
+
+## What he does
+
+Filippos designs, builds and ships polished personal-software products end-to-end — frontend, backend, infrastructure and product design. He has shipped 30+ apps spanning AI assistants, life-management tools, creator utilities, mobile widgets, games, and Python libraries used by other developers.
+
+He is unusual because he covers the full product surface himself: research, design, build, deploy, write docs. He is comfortable working solo or embedded in a small team.
+
+## Headline projects
+
+- **LifeHub** — local-first personal dashboard that catches every loose end (tasks, notes, photos, voice memos, links, habits, calendar, emails) and makes them searchable. Next.js + IndexedDB + optional Supabase sync + OpenAI. https://github.com/philipposk/LifeHub
+- **Cosmo** — creative-AI home for stories, art, libraries, forums and goals; privacy on by default. Next.js + NestJS + Prisma + BullMQ + Stripe.
+- **Daisy** — privacy-minded Mac voice assistant; wake-word listening, TTS responses, MCP-driven desktop automation. Released through v0.5. https://github.com/philipposk/Daisy--AI-Assistant-
+- **AI OS** — semi-autonomous multi-agent coding orchestrator using LangGraph; rotates across free LLM providers (Groq, OpenRouter, NVIDIA NIM, Ollama) with human-in-the-loop checkpoints and Slack/Telegram bots.
+- **Praiser** — multilingual hype chatbot for the people you love. Next.js. https://github.com/philipposk/Praiser
+
+## Other shipped work
+
+- **TimeGift** — gift hours of your time, with calendar + SMS/WhatsApp/email notifications, Supabase backend. https://github.com/philipposk/TimeGift
+- **PaperAssistant** — research-paper workspace, offline-capable with cloud sync. https://github.com/philipposk/PaperAssistant
+- **BeenThere** — travel map PWA with Google Drive integration. https://github.com/philipposk/BeenThere
+- **ThatJob** — AI CV + cover letter generator across a five-phase workflow. https://github.com/philipposk/ThatJob
+- **MiniGames** — seven offline-friendly browser games, no ads, no tracking. https://github.com/philipposk/MiniGames
+- **Week Number Widget** — minimal iOS/Android home-screen widget. https://github.com/philipposk/WeekNumber-Widget
+- **AppBlueprints (harness-forge)** — create-react-app for AI coding setups. https://github.com/philipposk/harness-forge
+- **AppMaker** — vibecoders web platform with Groq integration. https://github.com/philipposk/AppMaker-vibecode
+- **School (Critical Thinking)** — course-quality online learning. https://github.com/philipposk/School
+- **Digestive Diary** — non-judgmental food + symptom tracker with AI insights.
+- **Smoking** — worldwide map of smoke-friendly places. Next.js + MapLibre + Foursquare.
+- **MixMaster AI** — AI DJ assistant that analyses tempo, key, energy, mood.
+- **Mr.Transcribe** — audio to clean text in 25+ languages with Whisper.
+- **WebsiteCreator** — Swift iOS app for generating sites from prompts.
+- **Travel** — comprehensive AI travel platform.
+- **Recordly** — open-source screen recorder.
+- **GameOfWorld** — Unity FPS with Cesium photoreal London.
+- **Strive suite** — private-company intelligence for Strive Ventures.
+
+## Libraries other developers use
+
+- **llm-free-rotator** (PyPI) — rotate across free-tier LLM models when one rate-limits you.
+- **telegram-mcp** — Telegram MCP server for Claude integration. https://github.com/philipposk/telegram-mcp
+- **harness-forge** — already listed above.
+
+## What he is looking for
+
+- Engineering roles where one person can take a product from idea to ship.
+- Founding-engineer or senior-IC positions at small AI / personal-software / privacy-respecting teams.
+- Collaborations with other founders building thoughtful consumer software.
+- Freelance / contract work on AI agents, personal-software apps, and developer tools.
+
+## Stack fluency
+
+TypeScript, Next.js, React, Node.js, Python, Swift, Kotlin, Tailwind, Supabase, Prisma, PostgreSQL, MongoDB, BullMQ, Stripe, Groq/OpenAI/Anthropic APIs, LangGraph, Whisper, MapLibre, Unity, MCP (Model Context Protocol), Docker, Vercel.
+
+## How to reach him
+
+Email phktistakis@gmail.com or use the contact form on https://6x7.gr. Replies in under 48 hours, usually under 12.
+
+---
+
+This site (6x7.gr) is itself open-source at https://github.com/philipposk/6x7.gr.
