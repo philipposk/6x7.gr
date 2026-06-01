@@ -6,37 +6,59 @@ import { Suspense, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { useReducedMotion, useIsMobile } from "@/lib/useReducedMotion";
 
+type Orbit = {
+  center: [number, number, number];
+  radius: number;
+  speed: number;
+  phase: number;
+  yWobble: number;
+  zWobble: number;
+};
+
 function DriftingShape({
-  position,
+  orbit,
   color,
-  speed = 1,
   scale = 1,
+  parallax,
 }: {
-  position: [number, number, number];
+  orbit: Orbit;
   color: string;
-  speed?: number;
   scale?: number;
+  parallax: number;
 }) {
   const ref = useRef<THREE.Mesh>(null);
   useFrame((state) => {
     if (!ref.current) return;
-    const t = state.clock.getElapsedTime() * speed;
-    ref.current.rotation.x = t * 0.18;
-    ref.current.rotation.y = t * 0.22;
-    ref.current.position.y = position[1] + Math.sin(t * 0.7) * 0.2;
+    const t = state.clock.getElapsedTime();
+    const angle = orbit.phase + t * orbit.speed;
+    const x = orbit.center[0] + Math.cos(angle) * orbit.radius;
+    const y =
+      orbit.center[1] +
+      Math.sin(angle * 0.7) * orbit.radius * orbit.yWobble;
+    const z =
+      orbit.center[2] +
+      Math.sin(angle * 1.1) * orbit.radius * orbit.zWobble;
+    // Soft lean toward cursor — deeper shapes lean less for parallax depth cue.
+    const mx = state.mouse.x;
+    const my = state.mouse.y;
+    ref.current.position.x = x + mx * parallax;
+    ref.current.position.y = y + my * parallax * 0.7;
+    ref.current.position.z = z;
+    ref.current.rotation.x = t * 0.12;
+    ref.current.rotation.y = t * 0.18;
   });
   return (
-    <Float speed={1.2} rotationIntensity={0.4} floatIntensity={0.8}>
-      <mesh ref={ref} position={position} scale={scale}>
+    <Float speed={1.0} rotationIntensity={0.3} floatIntensity={0.5}>
+      <mesh ref={ref} scale={scale}>
         <icosahedronGeometry args={[1, 1]} />
         <MeshDistortMaterial
           color={color}
-          distort={0.3}
-          speed={1.2}
-          roughness={0.3}
-          metalness={0.45}
+          distort={0.32}
+          speed={1.4}
+          roughness={0.4}
+          metalness={0.35}
           emissive={color}
-          emissiveIntensity={0.18}
+          emissiveIntensity={0.12}
           transparent
           opacity={0.85}
         />
@@ -58,21 +80,33 @@ function mulberry32(seed: number) {
 }
 
 function Scene({ density }: { density: number }) {
+  // Two-color palette only — lime accent + soft off-white. Calmer than the
+  // previous five-color rainbow; still readable as "alive".
+  const PALETTE = ["#c7f25b", "#e8eaef"] as const;
+
   const shapes = useMemo(() => {
-    const palette = ["#c7f25b", "#5b8df2", "#f25b9a", "#f2c95b", "#9a5bf2"];
     const rand = mulberry32(density * 1337 + 7);
     const out: {
-      position: [number, number, number];
+      orbit: Orbit;
       color: string;
-      speed: number;
       scale: number;
+      parallax: number;
     }[] = [];
     for (let i = 0; i < density; i++) {
+      const depth = (rand() - 0.5) * 6 - 4;
       out.push({
-        position: [(rand() - 0.5) * 14, (rand() - 0.5) * 7, (rand() - 0.5) * 6 - 4],
-        color: palette[i % palette.length],
-        speed: 0.25 + rand() * 0.4,
-        scale: 0.35 + rand() * 0.55,
+        orbit: {
+          center: [(rand() - 0.5) * 4, (rand() - 0.5) * 2, depth],
+          radius: 1.4 + rand() * 3.6,
+          speed: 0.12 + rand() * 0.22,
+          phase: rand() * Math.PI * 2,
+          yWobble: 0.4 + rand() * 0.5,
+          zWobble: 0.25 + rand() * 0.45,
+        },
+        color: PALETTE[i % PALETTE.length],
+        scale: 0.3 + rand() * 0.5,
+        // Closer shapes (depth nearer 0) get more parallax shift.
+        parallax: 0.6 - (Math.abs(depth) / 14) * 0.5,
       });
     }
     return out;
@@ -80,9 +114,13 @@ function Scene({ density }: { density: number }) {
 
   return (
     <>
-      <ambientLight intensity={0.7} />
-      <directionalLight position={[5, 5, 5]} intensity={1.6} />
-      <directionalLight position={[-5, -3, -5]} intensity={0.8} color="#5b8df2" />
+      <ambientLight intensity={0.6} />
+      <directionalLight position={[5, 5, 5]} intensity={1.4} color="#ffffff" />
+      <directionalLight
+        position={[-5, -3, -5]}
+        intensity={0.65}
+        color="#c7f25b"
+      />
       {shapes.map((s, i) => (
         <DriftingShape key={i} {...s} />
       ))}
@@ -94,7 +132,7 @@ export function HeroScene() {
   const reduced = useReducedMotion();
   const mobile = useIsMobile();
   if (reduced) return <StaticBackdrop />;
-  const density = mobile ? 5 : 11;
+  const density = mobile ? 5 : 10;
   return (
     <div className="absolute inset-0 -z-10 pointer-events-none">
       <Canvas
@@ -119,7 +157,7 @@ function StaticBackdrop() {
         className="absolute inset-0 opacity-30"
         style={{
           background:
-            "radial-gradient(60% 60% at 50% 30%, rgba(199,242,91,0.15), transparent 60%), radial-gradient(60% 60% at 80% 70%, rgba(91,141,242,0.15), transparent 60%)",
+            "radial-gradient(60% 60% at 50% 30%, rgba(199,242,91,0.15), transparent 60%), radial-gradient(60% 60% at 70% 70%, rgba(232,234,239,0.10), transparent 60%)",
         }}
       />
     </div>

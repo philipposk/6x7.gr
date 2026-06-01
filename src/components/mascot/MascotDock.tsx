@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { MascotCharacter } from "./MascotCharacter";
 import { SpeechBubble } from "./SpeechBubble";
@@ -44,12 +44,21 @@ function pakoLineForCount(count: number, opened: string[]): string | null {
   return null;
 }
 
-function pipoLineForCount(count: number, total: number): string {
-  if (count === 0) return `${total} apps. zero opened.`;
-  if (count < 3) return `${count} of ${total}. plenty left.`;
-  if (count < 10) return `${count} of ${total}. streak forming.`;
-  return `${count} of ${total}. solid run.`;
+// Pipo only speaks on milestones — between them this returns null and the
+// previous bubble text stays visible. Stops the monotonous "X of Y. solid run"
+// repeat every click.
+function pipoLineForCount(count: number, total: number): string | null {
+  if (count === 1) return "first one in.";
+  if (count === 2) return "two opened.";
+  if (count === 4) return "four. still warming up.";
+  if (count === 7) return "seven. nice tempo.";
+  if (count === 12) return "twelve. you're committed.";
+  if (count === Math.floor(total / 2)) return "halfway through.";
+  if (count === total) return `all ${total}. you've read every line.`;
+  return null;
 }
+
+const PIPO_HELLO = (total: number) => `${total} apps in here. tap one to open.`;
 
 export function MascotDock() {
   const { opened, count } = useOpenedProjects();
@@ -110,16 +119,36 @@ export function MascotDock() {
     return () => window.clearTimeout(id);
   }, [adoptShown]);
 
-  const pipoLine = useMemo(
-    () => pipoLineForCount(count, PROJECTS.length),
-    [count],
-  );
+  const [pipoLine, setPipoLine] = useState<string>("");
+  const pipoSeenRef = useRef<Set<number>>(new Set());
+
+  useEffect(() => {
+    const id = window.setTimeout(
+      () => setPipoLine(PIPO_HELLO(PROJECTS.length)),
+      1800,
+    );
+    return () => window.clearTimeout(id);
+  }, []);
+
+  useEffect(() => {
+    if (count === 0) return;
+    if (pipoSeenRef.current.has(count)) return;
+    const line = pipoLineForCount(count, PROJECTS.length);
+    if (!line) return;
+    pipoSeenRef.current.add(count);
+    setPipoLine(line);
+  }, [count]);
 
   return (
     <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-2 pointer-events-none max-w-[calc(100vw-2rem)]">
       <div className="flex items-end gap-3 pointer-events-auto">
         <div className="flex flex-col items-end gap-1">
-          <SpeechBubble text={pipoLine} side="right" muted={mute.pipo} />
+          <SpeechBubble
+            text={pipoLine}
+            side="right"
+            muted={mute.pipo}
+            kind="pipo"
+          />
           <MascotCharacter
             kind="pipo"
             muted={mute.pipo}
@@ -128,7 +157,12 @@ export function MascotDock() {
           />
         </div>
         <div className="flex flex-col items-end gap-1">
-          <SpeechBubble text={pakoLine} side="right" muted={mute.pako} />
+          <SpeechBubble
+            text={pakoLine}
+            side="right"
+            muted={mute.pako}
+            kind="pako"
+          />
           <MascotCharacter
             kind="pako"
             muted={mute.pako}
@@ -187,7 +221,7 @@ async function fireConfetti() {
     const mod = await import("canvas-confetti");
     const confetti = mod.default;
     const end = Date.now() + 1200;
-    const colors = ["#c7f25b", "#5b8df2", "#f25b9a"];
+    const colors = ["#c7f25b", "#e8eaef"];
     (function frame() {
       confetti({ particleCount: 4, angle: 60, spread: 55, origin: { x: 0 }, colors });
       confetti({ particleCount: 4, angle: 120, spread: 55, origin: { x: 1 }, colors });

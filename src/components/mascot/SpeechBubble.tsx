@@ -3,6 +3,8 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
+export type MascotKind = "pako" | "pipo";
+
 function Typewriter({ text }: { text: string }) {
   const [shown, setShown] = useState(() => "");
   useEffect(() => {
@@ -22,21 +24,85 @@ function Typewriter({ text }: { text: string }) {
   );
 }
 
-function useSpeech(text: string, muted: boolean, enabled: boolean) {
+// Cache the chosen voice so we don't iterate getVoices() on every utterance.
+let cachedVoice: SpeechSynthesisVoice | null | undefined;
+
+function pickVoice(): SpeechSynthesisVoice | null {
+  if (cachedVoice !== undefined) return cachedVoice;
+  if (typeof window === "undefined" || !window.speechSynthesis) return null;
+  const voices = window.speechSynthesis.getVoices();
+  if (!voices.length) return null;
+  const preferences: RegExp[] = [
+    /Google US English/i,
+    /Google UK English Female/i,
+    /Samantha/i,
+    /Karen/i,
+    /Daniel/i,
+    /Microsoft.*(Aria|Jenny|Guy)/i,
+    /en[-_]US/i,
+    /en[-_]GB/i,
+    /^en/i,
+  ];
+  for (const re of preferences) {
+    const v = voices.find((v) => re.test(v.name) || re.test(v.lang));
+    if (v) {
+      cachedVoice = v;
+      return v;
+    }
+  }
+  cachedVoice = voices[0] ?? null;
+  return cachedVoice;
+}
+
+function useSpeech(
+  text: string,
+  muted: boolean,
+  enabled: boolean,
+  kind: MascotKind,
+) {
   useEffect(() => {
     if (muted || !enabled || !text) return;
     if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
-    const utter = new SpeechSynthesisUtterance(text);
-    utter.rate = 1.05;
-    utter.pitch = 1.1;
-    utter.volume = 0.6;
-    window.speechSynthesis.cancel();
-    const id = window.setTimeout(() => window.speechSynthesis.speak(utter), 120);
+    const synth = window.speechSynthesis;
+
+    const speak = () => {
+      const utter = new SpeechSynthesisUtterance(text);
+      const voice = pickVoice();
+      if (voice) {
+        utter.voice = voice;
+        utter.lang = voice.lang;
+      }
+      // Tone: pako = lighter/playful, pipo = calmer/slower. Both stay
+      // in a natural range so they sound human, not robotic.
+      utter.rate = kind === "pipo" ? 0.92 : 1.0;
+      utter.pitch = kind === "pipo" ? 0.95 : 1.18;
+      utter.volume = 0.55;
+      synth.cancel();
+      synth.speak(utter);
+    };
+
+    // Voices load asynchronously in most browsers. If empty now, wait for
+    // the voiceschanged event before speaking.
+    if (synth.getVoices().length === 0) {
+      const onChange = () => {
+        synth.removeEventListener("voiceschanged", onChange);
+        speak();
+      };
+      synth.addEventListener("voiceschanged", onChange);
+      const fallback = window.setTimeout(speak, 800);
+      return () => {
+        synth.removeEventListener("voiceschanged", onChange);
+        window.clearTimeout(fallback);
+        synth.cancel();
+      };
+    }
+
+    const id = window.setTimeout(speak, 120);
     return () => {
       window.clearTimeout(id);
-      window.speechSynthesis.cancel();
+      synth.cancel();
     };
-  }, [text, muted, enabled]);
+  }, [text, muted, enabled, kind]);
 }
 
 export function SpeechBubble({
@@ -44,13 +110,15 @@ export function SpeechBubble({
   side = "left",
   muted = false,
   speak = true,
+  kind = "pako",
 }: {
   text: string;
   side?: "left" | "right";
   muted?: boolean;
   speak?: boolean;
+  kind?: MascotKind;
 }) {
-  useSpeech(text, muted, speak);
+  useSpeech(text, muted, speak, kind);
 
   return (
     <AnimatePresence mode="wait">

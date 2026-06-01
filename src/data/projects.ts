@@ -364,8 +364,17 @@ export const PROJECTS: Project[] = [
   },
 ];
 
+const STATUS_ORDER: Record<ProjectStatus, number> = {
+  live: 0,
+  beta: 1,
+  wip: 2,
+  archived: 3,
+};
+
 export function projectsByGroup(group: ProjectGroup) {
-  return PROJECTS.filter((p) => p.group === group);
+  return PROJECTS.filter((p) => p.group === group).sort(
+    (a, b) => STATUS_ORDER[a.status] - STATUS_ORDER[b.status],
+  );
 }
 
 export function projectBySlug(slug: string) {
