@@ -54,6 +54,39 @@ function pickVoice(): SpeechSynthesisVoice | null {
   return cachedVoice;
 }
 
+// Browser SpeechSynthesis — used only as a fallback when the OpenAI TTS
+// route is unavailable (no key, offline, autoplay blocked).
+function browserSpeak(text: string, kind: MascotKind) {
+  if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
+  const synth = window.speechSynthesis;
+  const speak = () => {
+    const utter = new SpeechSynthesisUtterance(text);
+    const voice = pickVoice();
+    if (voice) {
+      utter.voice = voice;
+      utter.lang = voice.lang;
+    }
+    utter.rate = kind === "pipo" ? 0.92 : 1.0;
+    utter.pitch = kind === "pipo" ? 0.95 : 1.18;
+    utter.volume = 0.55;
+    synth.cancel();
+    synth.speak(utter);
+  };
+  if (synth.getVoices().length === 0) {
+    const onChange = () => {
+      synth.removeEventListener("voiceschanged", onChange);
+      speak();
+    };
+    synth.addEventListener("voiceschanged", onChange);
+    window.setTimeout(speak, 800);
+  } else {
+    window.setTimeout(speak, 120);
+  }
+}
+
+// Speak each line once. Tries OpenAI TTS (natural female/male voices via
+// /api/tts) first; falls back to browser speech synthesis on any failure.
+// Effect re-runs only when `text` changes, so a line never repeats itself.
 function useSpeech(
   text: string,
   muted: boolean,
@@ -62,45 +95,47 @@ function useSpeech(
 ) {
   useEffect(() => {
     if (muted || !enabled || !text) return;
-    if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
-    const synth = window.speechSynthesis;
+    if (typeof window === "undefined") return;
 
-    const speak = () => {
-      const utter = new SpeechSynthesisUtterance(text);
-      const voice = pickVoice();
-      if (voice) {
-        utter.voice = voice;
-        utter.lang = voice.lang;
+    let cancelled = false;
+    let audio: HTMLAudioElement | null = null;
+    let objUrl: string | null = null;
+
+    (async () => {
+      try {
+        const res = await fetch("/api/tts", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text, kind }),
+        });
+        if (cancelled) return;
+        if (res.status === 204 || !res.ok) {
+          browserSpeak(text, kind);
+          return;
+        }
+        const blob = await res.blob();
+        if (cancelled) return;
+        objUrl = URL.createObjectURL(blob);
+        audio = new Audio(objUrl);
+        audio.volume = 0.6;
+        audio.onended = () => {
+          if (objUrl) URL.revokeObjectURL(objUrl);
+        };
+        // Autoplay may be blocked until a user gesture — fall back then.
+        audio.play().catch(() => browserSpeak(text, kind));
+      } catch {
+        if (!cancelled) browserSpeak(text, kind);
       }
-      // Tone: pako = lighter/playful, pipo = calmer/slower. Both stay
-      // in a natural range so they sound human, not robotic.
-      utter.rate = kind === "pipo" ? 0.92 : 1.0;
-      utter.pitch = kind === "pipo" ? 0.95 : 1.18;
-      utter.volume = 0.55;
-      synth.cancel();
-      synth.speak(utter);
-    };
+    })();
 
-    // Voices load asynchronously in most browsers. If empty now, wait for
-    // the voiceschanged event before speaking.
-    if (synth.getVoices().length === 0) {
-      const onChange = () => {
-        synth.removeEventListener("voiceschanged", onChange);
-        speak();
-      };
-      synth.addEventListener("voiceschanged", onChange);
-      const fallback = window.setTimeout(speak, 800);
-      return () => {
-        synth.removeEventListener("voiceschanged", onChange);
-        window.clearTimeout(fallback);
-        synth.cancel();
-      };
-    }
-
-    const id = window.setTimeout(speak, 120);
     return () => {
-      window.clearTimeout(id);
-      synth.cancel();
+      cancelled = true;
+      if (audio) {
+        audio.pause();
+        audio = null;
+      }
+      if (objUrl) URL.revokeObjectURL(objUrl);
+      if ("speechSynthesis" in window) window.speechSynthesis.cancel();
     };
   }, [text, muted, enabled, kind]);
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
 import { MascotCharacter } from "./MascotCharacter";
 import { SpeechBubble } from "./SpeechBubble";
 import { useOpenedProjects } from "@/lib/useOpenedProjects";
@@ -28,8 +27,6 @@ const PAKO_LINES = {
   five: "five! try a 'work in progress' next — those are the most honest.",
   ten: "ok you're officially curious. the one i'd actually demo to a recruiter:",
   twenty: "twenty. you're a serious person. filippos says thank you.",
-  adopt:
-    "want me to stick around? i also live inside daisy, lifehub and cosmo if you have them.",
 };
 
 function pakoLineForCount(count: number, opened: string[]): string | null {
@@ -64,7 +61,6 @@ export function MascotDock() {
   const { opened, count } = useOpenedProjects();
   const [mute, setMute] = useState<{ pako: boolean; pipo: boolean }>(() => readMute());
   const [pakoLine, setPakoLine] = useState<string>("");
-  const [adoptShown, setAdoptShown] = useState(false);
   const milestonesRef = useRef<Set<number>>(new Set());
 
   const persistMute = (next: { pako: boolean; pipo: boolean }) => {
@@ -109,15 +105,6 @@ export function MascotDock() {
     }, 0);
     return () => window.clearTimeout(id);
   }, [count, opened]);
-
-  useEffect(() => {
-    if (adoptShown) return;
-    const id = window.setTimeout(() => {
-      setPakoLine(PAKO_LINES.adopt);
-      setAdoptShown(true);
-    }, 30_000);
-    return () => window.clearTimeout(id);
-  }, [adoptShown]);
 
   const [pipoLine, setPipoLine] = useState<string>("");
   const pipoSeenRef = useRef<Set<number>>(new Set());
@@ -171,47 +158,7 @@ export function MascotDock() {
           />
         </div>
       </div>
-      {pakoLine === PAKO_LINES.adopt && (
-        <AdoptPanel onDismiss={() => setPakoLine("")} />
-      )}
     </div>
-  );
-}
-
-function AdoptPanel({ onDismiss }: { onDismiss: () => void }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0 }}
-      className="pointer-events-auto glass rounded-2xl p-4 text-sm max-w-sm"
-    >
-      <p className="mb-3 text-[var(--fg)]">Want Pako as a companion in Filippos&apos; other apps?</p>
-      <div className="flex flex-wrap gap-2">
-        <a
-          href="https://github.com/philipposk/LifeHub"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="px-3 py-1.5 rounded-full bg-[var(--accent)] text-black text-xs font-medium"
-        >
-          Try LifeHub
-        </a>
-        <a
-          href="https://github.com/philipposk/Daisy--AI-Assistant-"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="px-3 py-1.5 rounded-full glass text-xs"
-        >
-          Try Daisy
-        </a>
-        <button
-          onClick={onDismiss}
-          className="px-3 py-1.5 rounded-full glass text-xs text-[var(--fg-muted)]"
-        >
-          Not now
-        </button>
-      </div>
-    </motion.div>
   );
 }
 

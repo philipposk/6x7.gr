@@ -19,6 +19,7 @@ export interface Project {
   repo?: string;
   live?: string;
   glyph?: string;
+  comingSoon?: boolean;
 }
 
 export const GROUPS: { id: ProjectGroup; label: string; blurb: string }[] = [
@@ -52,6 +53,7 @@ export const PROJECTS: Project[] = [
       "A quiet creative home for stories, art, and goals — AI baked in, privacy on by default.",
     group: "headline",
     status: "beta",
+    live: "https://cosmo.6x7.gr",
     glyph: "✦",
   },
   {
@@ -61,6 +63,7 @@ export const PROJECTS: Project[] = [
       "A polite voice assistant that lives on your Mac and gets things done without nagging.",
     group: "headline",
     status: "live",
+    live: "https://daisy.6x7.gr",
     repo: "https://github.com/philipposk/Daisy--AI-Assistant-",
     glyph: "✿",
   },
@@ -71,6 +74,8 @@ export const PROJECTS: Project[] = [
       "Many AI agents, one team. Plans, writes, ships code — with you in the loop.",
     group: "headline",
     status: "beta",
+    live: "https://aios.6x7.gr",
+    repo: "https://github.com/philipposk/AI-OS",
     glyph: "◇",
   },
   {
@@ -101,7 +106,7 @@ export const PROJECTS: Project[] = [
     tagline: "A workspace for the messy middle of research papers.",
     group: "productivity",
     status: "beta",
-    live: "https://paper_assistant.6x7.gr",
+    live: "https://paperassistant.6x7.gr",
     repo: "https://github.com/philipposk/PaperAssistant",
     glyph: "▤",
   },
@@ -111,7 +116,7 @@ export const PROJECTS: Project[] = [
     tagline: "Your research projects, finally in one place.",
     group: "productivity",
     status: "wip",
-    live: "https://projecthub.6x7.gr",
+    comingSoon: true,
     glyph: "▦",
   },
   {
@@ -139,7 +144,7 @@ export const PROJECTS: Project[] = [
     name: "Postbox",
     tagline: "An inbox that respects you back.",
     group: "productivity",
-    status: "wip",
+    status: "beta",
     live: "https://postbox.6x7.gr",
     glyph: "✉",
   },
@@ -155,20 +160,13 @@ export const PROJECTS: Project[] = [
     glyph: "◍",
   },
   {
-    slug: "mixmaster",
-    name: "MixMaster AI",
-    tagline: "AI that hears your tracks and knows the next transition.",
-    group: "creator",
-    status: "beta",
-    glyph: "◊",
-  },
-  {
     slug: "websitecreator",
     name: "WebsiteCreator",
     tagline: "Sketch a site. Get a site.",
     group: "creator",
     status: "wip",
     live: "https://websitecreator.6x7.gr",
+    repo: "https://github.com/philipposk/WebsiteCreator",
     glyph: "▢",
   },
   {
@@ -177,6 +175,7 @@ export const PROJECTS: Project[] = [
     tagline: "Vibe-code small web apps with Groq.",
     group: "creator",
     status: "beta",
+    live: "https://appmaker.6x7.gr",
     repo: "https://github.com/philipposk/AppMaker-vibecode",
     glyph: "◰",
   },
@@ -191,12 +190,14 @@ export const PROJECTS: Project[] = [
     glyph: "▩",
   },
   {
-    slug: "recordly",
-    name: "Recordly",
-    tagline: "Open-source screen recorder for walkthroughs and demos.",
+    slug: "harness",
+    name: "Harness",
+    tagline: "Generate AGENTS.md, CLAUDE.md, rules & MCP bundles for any harness.",
     group: "creator",
     status: "beta",
-    glyph: "●",
+    live: "https://harness.6x7.gr",
+    repo: "https://github.com/philipposk/harness-forge",
+    glyph: "⛭",
   },
 
   // Health & learning
@@ -208,6 +209,7 @@ export const PROJECTS: Project[] = [
     group: "health",
     status: "beta",
     live: "https://digestive.6x7.gr",
+    repo: "https://github.com/philipposk/Digestive-Diary",
     glyph: "◉",
   },
   {
@@ -217,6 +219,7 @@ export const PROJECTS: Project[] = [
     group: "health",
     status: "beta",
     live: "https://smoking.6x7.gr",
+    repo: "https://github.com/philipposk/smoking-app",
     glyph: "◌",
   },
   {
@@ -261,12 +264,23 @@ export const PROJECTS: Project[] = [
 
   // Work in progress / external
   {
+    slug: "bestflight",
+    name: "BestFlight",
+    tagline: "AI flight search that finds connecting routes other sites miss.",
+    group: "wip",
+    status: "beta",
+    live: "https://bestflight.6x7.gr",
+    repo: "https://github.com/philipposk/BestFlight",
+    glyph: "⬡",
+  },
+  {
     slug: "travel",
     name: "Travel",
     tagline: "An AI that actually helps you go somewhere.",
     group: "wip",
     status: "wip",
     live: "https://travel.6x7.gr",
+    repo: "https://github.com/philipposk/Travel",
     glyph: "◬",
   },
   {
@@ -281,7 +295,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: "photo-ranker",
-    name: "Photo Ranker",
+    name: "PickaPic",
     tagline: "Rank, cluster, and caption your photo library.",
     group: "wip",
     status: "wip",
@@ -294,7 +308,7 @@ export const PROJECTS: Project[] = [
     tagline: "Booking, chat, finance — built for salon teams.",
     group: "wip",
     status: "wip",
-    live: "https://salon.6x7.gr",
+    repo: "https://github.com/philipposk/SalonApp",
     glyph: "▨",
   },
   {
@@ -303,16 +317,8 @@ export const PROJECTS: Project[] = [
     tagline: "Where clients find salons and salons find clients.",
     group: "wip",
     status: "wip",
-    live: "https://salonmarketplace.6x7.gr",
+    repo: "https://github.com/philipposk/SalonMarketplace",
     glyph: "◑",
-  },
-  {
-    slug: "strive",
-    name: "Strive (Ventures suite)",
-    tagline: "Private-company intelligence. Dashboards, pipelines, alerts.",
-    group: "wip",
-    status: "live",
-    glyph: "◭",
   },
   {
     slug: "dimitris-site",
@@ -321,6 +327,7 @@ export const PROJECTS: Project[] = [
     group: "wip",
     status: "live",
     live: "https://phasma.6x7.gr",
+    repo: "https://github.com/philipposk/Phasma-Website",
     glyph: "▱",
   },
 
@@ -331,36 +338,8 @@ export const PROJECTS: Project[] = [
     tagline: "Rotate across free-tier LLMs when one rate-limits you.",
     group: "infra",
     status: "live",
+    repo: "https://github.com/philipposk/llm-free-rotator",
     glyph: "◎",
-  },
-  {
-    slug: "telegram-mcp",
-    name: "telegram-mcp",
-    tagline: "Claude ↔ Telegram, via MCP.",
-    group: "infra",
-    status: "live",
-    repo: "https://github.com/philipposk/telegram-mcp",
-    glyph: "✈",
-  },
-  {
-    slug: "groq-agent",
-    name: "groq_agent",
-    tagline: "Tiny CLI agent with macOS screen + code execution.",
-    group: "infra",
-    status: "beta",
-    glyph: "▷",
-  },
-
-  // Meta
-  {
-    slug: "6x7",
-    name: "6x7.gr",
-    tagline: "This site. Open source, animated, slightly alive.",
-    group: "this",
-    status: "live",
-    repo: "https://github.com/philipposk/6x7.gr",
-    live: "https://6x7.gr",
-    glyph: "✸",
   },
 ];
 
@@ -372,9 +351,11 @@ const STATUS_ORDER: Record<ProjectStatus, number> = {
 };
 
 export function projectsByGroup(group: ProjectGroup) {
-  return PROJECTS.filter((p) => p.group === group).sort(
-    (a, b) => STATUS_ORDER[a.status] - STATUS_ORDER[b.status],
-  );
+  return PROJECTS.filter((p) => p.group === group).sort((a, b) => {
+    // Coming-soon cards always sink to the bottom of their group.
+    if (!!a.comingSoon !== !!b.comingSoon) return a.comingSoon ? 1 : -1;
+    return STATUS_ORDER[a.status] - STATUS_ORDER[b.status];
+  });
 }
 
 export function projectBySlug(slug: string) {
