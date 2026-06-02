@@ -54,6 +54,7 @@ export const PROJECTS: Project[] = [
     group: "headline",
     status: "beta",
     live: "https://cosmo.6x7.gr",
+    repo: "https://github.com/philipposk/cosmo",
     glyph: "✦",
   },
   {
@@ -146,6 +147,7 @@ export const PROJECTS: Project[] = [
     group: "productivity",
     status: "beta",
     live: "https://postbox.6x7.gr",
+    repo: "https://github.com/philipposk/postbox",
     glyph: "✉",
   },
 
@@ -157,6 +159,7 @@ export const PROJECTS: Project[] = [
     group: "creator",
     status: "beta",
     live: "https://translator.6x7.gr",
+    repo: "https://github.com/philipposk/translator",
     glyph: "◍",
   },
   {
@@ -338,6 +341,7 @@ export const PROJECTS: Project[] = [
     tagline: "Rotate across free-tier LLMs when one rate-limits you.",
     group: "infra",
     status: "live",
+    live: "https://llm-rotator.6x7.gr",
     repo: "https://github.com/philipposk/llm-free-rotator",
     glyph: "◎",
   },
