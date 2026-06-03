@@ -345,6 +345,50 @@ export const PROJECTS: Project[] = [
     repo: "https://github.com/philipposk/llm-free-rotator",
     glyph: "◎",
   },
+  {
+    slug: "page-assistant",
+    name: "Page Assistant",
+    tagline:
+      "A talking, grounded assistant you drop into any web app — it reads the page, runs real actions, never hallucinates, and publishes an llm.txt so other agents can use your app too.",
+    group: "infra",
+    status: "live",
+    live: "https://pageassistant.6x7.gr",
+    repo: "https://github.com/philipposk/page-assistant",
+    glyph: "◉",
+  },
+  {
+    slug: "agent-feedback",
+    name: "agent-feedback",
+    tagline:
+      "A tiny universal protocol that lets LLMs, agents, and in-app assistants send improvement tickets back to the apps they use — so apps get better every time they're used.",
+    group: "infra",
+    status: "live",
+    live: "https://agentfeedback.6x7.gr",
+    repo: "https://github.com/philipposk/agent-feedback",
+    glyph: "⟲",
+  },
+  {
+    slug: "demo",
+    name: "6x7 Demo Studio",
+    tagline:
+      "Paste a live URL, get a polished demo video or screenshot grid — including two-voice product demos where an on-page assistant does the work live.",
+    group: "creator",
+    status: "live",
+    live: "https://demo.6x7.gr",
+    repo: "https://github.com/philipposk/6x7-demo-platform",
+    glyph: "▶",
+  },
+  {
+    slug: "screenshot-grid",
+    name: "Screenshot Grid",
+    tagline:
+      "Screenshot any list of web apps and build a clickable grid. No API keys, no cost — Playwright-based and reusable.",
+    group: "creator",
+    status: "live",
+    live: "https://screenshotgrid.6x7.gr",
+    repo: "https://github.com/philipposk/screenshot-grid",
+    glyph: "▦",
+  },
 ];
 
 const STATUS_ORDER: Record<ProjectStatus, number> = {
