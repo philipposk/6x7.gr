@@ -15,11 +15,18 @@ export function Hero() {
           transition={{ duration: 0.5 }}
           className="text-5xl md:text-7xl font-semibold tracking-tight leading-[0.95] text-[var(--fg)]"
         >
-          Filippos Ktistakis
+          PhD Solutions
         </motion.h1>
+        <p className="mt-3 text-lg md:text-xl text-[var(--fg)] font-medium tracking-tight">
+          <span className="text-[var(--accent)]">Ph</span>ilippos{" "}
+          <span className="text-[var(--accent)]">D</span>imitrios Ktistakis
+        </p>
         <p className="mt-6 text-base md:text-lg text-[var(--fg-muted)] max-w-xl leading-relaxed">
-          Independent software engineer in Athens. Thirty-something side
-          projects below — most are free, all are mine.
+          MSc Computational Physics. I solve problems end to end: idea →
+          workflow → shipped product. Browse them below.
+        </p>
+        <p className="mt-3 text-sm text-[var(--fg-muted)] max-w-xl leading-relaxed">
+          Open to AI-engineering roles and consulting work.
         </p>
         <div className="mt-10 flex flex-wrap gap-3">
           <a
@@ -32,7 +39,7 @@ export function Hero() {
             href="#contact"
             className="px-5 py-2.5 rounded-full border border-[var(--border)] text-sm font-medium hover:bg-white/5 transition text-[var(--fg)]"
           >
-            Contact
+            Work with me
           </a>
         </div>
       </div>
