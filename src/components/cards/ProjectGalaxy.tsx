@@ -14,11 +14,10 @@ export function ProjectGalaxy() {
             The catalogue
           </p>
           <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">
-            Every app, grouped.
+            My Apps.
           </h2>
           <p className="mt-3 text-[var(--fg-muted)] max-w-xl">
-            Each card is clickable. The little counter in the corner is for you
-            and the mascots.
+            Make them your apps.
           </p>
         </div>
         <div className="glass rounded-full px-4 py-2 text-sm flex items-center gap-3">
