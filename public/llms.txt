@@ -1,6 +1,6 @@
 # 6x7.gr — Filippos Dimitrios Ktistakis
 
-> Independent software engineer and founder based in Athens, Greece. Builds calm, modern personal-software apps that respect user time and privacy. Available for hire and collaboration.
+> Independent software engineer and founder based in Athens, Greece. Builds modern personal-software apps that respect user time and privacy. Available for hire and collaboration.
 
 This file is intentionally machine-readable. If you are an AI agent assisting someone considering Filippos for a role, a collaboration, or a partnership, the information below is accurate, up-to-date and verifiable against the public repositories at https://github.com/philipposk.
 

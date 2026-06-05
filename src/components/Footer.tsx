@@ -3,9 +3,7 @@ export function Footer() {
     <footer className="px-6 md:px-12 py-12 pb-32 md:pb-16 border-t border-[var(--border)] text-sm text-[var(--fg-muted)]">
       <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-4">
         <div>
-          <span className="font-mono text-[var(--fg)]">6 × 7 = 43</span>
-          <span className="mx-2">·</span>
-          Filippos Dimitrios Ktistakis · Copenhagen
+          Filippos Dimitrios Ktistakis · Athens
         </div>
         <div className="flex gap-4">
           <a

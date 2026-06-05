@@ -39,7 +39,7 @@ export const PROJECTS: Project[] = [
     slug: "lifehub",
     name: "LifeHub",
     tagline:
-      "The calm dashboard above your life and your tools — so you stop losing things.",
+      "A dashboard above your life and your tools — so you stop losing things.",
     group: "headline",
     status: "beta",
     live: "https://lifehub.6x7.gr",

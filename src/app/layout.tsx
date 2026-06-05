@@ -21,20 +21,20 @@ export const metadata: Metadata = {
     template: "%s · 6x7",
   },
   description:
-    "Filippos Ktistakis builds calm, modern apps: LifeHub, Cosmo, Daisy, AI OS, and 30+ more. Available for hire.",
+    "Filippos Ktistakis — independent software engineer in Athens. 30+ side projects: LifeHub, Cosmo, Daisy, AI OS, Praiser, and more.",
   openGraph: {
     type: "website",
     url: "https://6x7.gr",
     title: "6x7 — Filippos Ktistakis",
     description:
-      "Calm, modern apps. LifeHub, Cosmo, Daisy, AI OS, and 30+ more.",
+      "30+ side projects by Filippos Ktistakis. LifeHub, Cosmo, Daisy, AI OS, and more.",
     siteName: "6x7",
   },
   twitter: {
     card: "summary_large_image",
     title: "6x7 — Filippos Ktistakis",
     description:
-      "Calm, modern apps. LifeHub, Cosmo, Daisy, AI OS, and 30+ more.",
+      "30+ side projects by Filippos Ktistakis. LifeHub, Cosmo, Daisy, AI OS, and more.",
   },
 };
 
@@ -55,7 +55,7 @@ const personSchema = {
   ],
   jobTitle: "Independent software engineer & founder",
   description:
-    "Builds calm, modern personal-software apps that respect privacy and reduce app-switching. Headline projects: LifeHub, Cosmo, Daisy, AI OS, Praiser.",
+    "Independent software engineer in Athens. Personal-software side projects that respect privacy and reduce app-switching. Headline projects: LifeHub, Cosmo, Daisy, AI OS, Praiser.",
   knowsAbout: [
     "Personal software",
     "AI agents",

@@ -99,7 +99,6 @@ export function MascotDock() {
           milestonesRef.current.add(m);
           const line = pakoLineForCount(m, opened);
           if (line) setPakoLine(line);
-          if (m === 10) fireConfetti();
         }
       }
     }, 0);
@@ -162,17 +161,3 @@ export function MascotDock() {
   );
 }
 
-async function fireConfetti() {
-  if (typeof window === "undefined") return;
-  try {
-    const mod = await import("canvas-confetti");
-    const confetti = mod.default;
-    const end = Date.now() + 1200;
-    const colors = ["#c7f25b", "#e8eaef"];
-    (function frame() {
-      confetti({ particleCount: 4, angle: 60, spread: 55, origin: { x: 0 }, colors });
-      confetti({ particleCount: 4, angle: 120, spread: 55, origin: { x: 1 }, colors });
-      if (Date.now() < end) requestAnimationFrame(frame);
-    })();
-  } catch {}
-}
