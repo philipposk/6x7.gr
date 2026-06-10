@@ -29,19 +29,25 @@ export function Contact() {
     const form = e.currentTarget;
     const data = new FormData(form);
     setStatus("sending");
-    const res = await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: data.get("name"),
-        email: data.get("email"),
-        message: data.get("message"),
-        honeypot: data.get("company"),
-      }),
-    });
-    const j = await res.json().catch(() => ({ ok: false }));
-    setStatus(j.ok ? "ok" : "err");
-    if (j.ok) form.reset();
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: data.get("name"),
+          email: data.get("email"),
+          message: data.get("message"),
+          honeypot: data.get("company"),
+        }),
+      });
+      const j = await res.json().catch(() => ({ ok: false }));
+      setStatus(j.ok ? "ok" : "err");
+      if (j.ok) form.reset();
+    } catch {
+      // Network failure (offline, blocked, server down): without this the
+      // button would stay on "Sending…" forever.
+      setStatus("err");
+    }
   };
 
   const copyEmail = async () => {

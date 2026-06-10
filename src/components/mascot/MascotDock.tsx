@@ -93,25 +93,44 @@ export function MascotDock() {
   useEffect(() => {
     if (count === 0) return;
     const milestones = [3, 5, 10, 20];
+    const controller = new AbortController();
     const id = window.setTimeout(() => {
       for (const m of milestones) {
         if (count >= m && !milestonesRef.current.has(m)) {
           milestonesRef.current.add(m);
           const line = pakoLineForCount(m, opened);
           if (line) setPakoLine(line);
+          // Canned line shows instantly; if the Groq-backed route answers,
+          // swap in the smarter line. Falls back silently on any failure.
+          fetch("/api/pako", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ openedSlugs: opened }),
+            signal: controller.signal,
+          })
+            .then((r) => (r.ok ? r.json() : null))
+            .then((j) => {
+              const reply = j?.reply?.trim();
+              if (reply && reply !== line) setPakoLine(reply);
+            })
+            .catch(() => {});
         }
       }
     }, 0);
-    return () => window.clearTimeout(id);
+    return () => {
+      window.clearTimeout(id);
+      controller.abort();
+    };
   }, [count, opened]);
 
   const [pipoLine, setPipoLine] = useState<string>("");
   const pipoSeenRef = useRef<Set<number>>(new Set());
 
+  // 4.5s after pako's hello so the two voices don't talk over each other.
   useEffect(() => {
     const id = window.setTimeout(
       () => setPipoLine(PIPO_HELLO(PROJECTS.length)),
-      1800,
+      4500,
     );
     return () => window.clearTimeout(id);
   }, []);
@@ -122,8 +141,26 @@ export function MascotDock() {
     const line = pipoLineForCount(count, PROJECTS.length);
     if (!line) return;
     pipoSeenRef.current.add(count);
-    setPipoLine(line);
+    const id = window.setTimeout(() => setPipoLine(line), 0);
+    return () => window.clearTimeout(id);
   }, [count]);
+
+  // Bubbles dismiss themselves after a beat instead of sitting on top of the
+  // page forever (they covered the lower cards on mobile). Clearing the same
+  // state the effect watches is intentional: "" short-circuits the rerun.
+  useEffect(() => {
+    if (!pakoLine) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- deferred via timeout; empty value stops the loop
+    const id = window.setTimeout(() => setPakoLine(""), 12_000);
+    return () => window.clearTimeout(id);
+  }, [pakoLine]);
+
+  useEffect(() => {
+    if (!pipoLine) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- deferred via timeout; empty value stops the loop
+    const id = window.setTimeout(() => setPipoLine(""), 10_000);
+    return () => window.clearTimeout(id);
+  }, [pipoLine]);
 
   return (
     <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-2 pointer-events-none max-w-[calc(100vw-2rem)]">

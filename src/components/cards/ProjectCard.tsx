@@ -70,24 +70,24 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
       <p className="text-sm text-[var(--fg-muted)] leading-relaxed flex-1">
         {project.tagline}
       </p>
-
-      {/* GitHub link — bottom-right, opens the repo without triggering the card */}
-      {project.repo && (
-        <button
-          type="button"
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            window.open(project.repo, "_blank", "noopener,noreferrer");
-          }}
-          className="absolute bottom-4 right-4 p-1.5 rounded-full text-[var(--fg-muted)] hover:text-[var(--fg)] hover:bg-white/5 transition"
-          aria-label={`${project.name} on GitHub`}
-        >
-          <GhIcon size={15} />
-        </button>
-      )}
     </div>
   );
+
+  // GitHub link — bottom-right corner of the card. Rendered as a sibling of
+  // the card link (not inside it): nesting interactive elements inside an
+  // <a> is invalid HTML and confuses screen readers.
+  const ghButton = project.repo ? (
+    <button
+      type="button"
+      onClick={() =>
+        window.open(project.repo, "_blank", "noopener,noreferrer")
+      }
+      className="absolute bottom-4 right-4 z-10 p-1.5 rounded-full text-[var(--fg-muted)] hover:text-[var(--fg)] hover:bg-white/5 transition"
+      aria-label={`${project.name} on GitHub`}
+    >
+      <GhIcon size={15} />
+    </button>
+  ) : null;
 
   const wrapClass =
     "group relative block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]";
@@ -95,29 +95,37 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
   if (!clickable) {
     // Coming-soon (or link-less) card: not clickable, no navigation.
     return (
-      <motion.div
-        transition={{ duration: 0.25 }}
-        style={{ animationDelay: `${Math.min(index * 0.04, 0.4)}s` }}
-        className={`${wrapClass} cursor-default opacity-70`}
-        aria-disabled
-      >
-        {inner}
-      </motion.div>
+      <div className="relative">
+        <motion.div
+          transition={{ duration: 0.25 }}
+          style={{ animationDelay: `${Math.min(index * 0.04, 0.4)}s` }}
+          className={`${wrapClass} cursor-default opacity-70`}
+          aria-disabled
+        >
+          {inner}
+        </motion.div>
+        {ghButton}
+      </div>
     );
   }
 
   return (
-    <motion.a
-      href={primary}
-      target={isExternal ? "_blank" : undefined}
-      rel={isExternal ? "noopener noreferrer" : undefined}
-      onClick={() => open(project.slug)}
+    <motion.div
       whileHover={{ y: -4 }}
       transition={{ duration: 0.25 }}
       style={{ animationDelay: `${Math.min(index * 0.04, 0.4)}s` }}
-      className={wrapClass}
+      className="relative h-full"
     >
-      {inner}
-    </motion.a>
+      <a
+        href={primary}
+        target={isExternal ? "_blank" : undefined}
+        rel={isExternal ? "noopener noreferrer" : undefined}
+        onClick={() => open(project.slug)}
+        className={`${wrapClass} h-full`}
+      >
+        {inner}
+      </a>
+      {ghButton}
+    </motion.div>
   );
 }

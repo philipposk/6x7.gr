@@ -261,7 +261,7 @@ export const PROJECTS: Project[] = [
     name: "Lesvos Terrain",
     tagline: "DEM terrain of Lesvos island, ready to drop into Unity.",
     group: "games",
-    status: "live",
+    status: "archived",
     glyph: "△",
   },
 

@@ -33,7 +33,7 @@ export function AuthButton() {
   if (!ready) return null;
 
   return (
-    <div className="fixed right-4 top-4 z-50">
+    <div className="absolute right-4 top-4 z-50">
       {user ? (
         <div className="flex items-center gap-3 rounded-full border border-neutral-700 bg-neutral-900/80 px-3 py-1.5 text-sm backdrop-blur">
           <span className="max-w-[12rem] truncate text-neutral-200">

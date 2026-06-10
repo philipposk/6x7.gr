@@ -1,9 +1,14 @@
 import { NextRequest } from "next/server";
 import { Resend } from "resend";
+import { rateLimit, clientIp, tooMany } from "@/lib/rateLimit";
 
 export const runtime = "nodejs";
 
 export async function POST(req: NextRequest) {
+  // 5 messages per 10 minutes per IP — protects the Resend quota and inbox.
+  const rl = rateLimit(`contact:${clientIp(req)}`, 5, 10 * 60_000);
+  if (!rl.ok) return tooMany(rl.retryAfterSec);
+
   let body: { name?: string; email?: string; message?: string; honeypot?: string };
   try {
     body = await req.json();

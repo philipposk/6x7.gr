@@ -1,14 +1,40 @@
 "use client";
 
-import { GROUPS, PROJECTS, projectsByGroup } from "@/data/projects";
+import { useMemo, useState } from "react";
+import { GROUPS, PROJECTS, projectsByGroup, ProjectStatus } from "@/data/projects";
 import { ProjectCard } from "./ProjectCard";
 import { useOpenedProjects } from "@/lib/useOpenedProjects";
 
+const STATUS_FILTERS: { id: ProjectStatus | "all"; label: string }[] = [
+  { id: "all", label: "All" },
+  { id: "live", label: "Live" },
+  { id: "beta", label: "Beta" },
+  { id: "wip", label: "WIP" },
+];
+
 export function ProjectGalaxy() {
   const { count } = useOpenedProjects();
+  const [query, setQuery] = useState("");
+  const [status, setStatus] = useState<ProjectStatus | "all">("all");
+
+  const matches = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return (slugList: ReturnType<typeof projectsByGroup>) =>
+      slugList.filter((p) => {
+        if (status !== "all" && p.status !== status) return false;
+        if (!q) return true;
+        return (
+          p.name.toLowerCase().includes(q) ||
+          p.tagline.toLowerCase().includes(q)
+        );
+      });
+  }, [query, status]);
+
+  const anyVisible = GROUPS.some((g) => matches(projectsByGroup(g.id)).length);
+
   return (
     <section id="galaxy" className="relative px-6 md:px-12 py-24">
-      <div className="mb-12 flex items-end justify-between gap-6 flex-wrap">
+      <div className="mb-8 flex items-end justify-between gap-6 flex-wrap">
         <div>
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--fg-muted)] mb-3">
             The catalogue
@@ -28,9 +54,37 @@ export function ProjectGalaxy() {
         </div>
       </div>
 
+      <div className="mb-12 flex items-center gap-3 flex-wrap">
+        <input
+          type="search"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search the apps…"
+          aria-label="Search apps by name or description"
+          className="glass rounded-full px-4 py-2 text-sm w-full sm:w-64 outline-none focus:border-[var(--accent)] placeholder:text-[var(--fg-muted)]"
+        />
+        <div className="flex items-center gap-1.5">
+          {STATUS_FILTERS.map((f) => (
+            <button
+              key={f.id}
+              type="button"
+              onClick={() => setStatus(f.id)}
+              aria-pressed={status === f.id}
+              className={`px-3 py-1.5 rounded-full text-xs transition border ${
+                status === f.id
+                  ? "bg-[var(--fg)] text-black border-transparent font-medium"
+                  : "border-[var(--border)] text-[var(--fg-muted)] hover:text-[var(--fg)]"
+              }`}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div className="flex flex-col gap-16">
         {GROUPS.map((g) => {
-          const items = projectsByGroup(g.id);
+          const items = matches(projectsByGroup(g.id));
           if (!items.length) return null;
           return (
             <div key={g.id}>
@@ -48,6 +102,11 @@ export function ProjectGalaxy() {
             </div>
           );
         })}
+        {!anyVisible && (
+          <p className="text-[var(--fg-muted)] text-sm">
+            Nothing matches “{query}”. Try a shorter word, or clear the filter.
+          </p>
+        )}
       </div>
     </section>
   );

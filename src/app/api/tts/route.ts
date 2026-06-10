@@ -3,8 +3,11 @@ import { promises as fs } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import crypto from "node:crypto";
+import { rateLimit, clientIp, tooMany } from "@/lib/rateLimit";
 
 export const runtime = "nodejs";
+// edge-tts retries can take longer than Vercel's 10s default function window.
+export const maxDuration = 30;
 
 // Mascot voices via Microsoft Edge neural TTS (free, no API key).
 // Voice list: https://github.com/rany2/edge-tts (Multilingual neural voices).
@@ -22,13 +25,23 @@ const VOICE: Record<string, { voice: string; rate: string; pitch: string }> = {
   },
 };
 
+// The text is interpolated into an SSML document by node-edge-tts; strip XML
+// metacharacters so visitors can't inject SSML tags through the request body.
+function sanitizeForSsml(text: string): string {
+  return text.replace(/[<>&'"]/g, " ").replace(/\s+/g, " ").trim();
+}
+
 export async function POST(req: NextRequest) {
+  const rl = rateLimit(`tts:${clientIp(req)}`, 20, 60_000);
+  if (!rl.ok) return tooMany(rl.retryAfterSec);
+
   const { text, kind } = (await req.json().catch(() => ({}))) as {
     text?: string;
     kind?: string;
   };
 
-  if (!text?.trim()) return new Response(null, { status: 204 });
+  const clean = sanitizeForSsml((text ?? "").slice(0, 300));
+  if (!clean) return new Response(null, { status: 204 });
 
   const cfg = VOICE[kind ?? "pako"] ?? VOICE.pako;
 
@@ -59,28 +72,24 @@ export async function POST(req: NextRequest) {
     timeout: 12000,
   });
 
-  const outPath = path.join(
-    tmpdir(),
-    `tts-${crypto.randomUUID()}.mp3`,
-  );
-
-  // Edge endpoint is unofficial — small retry helps reliability.
-  let lastErr: unknown = null;
-  for (let attempt = 0; attempt < 2; attempt++) {
-    try {
-      await tts.ttsPromise(text.slice(0, 300), outPath);
-      lastErr = null;
-      break;
-    } catch (e) {
-      lastErr = e;
-      await new Promise((r) => setTimeout(r, 600));
-    }
-  }
-  if (lastErr) return new Response(null, { status: 204 });
+  const outPath = path.join(tmpdir(), `tts-${crypto.randomUUID()}.mp3`);
 
   try {
+    // Edge endpoint is unofficial — small retry helps reliability.
+    let lastErr: unknown = null;
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        await tts.ttsPromise(clean, outPath);
+        lastErr = null;
+        break;
+      } catch (e) {
+        lastErr = e;
+        await new Promise((r) => setTimeout(r, 600));
+      }
+    }
+    if (lastErr) return new Response(null, { status: 204 });
+
     const buf = await fs.readFile(outPath);
-    await fs.unlink(outPath).catch(() => {});
     return new Response(new Uint8Array(buf), {
       headers: {
         "Content-Type": "audio/mpeg",
@@ -89,5 +98,7 @@ export async function POST(req: NextRequest) {
     });
   } catch {
     return new Response(null, { status: 204 });
+  } finally {
+    await fs.unlink(outPath).catch(() => {});
   }
 }

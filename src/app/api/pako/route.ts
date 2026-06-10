@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import { PROJECTS } from "@/data/projects";
 import { readFile } from "fs/promises";
 import path from "path";
+import { rateLimit, clientIp, tooMany } from "@/lib/rateLimit";
 
 export const runtime = "nodejs";
 
@@ -11,6 +12,10 @@ async function getPrompt() {
 }
 
 export async function POST(req: NextRequest) {
+  // Protects the shared Groq free-tier quota from being drained by one IP.
+  const rl = rateLimit(`pako:${clientIp(req)}`, 30, 60_000);
+  if (!rl.ok) return tooMany(rl.retryAfterSec);
+
   const body = (await req.json().catch(() => ({}))) as {
     openedSlugs?: string[];
     section?: string;

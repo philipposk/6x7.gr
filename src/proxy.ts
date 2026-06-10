@@ -43,7 +43,10 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
+  // /api routes are excluded: none of them read the session, so refreshing
+  // the auth cookie there only adds a Supabase round-trip to every mascot,
+  // TTS, and contact call. /auth/callback is a page route and stays covered.
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)",
+    "/((?!api/|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)",
   ],
 };
