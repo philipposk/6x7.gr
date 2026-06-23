@@ -54,7 +54,7 @@ export const PROJECTS: Project[] = [
     group: "headline",
     status: "beta",
     live: "https://cosmo.6x7.gr",
-    repo: "https://github.com/philipposk/cosmo",
+    repo: "https://github.com/philipposk/cosmo-frontend",
     glyph: "✦",
   },
   {
@@ -161,6 +161,17 @@ export const PROJECTS: Project[] = [
     live: "https://translator.6x7.gr",
     repo: "https://github.com/philipposk/translator",
     glyph: "◍",
+  },
+  {
+    slug: "transcriber",
+    name: "Transcriber",
+    tagline:
+      "Drop in a meeting recording — get a speaker-labeled transcript, notes split by project, and editable tickets. Click any word to hear it.",
+    group: "creator",
+    status: "live",
+    live: "https://transcriber.6x7.gr",
+    repo: "https://github.com/philipposk/transcriber",
+    glyph: "◖",
   },
   {
     slug: "websitecreator",
