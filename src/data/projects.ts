@@ -246,6 +246,17 @@ export const PROJECTS: Project[] = [
     repo: "https://github.com/philipposk/School",
     glyph: "▽",
   },
+  {
+    slug: "psycscope",
+    name: "PsycScope",
+    tagline:
+      "Screen 32 well-known psychological disorders — self-report plus optional AI. Screening only, not diagnosis.",
+    group: "health",
+    status: "live",
+    live: "https://psyc.6x7.gr",
+    repo: "https://github.com/philipposk/psycscope",
+    glyph: "Ψ",
+  },
 
   // Games
   {
