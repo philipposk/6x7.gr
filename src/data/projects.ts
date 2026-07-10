@@ -194,6 +194,16 @@ export const PROJECTS: Project[] = [
     glyph: "◰",
   },
   {
+    slug: "vibecoders-studio",
+    name: "Vibecoders Studio",
+    tagline: "Full AI app builder — streaming codegen, live preview, tests, export.",
+    group: "creator",
+    status: "beta",
+    live: "https://studio.6x7.gr",
+    repo: "https://github.com/philipposk/appmaker-studio",
+    glyph: "◳",
+  },
+  {
     slug: "appblueprints",
     name: "AppBlueprints",
     tagline: "create-react-app, but for your AI coding setup.",
