@@ -174,6 +174,17 @@ export const PROJECTS: Project[] = [
     glyph: "◖",
   },
   {
+    slug: "riffscribe",
+    name: "Riffscribe",
+    tagline:
+      "Drop in a song — get the sheet music and the tab, mute the singer, slow it down without dropping the pitch, and record yourself over the top.",
+    group: "creator",
+    status: "live",
+    live: "https://riff.6x7.gr",
+    repo: "https://github.com/philipposk/riffscribe",
+    glyph: "♪",
+  },
+  {
     slug: "websitecreator",
     name: "WebsiteCreator",
     tagline: "Sketch a site. Get a site.",
