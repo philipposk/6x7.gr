@@ -279,6 +279,17 @@ export const PROJECTS: Project[] = [
     repo: "https://github.com/philipposk/psycscope",
     glyph: "Ψ",
   },
+  {
+    slug: "skinscan",
+    name: "SkinScan",
+    tagline:
+      "Photograph a mole, pin it on a 3D body map, and see what it does over months. Records and describes — never diagnoses.",
+    group: "health",
+    status: "beta",
+    live: "https://skinscan.6x7.gr",
+    repo: "https://github.com/philipposk/skinscan",
+    glyph: "◎",
+  },
 
   // Games
   {
