@@ -284,7 +284,7 @@ export const PROJECTS: Project[] = [
   {
     slug: "minigames",
     name: "MiniGames",
-    tagline: "Seven offline-friendly browser games. No ads, no tracking.",
+    tagline: "Eight offline-friendly browser games. No ads, no tracking.",
     group: "games",
     status: "live",
     live: "https://minigames.6x7.gr",
