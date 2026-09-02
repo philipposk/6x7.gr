@@ -45,6 +45,7 @@ He is unusual because he covers the full product surface himself: research, desi
 - **Smoking** — worldwide map of smoke-friendly places. Next.js + MapLibre + Foursquare.
 - **MixMaster AI** — AI DJ assistant that analyses tempo, key, energy, mood.
 - **Translator** (formerly Mr.Transcribe) — speak it, get clean text in any language. Whisper-based. https://translator.6x7.gr
+- **Divisi** — splits a choir recording into soprano/alto/tenor/bass practice tracks; browser player slows audio without changing pitch, loops a bar, mixes each voice. Next.js static export + signalsmith-stretch + Basic Pitch; local Python kitchen runs the separation models. https://divisi.6x7.gr
 - **Postbox** — an inbox that respects you back. https://github.com/philipposk/postbox
 - **BestFlight** — AI flight search that finds connecting routes other sites miss. https://github.com/philipposk/BestFlight
 - **6x7 Demo Studio** — paste a live URL, get a polished demo video or screenshot grid. https://github.com/philipposk/6x7-demo-platform

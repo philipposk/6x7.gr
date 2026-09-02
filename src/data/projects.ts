@@ -174,6 +174,17 @@ export const PROJECTS: Project[] = [
     glyph: "◖",
   },
   {
+    slug: "divisi",
+    name: "Divisi",
+    tagline:
+      "Split a choir recording into soprano, alto, tenor and bass practice tracks — hear your own line, slow it down without going flat, loop the bar nobody can sing yet.",
+    group: "creator",
+    status: "live",
+    live: "https://divisi.6x7.gr",
+    repo: "https://github.com/philipposk/divisi",
+    glyph: "𝄞",
+  },
+  {
     slug: "riffscribe",
     name: "Riffscribe",
     tagline:
