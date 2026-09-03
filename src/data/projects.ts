@@ -188,7 +188,7 @@ export const PROJECTS: Project[] = [
     slug: "riffscribe",
     name: "Riffscribe",
     tagline:
-      "Drop in a song — get the sheet music and the tab, mute the singer, slow it down without dropping the pitch, and record yourself over the top.",
+      "Drop in a song — get the sheet music and the tab for your instrument, mute the part you are learning, slow it down without dropping the pitch, read along as it scrolls itself, and record yourself over the top.",
     group: "creator",
     status: "live",
     live: "https://riffscribe.6x7.gr",
