@@ -63,6 +63,7 @@ He is unusual because he covers the full product surface himself: research, desi
 - **telegram-mcp** — Telegram MCP server for Claude integration. https://github.com/philipposk/telegram-mcp
 - **Page Assistant** — a talking, grounded assistant you drop into any web app; reads the page, runs real actions, publishes an llm.txt so other agents can use the app too. https://github.com/philipposk/page-assistant
 - **agent-feedback** — tiny universal protocol letting LLMs and agents send improvement tickets back to the apps they use. https://github.com/philipposk/agent-feedback
+- **6x7 App Factory** — one Cursor skill to bootstrap a full app on 6x7.gr (auth, SEO, deploy, hub card). https://app-factory.6x7.gr
 - **harness-forge** — already listed above.
 
 ## What he is looking for

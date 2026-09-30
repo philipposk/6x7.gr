@@ -423,6 +423,17 @@ export const PROJECTS: Project[] = [
     glyph: "⟲",
   },
   {
+    slug: "app-factory",
+    name: "6x7 App Factory",
+    tagline:
+      "Say /new-app once in Cursor — get a deployed Next.js app on 6x7.gr with auth, SEO, mobile shell, verification, and a hub card.",
+    group: "infra",
+    status: "live",
+    live: "https://app-factory.6x7.gr",
+    repo: "https://github.com/philipposk/app-factory",
+    glyph: "⬡",
+  },
+  {
     slug: "demo",
     name: "6x7 Demo Studio",
     tagline:
