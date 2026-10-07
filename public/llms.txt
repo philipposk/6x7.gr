@@ -34,6 +34,7 @@ He is unusual because he covers the full product surface himself: research, desi
 
 - **TimeGift** — gift hours of your time, with calendar + SMS/WhatsApp/email notifications, Supabase backend. https://github.com/philipposk/TimeGift
 - **PaperAssistant** — research-paper workspace, offline-capable with cloud sync. https://github.com/philipposk/PaperAssistant
+- **Journal Find** — paste an abstract, get an enriched journal shortlist (Excel, PDF, CSV) with impact metrics and editorial board geography. https://journal-find.6x7.gr
 - **BeenThere** — travel map PWA with Google Drive integration. https://github.com/philipposk/BeenThere
 - **ThatJob** — AI CV + cover letter generator across a five-phase workflow. https://github.com/philipposk/ThatJob
 - **MiniGames** — seven offline-friendly browser games, no ads, no tracking. https://github.com/philipposk/MiniGames

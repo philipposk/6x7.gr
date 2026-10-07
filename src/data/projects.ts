@@ -112,6 +112,15 @@ export const PROJECTS: Project[] = [
     glyph: "▤",
   },
   {
+    slug: "journal-find",
+    name: "Journal Find",
+    tagline: "Paste your abstract — get an enriched journal shortlist (Excel, PDF, CSV).",
+    group: "productivity",
+    status: "live",
+    live: "https://journal-find.6x7.gr",
+    glyph: "◎",
+  },
+  {
     slug: "projecthub",
     name: "ProjectHub",
     tagline: "Your research projects, finally in one place.",

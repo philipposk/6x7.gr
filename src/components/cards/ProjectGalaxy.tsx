@@ -1,9 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { GROUPS, PROJECTS, projectsByGroup, ProjectStatus } from "@/data/projects";
+import { GROUPS, projectsByGroup, ProjectStatus } from "@/data/projects";
 import { ProjectCard } from "./ProjectCard";
-import { useOpenedProjects } from "@/lib/useOpenedProjects";
 
 const STATUS_FILTERS: { id: ProjectStatus | "all"; label: string }[] = [
   { id: "all", label: "All" },
@@ -13,7 +12,6 @@ const STATUS_FILTERS: { id: ProjectStatus | "all"; label: string }[] = [
 ];
 
 export function ProjectGalaxy() {
-  const { count } = useOpenedProjects();
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState<ProjectStatus | "all">("all");
 
@@ -45,12 +43,6 @@ export function ProjectGalaxy() {
           <p className="mt-3 text-[var(--fg-muted)] max-w-xl">
             Make them your apps.
           </p>
-        </div>
-        <div className="glass rounded-full px-4 py-2 text-sm flex items-center gap-3">
-          <span className="text-[var(--fg-muted)]">explored</span>
-          <span className="font-mono text-[var(--accent)]">{count}</span>
-          <span className="text-[var(--fg-muted)]">/</span>
-          <span className="font-mono">{PROJECTS.length}</span>
         </div>
       </div>
 

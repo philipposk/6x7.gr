@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { Project } from "@/data/projects";
-import { useOpenedProjects } from "@/lib/useOpenedProjects";
 
 /* ───────────────────────────────────────────────────────────────────
  * PER-CARD GLYPH COLOR  (easy to remove)
@@ -37,8 +36,6 @@ const STATUS_LABEL: Record<Project["status"], string> = {
 };
 
 export function ProjectCard({ project, index }: { project: Project; index: number }) {
-  const { open, opened } = useOpenedProjects();
-  const isOpened = opened.includes(project.slug);
   const glyphColor = COLORED_GLYPHS ? colorFor(project.slug) : "var(--accent)";
 
   const primary = project.live ?? project.repo;
@@ -57,9 +54,6 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
         </div>
         <span className="text-[10px] uppercase tracking-widest text-[var(--fg-muted)] px-2 py-0.5 rounded-full border border-[var(--border)] whitespace-nowrap">
           {project.comingSoon ? "Coming soon" : STATUS_LABEL[project.status]}
-          {!project.comingSoon && isOpened && (
-            <span className="ml-1 text-[var(--accent)]">·seen</span>
-          )}
         </span>
       </div>
 
@@ -120,7 +114,6 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
         href={primary}
         target={isExternal ? "_blank" : undefined}
         rel={isExternal ? "noopener noreferrer" : undefined}
-        onClick={() => open(project.slug)}
         className={`${wrapClass} h-full`}
       >
         {inner}
