@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "npm run generate:llms",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "generate:llms": "node --experimental-strip-types scripts/generate-llms-txt.ts"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",

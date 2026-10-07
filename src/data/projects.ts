@@ -34,7 +34,48 @@ export const GROUPS: { id: ProjectGroup; label: string; blurb: string }[] = [
 ];
 
 export const PROJECTS: Project[] = [
-  // Headliners
+  // Headliners — Catchy, Riffscribe, Topia, Nowish first
+  {
+    slug: "catchy",
+    name: "Catchy",
+    tagline:
+      "Record a meeting on your phone or upload audio — get a speaker-labeled transcript, action notes, and an assistant that knows your projects. Click any word to hear it.",
+    group: "headline",
+    status: "live",
+    live: "https://catchy.6x7.gr",
+    repo: "https://github.com/philipposk/catchy",
+    glyph: "◖",
+  },
+  {
+    slug: "riffscribe",
+    name: "Riffscribe",
+    tagline:
+      "Drop in a song — get the sheet music and the tab for your instrument, mute the part you are learning, slow it down without dropping the pitch, and read along as it scrolls itself. Record yourself over the top and it marks the take against the part: what was flat, what was late, which bars still need the work.",
+    group: "headline",
+    status: "live",
+    live: "https://riffscribe.6x7.gr",
+    repo: "https://github.com/philipposk/riffscribe",
+    glyph: "♪",
+  },
+  {
+    slug: "topia",
+    name: "Topia",
+    tagline:
+      "Multilingual mobile guides to Samos, Lesbos and Copenhagen — hand-checked places, live events, and an AI day-planner grounded in the catalogue.",
+    group: "headline",
+    status: "live",
+    live: "https://topia.6x7.gr",
+    glyph: "◬",
+  },
+  {
+    slug: "nowish",
+    name: "Nowish",
+    tagline: "What's on near you, right now — events and open places within walking distance.",
+    group: "headline",
+    status: "live",
+    live: "https://nowish.6x7.gr",
+    glyph: "◷",
+  },
   {
     slug: "lifehub",
     name: "LifeHub",
@@ -159,6 +200,16 @@ export const PROJECTS: Project[] = [
     repo: "https://github.com/philipposk/postbox",
     glyph: "✉",
   },
+  {
+    slug: "daybook",
+    name: "Daybook",
+    tagline:
+      "A shared book of the day's takings, expenses and profit — one person files the register, everyone sees it on their phone.",
+    group: "productivity",
+    status: "live",
+    live: "https://daybook.6x7.gr",
+    glyph: "▥",
+  },
 
   // Creator tools
   {
@@ -172,17 +223,6 @@ export const PROJECTS: Project[] = [
     glyph: "◍",
   },
   {
-    slug: "transcriber",
-    name: "Transcriber",
-    tagline:
-      "Drop in a meeting recording — get a speaker-labeled transcript, notes split by project, and editable tickets. Click any word to hear it.",
-    group: "creator",
-    status: "live",
-    live: "https://transcriber.6x7.gr",
-    repo: "https://github.com/philipposk/transcriber",
-    glyph: "◖",
-  },
-  {
     slug: "divisi",
     name: "Divisi",
     tagline:
@@ -192,17 +232,6 @@ export const PROJECTS: Project[] = [
     live: "https://divisi.6x7.gr",
     repo: "https://github.com/philipposk/divisi",
     glyph: "𝄞",
-  },
-  {
-    slug: "riffscribe",
-    name: "Riffscribe",
-    tagline:
-      "Drop in a song — get the sheet music and the tab for your instrument, mute the part you are learning, slow it down without dropping the pitch, and read along as it scrolls itself. Record yourself over the top and it marks the take against the part: what was flat, what was late, which bars still need the work.",
-    group: "creator",
-    status: "live",
-    live: "https://riffscribe.6x7.gr",
-    repo: "https://github.com/philipposk/riffscribe",
-    glyph: "♪",
   },
   {
     slug: "websitecreator",
@@ -268,6 +297,17 @@ export const PROJECTS: Project[] = [
     glyph: "◌",
   },
   {
+    slug: "greenpert",
+    name: "Greenpert",
+    tagline:
+      "Breeding simulator and grow companion — predict cross outcomes from two strains, browse a scored library, rank pairings for a goal, and keep favourites and notes.",
+    group: "health",
+    status: "live",
+    live: "https://greenpert.6x7.gr",
+    repo: "https://github.com/philipposk/greenpert",
+    glyph: "♣",
+  },
+  {
     slug: "school",
     name: "Critical Thinking School",
     tagline: "Critical thinking, course-quality.",
@@ -329,6 +369,18 @@ export const PROJECTS: Project[] = [
     glyph: "△",
   },
 
+  // Travel & local guides
+  {
+    slug: "samos",
+    name: "Samos Companion",
+    tagline:
+      "A free four-language PWA for Samos visitors — places, events, day plans, and a direct channel for the local business behind it.",
+    group: "productivity",
+    status: "live",
+    live: "https://samos.6x7.gr",
+    glyph: "⛵",
+  },
+
   // Work in progress / external
   {
     slug: "bestflight",
@@ -388,8 +440,8 @@ export const PROJECTS: Project[] = [
     glyph: "◑",
   },
   {
-    slug: "dimitris-site",
-    name: "Pharmacist Calendar",
+    slug: "phasma",
+    name: "Phasma",
     tagline: "Annual pharmacist calendar by Phasma Promotions.",
     group: "wip",
     status: "live",
