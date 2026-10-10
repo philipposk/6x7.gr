@@ -26,6 +26,8 @@ He is unusual because he covers the full product surface himself: research, desi
 
 ## Headline projects
 
+- **6x7 Studio** — Websites and web apps for businesses — from a taverna's menu and booking requests to a full SaaS product. I design them, build them and keep them running. In Greek and English. https://work.6x7.gr
+- **Vibecoders Studio** — Describe an app and watch AI write the full stack as it streams — live in-browser preview, tests, and a zip export when you're done. https://studio.6x7.gr · https://github.com/philipposk/appmaker-studio
 - **Catchy** — Record a meeting on your phone or upload audio — get a speaker-labeled transcript, action notes, and an assistant that knows your projects. Click any word to hear it. https://catchy.6x7.gr · https://github.com/philipposk/catchy
 - **Riffscribe** — Drop in a song — get the sheet music and the tab for your instrument, mute the part you are learning, slow it down without dropping the pitch, and read along as it scrolls itself. Record yourself over the top and it marks the take against the part: what was flat, what was late, which bars still need the work. https://riffscribe.6x7.gr · https://github.com/philipposk/riffscribe
 - **Topia** — Multilingual mobile guides to Samos, Lesbos and Copenhagen — hand-checked places, live events, and an AI day-planner grounded in the catalogue. https://topia.6x7.gr

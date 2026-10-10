@@ -34,7 +34,28 @@ export const GROUPS: { id: ProjectGroup; label: string; blurb: string }[] = [
 ];
 
 export const PROJECTS: Project[] = [
-  // Headliners — Catchy, Riffscribe, Topia, EventNow first
+  // Headliners — 6x7 Studio, Vibecoders Studio, then Catchy, Riffscribe, Topia, EventNow
+  {
+    slug: "studio",
+    name: "6x7 Studio",
+    tagline:
+      "Websites and web apps for businesses — from a taverna's menu and booking requests to a full SaaS product. I design them, build them and keep them running. In Greek and English.",
+    group: "headline",
+    status: "live",
+    live: "https://work.6x7.gr",
+    glyph: "◈",
+  },
+  {
+    slug: "vibecoders-studio",
+    name: "Vibecoders Studio",
+    tagline:
+      "Describe an app and watch AI write the full stack as it streams — live in-browser preview, tests, and a zip export when you're done.",
+    group: "headline",
+    status: "beta",
+    live: "https://studio.6x7.gr",
+    repo: "https://github.com/philipposk/appmaker-studio",
+    glyph: "◳",
+  },
   {
     slug: "catchy",
     name: "Catchy",
