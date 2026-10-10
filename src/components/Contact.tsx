@@ -51,7 +51,7 @@ export function Contact() {
   };
 
   const copyEmail = async () => {
-    await navigator.clipboard.writeText("phktistakis@gmail.com");
+    await navigator.clipboard.writeText("hello@6x7.gr");
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
   };
@@ -155,7 +155,7 @@ export function Contact() {
           >
             <Mail size={20} className="text-[var(--accent)]" />
             <div className="flex-1">
-              <div className="text-sm font-medium">phktistakis@gmail.com</div>
+              <div className="text-sm font-medium">hello@6x7.gr</div>
               <div className="text-xs text-[var(--fg-muted)]">click to copy</div>
             </div>
             {copied ? <Check size={16} className="text-[var(--accent)]" /> : <Copy size={16} />}

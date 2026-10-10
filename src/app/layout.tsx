@@ -48,7 +48,7 @@ const personSchema = {
   name: "Filippos Dimitrios Ktistakis",
   alternateName: "philipposk",
   url: "https://6x7.gr",
-  email: "mailto:phktistakis@gmail.com",
+  email: "mailto:filippos@6x7.gr",
   sameAs: [
     "https://github.com/philipposk",
     "https://www.linkedin.com/in/filippos-dimitrios-ktistakis-b7b1aa242",
