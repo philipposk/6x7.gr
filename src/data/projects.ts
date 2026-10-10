@@ -34,7 +34,7 @@ export const GROUPS: { id: ProjectGroup; label: string; blurb: string }[] = [
 ];
 
 export const PROJECTS: Project[] = [
-  // Headliners — Catchy, Riffscribe, Topia, Nowish first
+  // Headliners — Catchy, Riffscribe, Topia, EventNow first
   {
     slug: "catchy",
     name: "Catchy",
@@ -68,12 +68,13 @@ export const PROJECTS: Project[] = [
     glyph: "◬",
   },
   {
-    slug: "nowish",
-    name: "Nowish",
+    slug: "eventnow",
+    name: "EventNow",
     tagline: "What's on near you, right now — events and open places within walking distance.",
     group: "headline",
     status: "live",
-    live: "https://nowish.6x7.gr",
+    live: "https://eventnow.6x7.gr",
+    repo: "https://github.com/philipposk/eventnow",
     glyph: "◷",
   },
   {

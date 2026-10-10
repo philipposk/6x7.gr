@@ -29,7 +29,7 @@ He is unusual because he covers the full product surface himself: research, desi
 - **Catchy** — Record a meeting on your phone or upload audio — get a speaker-labeled transcript, action notes, and an assistant that knows your projects. Click any word to hear it. https://catchy.6x7.gr · https://github.com/philipposk/catchy
 - **Riffscribe** — Drop in a song — get the sheet music and the tab for your instrument, mute the part you are learning, slow it down without dropping the pitch, and read along as it scrolls itself. Record yourself over the top and it marks the take against the part: what was flat, what was late, which bars still need the work. https://riffscribe.6x7.gr · https://github.com/philipposk/riffscribe
 - **Topia** — Multilingual mobile guides to Samos, Lesbos and Copenhagen — hand-checked places, live events, and an AI day-planner grounded in the catalogue. https://topia.6x7.gr
-- **Nowish** — What's on near you, right now — events and open places within walking distance. https://nowish.6x7.gr
+- **EventNow** — What's on near you, right now — events and open places within walking distance. https://eventnow.6x7.gr · https://github.com/philipposk/eventnow
 - **LifeHub** — A dashboard above your life and your tools — so you stop losing things. https://lifehub.6x7.gr · https://github.com/philipposk/LifeHub
 - **Cosmo** — A quiet creative home for stories, art, and goals — AI baked in, privacy on by default. https://cosmo.6x7.gr · https://github.com/philipposk/cosmo-frontend
 - **Daisy** — A polite voice assistant that lives on your Mac and gets things done without nagging. https://daisy.6x7.gr · https://github.com/philipposk/Daisy--AI-Assistant-
