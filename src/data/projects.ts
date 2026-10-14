@@ -298,6 +298,16 @@ export const PROJECTS: Project[] = [
 
   // Health & learning
   {
+    slug: "chatfix",
+    name: "ChatFix",
+    tagline:
+      "Learn English from your own WhatsApp chats. Upload a chat and every real mistake you made is explained in your language, grouped into habits, read aloud, and practised until it sticks. Check a message before you send it, voice notes included.",
+    group: "health",
+    status: "beta",
+    live: "https://chatfix.6x7.gr",
+    glyph: "✓",
+  },
+  {
     slug: "digestive-diary",
     name: "Digestive Diary",
     tagline:
