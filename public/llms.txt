@@ -63,7 +63,6 @@ He is unusual because he covers the full product surface himself: research, desi
 - **Greenpert** — Breeding simulator and grow companion — predict cross outcomes from two strains, browse a scored library, rank pairings for a goal, and keep favourites and notes. https://greenpert.6x7.gr · https://github.com/philipposk/greenpert
 - **Critical Thinking School** — Critical thinking, course-quality. https://school.6x7.gr · https://github.com/philipposk/School
 - **PsycScope** — Screen 32 well-known psychological disorders — self-report plus optional AI. Screening only, not diagnosis. https://psyc.6x7.gr · https://github.com/philipposk/psycscope
-- **ChatFix** — Learn English from your own WhatsApp chats. Upload a chat and every real mistake you made is explained in your language, grouped into habits, read aloud, and practised until it sticks. Check a message before you send it, voice notes included. https://chatfix.6x7.gr
 - **Digestive Diary** — Track digestive symptoms without judgement. Find patterns, not blame. https://digestive.6x7.gr · https://github.com/philipposk/Digestive-Diary
 - **Smoking** — A worldwide map of smoke-friendly places. https://smoking.6x7.gr · https://github.com/philipposk/smoking-app
 - **SkinScan** — Photograph a mole, pin it on a 3D body map, and see what it does over months. Records and describes — never diagnoses. https://skinscan.6x7.gr · https://github.com/philipposk/skinscan
