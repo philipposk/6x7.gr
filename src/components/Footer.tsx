@@ -3,7 +3,7 @@ export function Footer() {
     <footer className="px-6 md:px-12 py-12 pb-32 md:pb-16 border-t border-[var(--border)] text-sm text-[var(--fg-muted)]">
       <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-4">
         <div>
-          Filippos Dimitrios Ktistakis · Athens
+          Filippos Dimitrios Ktistakis · Copenhagen
         </div>
         <div className="flex gap-4">
           <a

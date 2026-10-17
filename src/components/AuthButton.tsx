@@ -47,12 +47,17 @@ export function AuthButton() {
           </button>
         </div>
       ) : (
-        <Link
-          href="/login"
-          className="rounded-full border border-neutral-700 bg-neutral-900/80 px-4 py-1.5 text-sm text-neutral-200 backdrop-blur transition hover:text-white"
-        >
-          Sign in
-        </Link>
+        <div className="flex max-w-[14rem] flex-col items-end gap-1">
+          <Link
+            href="/login"
+            className="rounded-full border border-neutral-700 bg-neutral-900/80 px-4 py-1.5 text-sm text-neutral-200 backdrop-blur transition hover:text-white"
+          >
+            Sign in
+          </Link>
+          <p className="text-right text-[10px] leading-snug text-neutral-500">
+            Signing in here signs you into the 6x7 apps that share this login.
+          </p>
+        </div>
       )}
     </div>
   );

@@ -21,20 +21,20 @@ export const metadata: Metadata = {
     template: "%s · 6x7",
   },
   description:
-    "Filippos Ktistakis — independent software engineer in Athens. 30+ side projects: LifeHub, Cosmo, Daisy, AI OS, Praiser, and more.",
+    "Filippos Ktistakis — independent software engineer in Copenhagen, Denmark. Card index of apps, contact form, and shared login across 6x7.gr.",
   openGraph: {
     type: "website",
     url: "https://6x7.gr",
     title: "6x7 — Filippos Ktistakis",
     description:
-      "30+ side projects by Filippos Ktistakis. LifeHub, Cosmo, Daisy, AI OS, and more.",
+      "Apps and experiments by Filippos Ktistakis — browse the grid, get in touch, or sign in once for every 6x7 app.",
     siteName: "6x7",
   },
   twitter: {
     card: "summary_large_image",
     title: "6x7 — Filippos Ktistakis",
     description:
-      "30+ side projects by Filippos Ktistakis. LifeHub, Cosmo, Daisy, AI OS, and more.",
+      "Apps and experiments by Filippos Ktistakis — browse the grid, get in touch, or sign in once for every 6x7 app.",
   },
 };
 

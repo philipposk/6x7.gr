@@ -38,7 +38,7 @@ export default function LoginPage() {
         <div className="space-y-1 text-center">
           <h1 className="text-2xl font-semibold">Sign in to 6x7</h1>
           <p className="text-sm text-neutral-400">
-            One login for every 6x7 app.
+            Signing in here signs you into the 6x7 apps that share this login.
           </p>
         </div>
 

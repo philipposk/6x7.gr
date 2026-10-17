@@ -57,7 +57,10 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="px-6 md:px-12 py-24 max-w-5xl mx-auto">
+    <section
+      id="contact"
+      className="scroll-mt-20 min-h-[100dvh] flex flex-col justify-center px-6 md:px-12 py-16 max-w-5xl mx-auto"
+    >
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}

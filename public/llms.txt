@@ -1,6 +1,6 @@
 # 6x7.gr — PhD Solutions (Philippos Dimitrios Ktistakis)
 
-> Independent software engineer based in Athens, Greece. MSc Computational Physics (University of Copenhagen). Solves problems end to end — idea → workflow → shipped product. Open to AI-engineering roles and consulting work.
+> Independent software engineer based in Copenhagen, Denmark. MSc Computational Physics (University of Copenhagen). Solves problems end to end — idea → workflow → shipped product. Open to AI-engineering roles and consulting work.
 
 "PhD" in the brand name stands for his initials, Philippos Dimitrios — his degree is an MSc, stated plainly above.
 
@@ -11,7 +11,7 @@ App listings below are generated from `src/data/projects.ts` at build time — t
 ## Who
 
 - Name: Filippos Dimitrios Ktistakis
-- Location: Athens, Greece
+- Location: Copenhagen, Denmark
 - Education: MSc Computational Physics (University of Copenhagen, 2021–2024; thesis on ML-based misalignment detection for the McStas neutron-scattering simulator). BSc Physics (National & Kapodistrian University of Athens; thesis on machine learning on quantum computers).
 - Email: hello@6x7.gr
 - GitHub: https://github.com/philipposk
@@ -20,55 +20,52 @@ App listings below are generated from `src/data/projects.ts` at build time — t
 
 ## What he does
 
-Filippos designs, builds and ships polished personal-software products end-to-end — frontend, backend, infrastructure and product design. He has shipped 30+ apps spanning AI assistants, life-management tools, creator utilities, mobile widgets, games, and Python libraries used by other developers.
+Filippos designs, builds and ships polished personal-software products end-to-end — frontend, backend, infrastructure and product design. The hub at 6x7.gr is a card index of those apps, a contact form, and shared login across the ones that use the same Supabase auth.
 
 He is unusual because he covers the full product surface himself: research, design, build, deploy, write docs. He is comfortable working solo or embedded in a small team.
 
-## Headline projects
+## Now
 
-- **6x7 Studio** — Websites and web apps for businesses — from a taverna's menu and booking requests to a full SaaS product. I design them, build them and keep them running. In Greek and English. https://work.6x7.gr
-- **Vibecoders Studio** — Describe an app and watch AI write the full stack as it streams — live in-browser preview, tests, and a zip export when you're done. https://studio.6x7.gr · https://github.com/philipposk/appmaker-studio
+- **ChatFix** — Upload a WhatsApp chat. ChatFix finds the real English mistakes you made, explains them in Brazilian Portuguese, and helps you practice them. https://chatfix.6x7.gr · https://github.com/philipposk/babi-english
+- **Journal Find** — Paste your abstract — get an enriched journal shortlist (Excel, PDF, CSV). https://journal-find.6x7.gr
+- **Daybook** — A shared book of the day's takings, expenses and profit — one person files the register, everyone sees it on their phone. https://daybook.6x7.gr
+- **Page Assistant** — A talking, grounded assistant you drop into any web app — it reads the page, runs real actions, never hallucinates, and publishes an llm.txt so other agents can use your app too. https://pageassistant.6x7.gr · https://github.com/philipposk/page-assistant
 - **Catchy** — Record a meeting on your phone or upload audio — get a speaker-labeled transcript, action notes, and an assistant that knows your projects. Click any word to hear it. https://catchy.6x7.gr · https://github.com/philipposk/catchy
 - **Riffscribe** — Drop in a song — get the sheet music and the tab for your instrument, mute the part you are learning, slow it down without dropping the pitch, and read along as it scrolls itself. Record yourself over the top and it marks the take against the part: what was flat, what was late, which bars still need the work. https://riffscribe.6x7.gr · https://github.com/philipposk/riffscribe
 - **Topia** — Multilingual mobile guides to Samos, Lesbos and Copenhagen — hand-checked places, live events, and an AI day-planner grounded in the catalogue. https://topia.6x7.gr
-- **EventNow** — What's on near you, right now — events and open places within walking distance. https://eventnow.6x7.gr · https://github.com/philipposk/eventnow
-- **LifeHub** — A dashboard above your life and your tools — so you stop losing things. https://lifehub.6x7.gr · https://github.com/philipposk/LifeHub
-- **Cosmo** — A quiet creative home for stories, art, and goals — AI baked in, privacy on by default. https://cosmo.6x7.gr · https://github.com/philipposk/cosmo-frontend
-- **Daisy** — A polite voice assistant that lives on your Mac and gets things done without nagging. https://daisy.6x7.gr · https://github.com/philipposk/Daisy--AI-Assistant-
-- **AI OS** — Many AI agents, one team. Plans, writes, ships code — with you in the loop. https://aios.6x7.gr · https://github.com/philipposk/AI-OS
-- **Praiser** — Free, multilingual hype machine for the people you love. https://praiser.6x7.gr · https://github.com/philipposk/Praiser
 
 ## Life & productivity
 
-- **TimeGift** — Give time, not stuff. Schedule presence with someone. https://timegift.6x7.gr · https://github.com/philipposk/TimeGift
-- **PaperAssistant** — A workspace for the messy middle of research papers. https://paperassistant.6x7.gr · https://github.com/philipposk/PaperAssistant
-- **Journal Find** — Paste your abstract — get an enriched journal shortlist (Excel, PDF, CSV). https://journal-find.6x7.gr
-- **ProjectHub** (coming soon) — Your research projects, finally in one place.
 - **BeenThere** — Mark the world you've seen. https://beenthere.6x7.gr · https://github.com/philipposk/BeenThere
 - **Week Number Widget** — What week is it? Now you know — from your home screen. https://weeknumber.6x7.gr · https://github.com/philipposk/WeekNumber-Widget
-- **Postbox** — An inbox that respects you back. https://postbox.6x7.gr · https://github.com/philipposk/postbox
-- **Daybook** — A shared book of the day's takings, expenses and profit — one person files the register, everyone sees it on their phone. https://daybook.6x7.gr
 - **Samos Companion** — A free four-language PWA for Samos visitors — places, events, day plans, and a direct channel for the local business behind it. https://samos.6x7.gr
+- **LifeHub** — A dashboard above your life and your tools — so you stop losing things. https://lifehub.6x7.gr · https://github.com/philipposk/LifeHub
+- **Cosmo** — A quiet creative home for stories, art, and goals — AI baked in, privacy on by default. https://cosmo.6x7.gr · https://github.com/philipposk/cosmo-frontend
+- **TimeGift** — Give time, not stuff. Schedule presence with someone. https://timegift.6x7.gr · https://github.com/philipposk/TimeGift
+- **PaperAssistant** — A workspace for the messy middle of research papers. https://paperassistant.6x7.gr · https://github.com/philipposk/PaperAssistant
+- **ProjectHub** (coming soon) — Your research projects, finally in one place.
 
 ## Creator tools
 
-- **Translator** — Speak it, get clean text in any language. https://translator.6x7.gr · https://github.com/philipposk/translator
+- **Praiser** — Free, multilingual hype machine for the people you love. https://praiser.6x7.gr · https://github.com/philipposk/Praiser
+- **6x7 Studio** — Websites and web apps for businesses — from a taverna's menu and booking requests to a full SaaS product. I design them, build them and keep them running. In Greek and English. https://work.6x7.gr
 - **Divisi** — Split a choir recording into soprano, alto, tenor and bass practice tracks — hear your own line, slow it down without going flat, loop the bar nobody can sing yet. https://divisi.6x7.gr · https://github.com/philipposk/divisi
-- **WebsiteCreator** — Sketch a site. Get a site. https://websitecreator.6x7.gr · https://github.com/philipposk/WebsiteCreator
+- **6x7 Demo Studio** — Paste a live URL, get a polished demo video or screenshot grid — including two-voice product demos where an on-page assistant does the work live. https://demo.6x7.gr · https://github.com/philipposk/6x7-demo-platform
+- **Vibecoders Studio** — Describe an app and watch AI write the full stack as it streams — live in-browser preview, tests, and a zip export when you're done. https://studio.6x7.gr · https://github.com/philipposk/appmaker-studio
+- **Translator** — Speak it, get clean text in any language. https://translator.6x7.gr · https://github.com/philipposk/translator
 - **AppMaker** — Vibe-code small web apps with Groq. https://appmaker.6x7.gr · https://github.com/philipposk/AppMaker-vibecode
 - **AppBlueprints** — create-react-app, but for your AI coding setup. https://appblueprints.6x7.gr · https://github.com/philipposk/harness-forge
 - **Harness** — Generate AGENTS.md, CLAUDE.md, rules & MCP bundles for any harness. https://harness.6x7.gr · https://github.com/philipposk/harness-forge
-- **6x7 Demo Studio** — Paste a live URL, get a polished demo video or screenshot grid — including two-voice product demos where an on-page assistant does the work live. https://demo.6x7.gr · https://github.com/philipposk/6x7-demo-platform
-- **Screenshot Grid** — Screenshot any list of web apps and build a clickable grid. No API keys, no cost — Playwright-based and reusable. https://screenshotgrid.6x7.gr · https://github.com/philipposk/screenshot-grid
+- **WebsiteCreator** — Sketch a site. Get a site. https://websitecreator.6x7.gr · https://github.com/philipposk/WebsiteCreator
 
 ## Health & learning
 
-- **ChatFix** — Learn English from your own WhatsApp chats. Upload a chat and every real mistake you made is explained in your language, grouped into habits, read aloud, and practised until it sticks. Check a message before you send it, voice notes included. https://chatfix.6x7.gr
-- **Digestive Diary** — Track digestive symptoms without judgement. Find patterns, not blame. https://digestive.6x7.gr · https://github.com/philipposk/Digestive-Diary
-- **Smoking** — A worldwide map of smoke-friendly places. https://smoking.6x7.gr · https://github.com/philipposk/smoking-app
 - **Greenpert** — Breeding simulator and grow companion — predict cross outcomes from two strains, browse a scored library, rank pairings for a goal, and keep favourites and notes. https://greenpert.6x7.gr · https://github.com/philipposk/greenpert
 - **Critical Thinking School** — Critical thinking, course-quality. https://school.6x7.gr · https://github.com/philipposk/School
 - **PsycScope** — Screen 32 well-known psychological disorders — self-report plus optional AI. Screening only, not diagnosis. https://psyc.6x7.gr · https://github.com/philipposk/psycscope
+- **ChatFix** — Learn English from your own WhatsApp chats. Upload a chat and every real mistake you made is explained in your language, grouped into habits, read aloud, and practised until it sticks. Check a message before you send it, voice notes included. https://chatfix.6x7.gr
+- **Digestive Diary** — Track digestive symptoms without judgement. Find patterns, not blame. https://digestive.6x7.gr · https://github.com/philipposk/Digestive-Diary
+- **Smoking** — A worldwide map of smoke-friendly places. https://smoking.6x7.gr · https://github.com/philipposk/smoking-app
 - **SkinScan** — Photograph a mole, pin it on a 3D body map, and see what it does over months. Records and describes — never diagnoses. https://skinscan.6x7.gr · https://github.com/philipposk/skinscan
 
 ## Games
@@ -79,20 +76,28 @@ He is unusual because he covers the full product surface himself: research, desi
 
 ## Work in progress
 
+- **Phasma** — Annual pharmacist calendar by Phasma Promotions. https://phasma.6x7.gr · https://github.com/philipposk/Phasma-Website
+- **EventNow** — What's on near you, right now — events and open places within walking distance. https://eventnow.6x7.gr · https://github.com/philipposk/eventnow
 - **BestFlight** — AI flight search that finds connecting routes other sites miss. https://bestflight.6x7.gr · https://github.com/philipposk/BestFlight
-- **Travel** — An AI that actually helps you go somewhere. https://travel.6x7.gr · https://github.com/philipposk/Travel
 - **ThatJob** — AI CV + cover letter, in five honest phases. https://thatjob.6x7.gr · https://github.com/philipposk/ThatJob
+- **Travel** — An AI that actually helps you go somewhere. https://travel.6x7.gr · https://github.com/philipposk/Travel
 - **PickaPic** — Rank, cluster, and caption your photo library. https://pickapic.6x7.gr
 - **SalonApp** — Booking, chat, finance — built for salon teams. https://github.com/philipposk/SalonApp
 - **SalonMarketplace** — Where clients find salons and salons find clients. https://github.com/philipposk/SalonMarketplace
-- **Phasma** — Annual pharmacist calendar by Phasma Promotions. https://phasma.6x7.gr · https://github.com/philipposk/Phasma-Website
 
 ## Libraries & infra other developers use
 
+- **Daisy** — A polite voice assistant that lives on your Mac and gets things done without nagging. https://daisy.6x7.gr · https://github.com/philipposk/Daisy--AI-Assistant-
 - **llm-free-rotator** — Rotate across free-tier LLMs when one rate-limits you. https://llm-rotator.6x7.gr · https://github.com/philipposk/llm-free-rotator
-- **Page Assistant** — A talking, grounded assistant you drop into any web app — it reads the page, runs real actions, never hallucinates, and publishes an llm.txt so other agents can use your app too. https://pageassistant.6x7.gr · https://github.com/philipposk/page-assistant
 - **agent-feedback** — A tiny universal protocol that lets LLMs, agents, and in-app assistants send improvement tickets back to the apps they use — so apps get better every time they're used. https://agentfeedback.6x7.gr · https://github.com/philipposk/agent-feedback
 - **6x7 App Factory** — Say /new-app once in Cursor — get a deployed Next.js app on 6x7.gr with auth, SEO, mobile shell, verification, and a hub card. https://app-factory.6x7.gr · https://github.com/philipposk/app-factory
+- **AI OS** — Many AI agents, one team. Plans, writes, ships code — with you in the loop. https://aios.6x7.gr · https://github.com/philipposk/AI-OS
+- **CommitR** — Dating for people who overthink commitment. https://commitr.6x7.gr · https://github.com/philipposk/CommitR
+
+## Parked
+
+- **Screenshot Grid** — Screenshot any list of web apps and build a clickable grid. No API keys, no cost — Playwright-based and reusable. https://screenshotgrid.6x7.gr · https://github.com/philipposk/screenshot-grid
+- **Postbox** — An inbox that respects you back. https://postbox.6x7.gr · https://github.com/philipposk/postbox
 
 ## What he is looking for
 
@@ -104,7 +109,7 @@ He is unusual because he covers the full product surface himself: research, desi
 
 ## Stack fluency
 
-TypeScript, Next.js, React, Node.js, Python, Swift, Kotlin, Tailwind, Supabase, Prisma, PostgreSQL, MongoDB, BullMQ, Stripe, Groq/OpenAI/Anthropic APIs, LangGraph, Whisper, MapLibre, Unity, MCP (Model Context Protocol), Docker, Vercel.
+TypeScript, Next.js, React, Node.js, Python, Swift, Kotlin, Tailwind, Supabase, Prisma, PostgreSQL, MongoDB, BullMQ, Stripe, Groq/OpenAI/Anthropic APIs, Whisper, MapLibre, Unity, MCP (Model Context Protocol), Docker, Vercel.
 
 ## How to reach him
 
