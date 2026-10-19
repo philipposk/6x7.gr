@@ -371,6 +371,16 @@ export const PROJECTS: Project[] = [
     glyph: "♣",
   },
   {
+    slug: "shipyard",
+    name: "Shipyard",
+    tagline: "A Claude Code plugin to build and launch real web apps.",
+    group: "creator",
+    status: "live",
+    live: "https://shipyard.6x7.gr",
+    repo: "https://github.com/philipposk/shipyard",
+    glyph: "⚓",
+  },
+  {
     slug: "school",
     name: "Critical Thinking School",
     tagline: "Critical thinking, course-quality.",

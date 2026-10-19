@@ -61,6 +61,7 @@ He is unusual because he covers the full product surface himself: research, desi
 ## Health & learning
 
 - **Greenpert** — Breeding simulator and grow companion — predict cross outcomes from two strains, browse a scored library, rank pairings for a goal, and keep favourites and notes. https://greenpert.6x7.gr · https://github.com/philipposk/greenpert
+- **Shipyard** — A Claude Code plugin to build and launch real web apps. https://shipyard.6x7.gr · https://github.com/philipposk/shipyard
 - **Critical Thinking School** — Critical thinking, course-quality. https://school.6x7.gr · https://github.com/philipposk/School
 - **PsycScope** — Screen 32 well-known psychological disorders — self-report plus optional AI. Screening only, not diagnosis. https://psyc.6x7.gr · https://github.com/philipposk/psycscope
 - **Digestive Diary** — Track digestive symptoms without judgement. Find patterns, not blame. https://digestive.6x7.gr · https://github.com/philipposk/Digestive-Diary
