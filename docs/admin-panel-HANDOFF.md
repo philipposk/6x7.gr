@@ -30,7 +30,9 @@ Not yet verified end-to-end in a browser with real env (needs env vars below).
 
 ## Vercel (project 6x7.gr, team filippos-projects)
 Set: `ADMIN_EMAILS` (preview+production), `VERCEL_TEAM_ID` (preview+production), `NEXT_PUBLIC_SUPABASE_URL` + `NEXT_PUBLIC_SUPABASE_ANON_KEY` for **preview** (previews were all failing at /login prerender without them).
-Still missing: `ADMIN_DB_URL_6X7` (needs approved read-only role), `VERCEL_TOKEN`, `SUPABASE_ACCESS_TOKEN`, `SUPABASE_SERVICE_ROLE_KEY` (contact storage).
+Also set (sensitive, prod+preview): `ADMIN_DB_URL_6X7` = read-only `admin_ro` login via pooler aws-1-eu-central-1:6543 (role applied 2026-10-20; verified SELECT ok, INSERT blocked). auth.users is read through private view `admin_ro_api.auth_users` (Supabase doesn't allow granting the auth schema).
+`VERCEL_TOKEN` was set from the bot env but that token gets 403 on the team API — replace it with a real Vercel token (Account → Tokens) or delete it.
+Still missing: `SUPABASE_ACCESS_TOKEN`, `SUPABASE_SERVICE_ROLE_KEY` (contact storage).
 
 ## Env vars (set in Vercel → 6x7.gr project; never commit)
 | var | required | what |

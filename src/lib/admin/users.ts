@@ -39,7 +39,7 @@ async function projectDirectory(project: DbProject) {
       `select id, email, created_at, last_sign_in_at, raw_app_meta_data->>'provider' as provider,
         coalesce((raw_user_meta_data->>'is_demo')::boolean,(raw_user_meta_data->>'demo')::boolean,false) as is_demo,
         raw_user_meta_data->>'signup_app' as signup_app
-       from auth.users`),
+       from admin_ro_api.auth_users`),
     sql.unsafe<{ user_id: string; app: string; first: Date | null; last: Date | null; rows: number }[]>(usageSql(mapped)),
     hasAccess
       ? sql.unsafe<{ user_id: string; app: string; first_seen: Date; last_seen: Date }[]>(
