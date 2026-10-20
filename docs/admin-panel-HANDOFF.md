@@ -20,6 +20,18 @@ Pick up from any tool: `git checkout admin-panel && pnpm i && pnpm test && pnpm 
 Verified with real data: the users×apps SQL (`src/lib/admin/usage-sql.ts`) was run read-only against the prod 6x7 DB (via Supabase MCP, counts only) — works; 12 apps have user rows. Sparks interop endpoints are live (manifest 200, projects 401 without token = correct).
 Not yet verified end-to-end in a browser with real env (needs env vars below).
 
+## Signup source (2026-10-20 PM)
+- Each app's middleware/proxy now upserts `public.app_access(user_id, app, last_seen)` for the signed-in user (helper `app-access.ts`, throttled by a 6h host-only cookie `x6_seen_<app>`, 1.5s cap, never throws). Uses the EXISTING table + RLS → no migration needed.
+- Branch `signup-source` (not merged/deployed) in: sparks, recall, greenpert, babi-english, translator, catchy, topia, samos-companion, eventnow, CommitR, skinscan, psycscope, Digestive-Diary, LifeHub, postbox, 6x7-demo-platform, app-factory, shipyard-pilot.
+- Not covered (no Supabase middleware): PaperAssistant, riffscribe, smoking-app, valuer-todo, tiny-erp-todo, TimeGift, appmaker-studio, BeenThere, JournalApp; templates 6x7-app-factory/template and shipyard/template.
+- Panel: "Came from" column + filter `?from=`, overview "Where accounts came from". Origin = `raw_user_meta_data.signup_app` if set, else earliest `app_access.first_seen`. Accounts that never sign in after tracking ships stay "unknown".
+- Optional, NOT applied: `docs/sql/signup_source.sql` (trigger for signup_app metadata, index, revoke anon grants on app_access).
+- Applied (approved): `docs/sql/contact_messages.sql` on project 6x7.
+
+## Vercel (project 6x7.gr, team filippos-projects)
+Set: `ADMIN_EMAILS` (preview+production), `VERCEL_TEAM_ID` (preview+production), `NEXT_PUBLIC_SUPABASE_URL` + `NEXT_PUBLIC_SUPABASE_ANON_KEY` for **preview** (previews were all failing at /login prerender without them).
+Still missing: `ADMIN_DB_URL_6X7` (needs approved read-only role), `VERCEL_TOKEN`, `SUPABASE_ACCESS_TOKEN`, `SUPABASE_SERVICE_ROLE_KEY` (contact storage).
+
 ## Env vars (set in Vercel → 6x7.gr project; never commit)
 | var | required | what |
 |---|---|---|
