@@ -1,5 +1,5 @@
 import "server-only";
-import { APPS, IGNORE_TABLES, appForTable, type DbProject } from "./config";
+import { APPS, EXTERNAL_USER_TABLES, IGNORE_TABLES, appForTable, type DbProject } from "./config";
 import { classifyEmail, type EmailClass } from "./classify";
 import { adminEmails } from "./auth";
 import { db } from "./db";
@@ -73,6 +73,7 @@ async function projectDirectory(project: DbProject) {
     apps: (byUser.get(u.id) ?? []).sort((a, b) => b.rows - a.rows),
     signupApp: u.signup_app ?? origin.get(u.id)?.app ?? (project === "6x7" ? null : project),
   }));
+  if (project === "6x7") users.push(...(await externalUsers(sql, owners)));
   return { users, unmapped, configured: true };
 }
 
@@ -86,4 +87,35 @@ export async function directory() {
     users: results.flatMap((r) => r.users).sort((a, b) => (b.lastSignIn ?? b.createdAt).localeCompare(a.lastSignIn ?? a.createdAt)),
     sources: results.map((r) => ({ project: r.p, configured: r.configured, error: r.error, unmapped: r.unmapped })),
   };
+}
+
+/** Accounts from apps with custom auth (own users table), plus app_access_external when it exists. */
+async function externalUsers(sql: NonNullable<ReturnType<typeof db>>, owners: string[]): Promise<DirUser[]> {
+  const out: DirUser[] = [];
+  const [{ ok }] = await sql.unsafe<{ ok: boolean }[]>(`select to_regclass('public.app_access_external') is not null ok`);
+  const ext = ok
+    ? await sql.unsafe<{ app: string; external_id: string; first_seen: Date; last_seen: Date }[]>(
+        `select app, external_id, first_seen, last_seen from public.app_access_external`)
+    : [];
+  const extMap = new Map(ext.map((e) => [`${e.app}:${e.external_id}`, e]));
+  for (const t of EXTERNAL_USER_TABLES) {
+    const [schema, table] = t.table.split(".");
+    try {
+      const rows = await sql.unsafe<{ id: string; email: string | null; created_at: Date }[]>(
+        `select id::text, email, created_at from "${schema}"."${table}"`);
+      for (const r of rows) {
+        const e = extMap.get(`${t.app}:${r.id}`);
+        out.push({
+          id: `${t.app}:${r.id}`, db: "6x7", email: r.email, provider: `${t.app} (own auth)`,
+          cls: classifyEmail(r.email, { owners }),
+          createdAt: r.created_at.toISOString(), lastSignIn: e?.last_seen.toISOString() ?? null,
+          apps: [{ app: t.app, first: r.created_at.toISOString(), last: e?.last_seen.toISOString() ?? null, rows: 0 }],
+          signupApp: t.app,
+        });
+      }
+    } catch {
+      /* table missing or not readable */
+    }
+  }
+  return out;
 }
