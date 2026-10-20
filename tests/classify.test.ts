@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { classifyEmail } from "../src/lib/admin/classify.ts";
+import { classifyEmail } from "../src/lib/admin/classify";
 
 test("classifies", () => {
   assert.equal(classifyEmail("x@atomicmail.io"), "throwaway");
