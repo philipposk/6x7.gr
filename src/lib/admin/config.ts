@@ -51,6 +51,8 @@ export const APPS: AppAdapter[] = [
     tables: ["food_logs", "symptoms", "contexts", "experiments", "experiment_logs", "realizations",
       "medications", "medication_logs", "custom_factors", "custom_factor_logs"],
   },
+  { slug: "lifehub", name: "LifeHub", db: "6x7", tables: ["lifehub_records"], live: "https://lifehub.6x7.gr" },
+  { slug: "postbox", name: "Postbox", db: "6x7", schema: "postbox", live: "https://postbox.6x7.gr" },
   { slug: "daybook", name: "Daybook", db: "daybook", schema: "public" },
 ];
 

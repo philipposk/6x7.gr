@@ -50,6 +50,15 @@ export default async function Overview() {
             </>
           )}
         </Card>
+        <Card title="Where accounts came from (signup source)">
+          {(() => {
+            const m = new Map<string, { all: number; real: number; throwaway: number }>();
+            for (const x of u) { const k = x.signupApp ?? "unknown"; const e = m.get(k) ?? { all: 0, real: 0, throwaway: 0 }; e.all++; if (x.cls === "real") e.real++; if (x.cls === "throwaway") e.throwaway++; m.set(k, e); }
+            return <table className="w-full text-left"><thead className="text-xs text-neutral-400"><tr><th>App</th><th>All</th><th>Real</th><th>Throwaway</th></tr></thead>
+              <tbody>{[...m].sort((a, b) => b[1].all - a[1].all).map(([k, e]) => <tr key={k} className="border-t border-neutral-800"><td className="py-1"><Link className="hover:underline" href={`/admin/users?cls=all&from=${k}`}>{k}</Link></td><td>{e.all}</td><td>{e.real}</td><td>{e.throwaway}</td></tr>)}</tbody></table>;
+          })()}
+          <p className="mt-2 text-xs text-neutral-500">From each app&apos;s app_access tracking (branch signup-source) or signup_app metadata. Accounts created before tracking show as unknown.</p>
+        </Card>
         <Card title="Unmapped tables (add to config.ts)">
           {dir.sources.map((s) => <p key={s.project} className="text-neutral-400">{s.project}: {s.unmapped.join(", ") || "none"}</p>)}
         </Card>
