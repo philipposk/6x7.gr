@@ -41,6 +41,7 @@ He is unusual because he covers the full product surface himself: research, desi
 - **Samos Companion** — A free four-language PWA for Samos visitors — places, events, day plans, and a direct channel for the local business behind it. https://samos.6x7.gr
 - **LifeHub** — A dashboard above your life and your tools — so you stop losing things. https://lifehub.6x7.gr · https://github.com/philipposk/LifeHub
 - **Cosmo** — A quiet creative home for stories, art, and goals — AI baked in, privacy on by default. https://cosmo.6x7.gr · https://github.com/philipposk/cosmo-frontend
+- **Sparks** — Every idea for every project in one notebook. Your GitHub repos become projects, and the notes you send yourself land in the right one. https://sparks.6x7.gr
 - **TimeGift** — Give time, not stuff. Schedule presence with someone. https://timegift.6x7.gr · https://github.com/philipposk/TimeGift
 - **PaperAssistant** — A workspace for the messy middle of research papers. https://paperassistant.6x7.gr · https://github.com/philipposk/PaperAssistant
 - **ProjectHub** (coming soon) — Your research projects, finally in one place.
@@ -50,6 +51,7 @@ He is unusual because he covers the full product surface himself: research, desi
 - **Praiser** — Free, multilingual hype machine for the people you love. https://praiser.6x7.gr · https://github.com/philipposk/Praiser
 - **6x7 Studio** — Websites and web apps for businesses — from a taverna's menu and booking requests to a full SaaS product. I design them, build them and keep them running. In Greek and English. https://work.6x7.gr
 - **Divisi** — Split a choir recording into soprano, alto, tenor and bass practice tracks — hear your own line, slow it down without going flat, loop the bar nobody can sing yet. https://divisi.6x7.gr · https://github.com/philipposk/divisi
+- **Shipyard** — A Claude Code plugin to build and launch real web apps. https://shipyard.6x7.gr · https://github.com/philipposk/shipyard
 - **6x7 Demo Studio** — Paste a live URL, get a polished demo video or screenshot grid — including two-voice product demos where an on-page assistant does the work live. https://demo.6x7.gr · https://github.com/philipposk/6x7-demo-platform
 - **Vibecoders Studio** — Describe an app and watch AI write the full stack as it streams — live in-browser preview, tests, and a zip export when you're done. https://studio.6x7.gr · https://github.com/philipposk/appmaker-studio
 - **Translator** — Speak it, get clean text in any language. https://translator.6x7.gr · https://github.com/philipposk/translator
@@ -61,7 +63,6 @@ He is unusual because he covers the full product surface himself: research, desi
 ## Health & learning
 
 - **Greenpert** — Breeding simulator and grow companion — predict cross outcomes from two strains, browse a scored library, rank pairings for a goal, and keep favourites and notes. https://greenpert.6x7.gr · https://github.com/philipposk/greenpert
-- **Shipyard** — A Claude Code plugin to build and launch real web apps. https://shipyard.6x7.gr · https://github.com/philipposk/shipyard
 - **Critical Thinking School** — Critical thinking, course-quality. https://school.6x7.gr · https://github.com/philipposk/School
 - **PsycScope** — Screen 32 well-known psychological disorders — self-report plus optional AI. Screening only, not diagnosis. https://psyc.6x7.gr · https://github.com/philipposk/psycscope
 - **Digestive Diary** — Track digestive symptoms without judgement. Find patterns, not blame. https://digestive.6x7.gr · https://github.com/philipposk/Digestive-Diary

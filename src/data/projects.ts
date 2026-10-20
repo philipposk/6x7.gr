@@ -158,6 +158,16 @@ export const PROJECTS: Project[] = [
     glyph: "✦",
   },
   {
+    slug: "sparks",
+    name: "Sparks",
+    tagline:
+      "Every idea for every project in one notebook. Your GitHub repos become projects, and the notes you send yourself land in the right one.",
+    group: "productivity",
+    status: "beta",
+    live: "https://sparks.6x7.gr",
+    glyph: "✳",
+  },
+  {
     slug: "daisy",
     name: "Daisy",
     tagline:
