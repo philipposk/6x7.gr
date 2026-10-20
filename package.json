@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "generate:llms": "node --experimental-strip-types scripts/generate-llms-txt.ts"
+    "generate:llms": "node --experimental-strip-types scripts/generate-llms-txt.ts",
+    "test": "tsx --test tests/*.test.ts"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
@@ -21,6 +22,7 @@
     "lucide-react": "^1.16.0",
     "next": "16.2.6",
     "node-edge-tts": "^1.2.10",
+    "postgres": "^3.4.9",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "resend": "^6.12.4",
@@ -36,6 +38,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
     "tailwindcss": "^4",
+    "tsx": "^4.23.15",
     "typescript": "^5"
   }
 }
