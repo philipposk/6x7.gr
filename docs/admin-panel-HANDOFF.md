@@ -63,3 +63,9 @@ Supabase Auth → URL config must allow `https://6x7.gr/auth/callback?next=*` (a
 2. Decide on contact storage (apply SQL) and the read-only role.
 3. Add `vercelProject` names in `config.ts` where Vercel project name ≠ slug; map the remaining unmapped tables (`public.chat_sessions`, `public.assistant_chats`, `public.subscriptions` are shared/ambiguous).
 4. Ideas: Stripe MRR/subs card (Stripe key), uptime history via cron, CSV export of users, "where did this user sign up" (needs apps to write `public.app_access` on login — currently almost unused), Supabase advisors.
+
+## Review pass (2026-10-20)
+- Hardening: `/admin/*` is now gated in `src/proxy.ts` (it needs a confirmed email that is in ADMIN_EMAILS), and every admin page also calls `requireAdmin()`. A layout redirect alone doesn't stop sibling pages from rendering.
+- Users list: Smoking profiles that are already linked to a shared login (`auth_user_id` set) are no longer listed twice.
+- signup-source PRs are open in 21 repos. The throttle cookie is now set only after a successful app_access write.
+- Still untested from the box: an admin render with the real DB. The box can't reach the Postgres ports.
