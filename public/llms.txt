@@ -71,6 +71,8 @@ He is unusual because he covers the full product surface himself: research, desi
 ## Games
 
 - **MiniGames** — Eight offline-friendly browser games. No ads, no tracking. https://minigames.6x7.gr · https://github.com/philipposk/MiniGames
+- **Ballpark** — Daily estimation game: one number to guess, hotter or colder with each try. https://ballpark.6x7.gr
+- **Dailies** — Three daily mini puzzles (word, meaning, size order), the same for everyone. https://dailies.6x7.gr
 - **GameOfWorld** — First-person exploration of photoreal London, built in Unity. https://gameoflife.6x7.gr
 - **Lesvos Terrain** — DEM terrain of Lesvos island, ready to drop into Unity.
 
