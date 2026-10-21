@@ -1,7 +1,9 @@
+import { requireAdmin } from "@/lib/admin/auth";
 import { vercelDeployments } from "@/lib/admin/vercel";
 import { Badge, Notice, ago } from "../ui";
 
 export default async function Deploys() {
+  await requireAdmin(); // per-page guard (layouts do not gate parallel page rendering)
   const dep = await vercelDeployments(100);
   if (!dep.ok) return <Notice>{dep.reason}</Notice>;
   return (

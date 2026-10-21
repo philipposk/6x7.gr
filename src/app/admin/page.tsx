@@ -1,9 +1,11 @@
+import { requireAdmin } from "@/lib/admin/auth";
 import Link from "next/link";
 import { directory } from "@/lib/admin/users";
 import { vercelDeployments } from "@/lib/admin/vercel";
 import { Card, Stat, Notice, Bars, weekly, ago, Badge, ageDays } from "./ui";
 
 export default async function Overview() {
+  await requireAdmin(); // per-page guard (layouts do not gate parallel page rendering)
   const [dir, dep] = await Promise.all([directory(), vercelDeployments(40)]);
   const u = dir.users;
   const count = (c: string) => u.filter((x) => x.cls === c).length;

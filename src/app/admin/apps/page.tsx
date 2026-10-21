@@ -1,3 +1,4 @@
+import { requireAdmin } from "@/lib/admin/auth";
 import { APPS } from "@/lib/admin/config";
 import { PROJECTS } from "@/data/projects";
 import { directory } from "@/lib/admin/users";
@@ -6,6 +7,7 @@ import { vercelDeployments, latestByProject } from "@/lib/admin/vercel";
 import { Bars, Badge, Card, Dot, Notice, ago, weekly, ageDays } from "../ui";
 
 export default async function Apps() {
+  await requireAdmin(); // per-page guard (layouts do not gate parallel page rendering)
   // Union of DB-backed apps and every live site listed on the homepage.
   const rows = new Map<string, { slug: string; name: string; live?: string; db: boolean; vercel?: string }>();
   for (const p of PROJECTS) if (p.live) rows.set(p.slug, { slug: p.slug, name: p.name, live: p.live, db: false });

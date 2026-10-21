@@ -101,8 +101,13 @@ async function externalUsers(sql: NonNullable<ReturnType<typeof db>>, owners: st
   for (const t of EXTERNAL_USER_TABLES) {
     const [schema, table] = t.table.split(".");
     try {
-      const rows = await sql.unsafe<{ id: string; email: string | null; created_at: Date }[]>(
-        `select id::text, email, created_at from "${schema}"."${table}"`);
+      // Profiles already linked to a shared-login account (auth_user_id) show up as
+      // normal users via their app tables; only list the unlinked ones here.
+      const rows = await sql
+        .unsafe<{ id: string; email: string | null; created_at: Date }[]>(
+          `select id::text, email, created_at from "${schema}"."${table}" where auth_user_id is null`)
+        .catch(() => sql.unsafe<{ id: string; email: string | null; created_at: Date }[]>(
+          `select id::text, email, created_at from "${schema}"."${table}"`));
       for (const r of rows) {
         const e = extMap.get(`${t.app}:${r.id}`);
         out.push({

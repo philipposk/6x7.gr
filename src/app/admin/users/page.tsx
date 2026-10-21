@@ -1,3 +1,4 @@
+import { requireAdmin } from "@/lib/admin/auth";
 import Link from "next/link";
 import { directory } from "@/lib/admin/users";
 import { APPS } from "@/lib/admin/config";
@@ -6,6 +7,7 @@ import { Badge, Card, fmt } from "../ui";
 type SP = Promise<{ cls?: string; app?: string; q?: string; from?: string }>;
 
 export default async function Users({ searchParams }: { searchParams: SP }) {
+  await requireAdmin(); // per-page guard (layouts do not gate parallel page rendering)
   const sp = await searchParams;
   const { users } = await directory();
   const cls = sp.cls ?? "non-throwaway";

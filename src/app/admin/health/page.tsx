@@ -1,3 +1,4 @@
+import { requireAdmin } from "@/lib/admin/auth";
 import { db } from "@/lib/admin/db";
 import { APPS, type DbProject } from "@/lib/admin/config";
 import { Card, Notice, ago } from "../ui";
@@ -27,6 +28,7 @@ async function supabaseProjects() {
 }
 
 export default async function Health() {
+  await requireAdmin(); // per-page guard (layouts do not gate parallel page rendering)
   const projects: DbProject[] = Array.from(new Set(APPS.map((a) => a.db)));
   const [logs, sb] = await Promise.all([Promise.all(projects.map(async (p) => ({ p, rows: await logTables(p).catch((e) => e as Error) }))), supabaseProjects()]);
   return (

@@ -1,7 +1,9 @@
+import { requireAdmin } from "@/lib/admin/auth";
 import { db } from "@/lib/admin/db";
 import { Card, Notice, fmt } from "../ui";
 
 export default async function Contact() {
+  await requireAdmin(); // per-page guard (layouts do not gate parallel page rendering)
   const sql = db("6x7");
   if (!sql) return <Notice>ADMIN_DB_URL_6X7 not set.</Notice>;
   const [exists] = await sql.unsafe<{ ok: boolean }[]>(`select to_regclass('public.contact_messages') is not null ok`);
