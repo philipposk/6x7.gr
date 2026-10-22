@@ -543,6 +543,17 @@ export const PROJECTS: Project[] = [
 
   // Infra
   {
+    slug: "skills",
+    name: "Skills & Plugins",
+    tagline:
+      "My agent skills and plugins (Shipyard and more) for Claude Code, Cursor, Codex, OpenClaw and Hermes. Search them, read each SKILL.md, copy the install command.",
+    group: "infra",
+    status: "live",
+    live: "/skills",
+    repo: "https://github.com/philipposk/shipyard",
+    glyph: "✦",
+  },
+  {
     slug: "llm-free-rotator",
     name: "llm-free-rotator",
     tagline: "Rotate across free-tier LLMs when one rate-limits you.",

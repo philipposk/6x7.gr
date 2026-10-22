@@ -50,6 +50,7 @@ He is unusual because he covers the full product surface himself: research, desi
 - **Praiser** — Free, multilingual hype machine for the people you love. https://praiser.6x7.gr · https://github.com/philipposk/Praiser
 - **6x7 Studio** — Websites and web apps for businesses — from a taverna's menu and booking requests to a full SaaS product. I design them, build them and keep them running. In Greek and English. https://work.6x7.gr
 - **Divisi** — Split a choir recording into soprano, alto, tenor and bass practice tracks — hear your own line, slow it down without going flat, loop the bar nobody can sing yet. https://divisi.6x7.gr · https://github.com/philipposk/divisi
+- **Shipyard** — A Claude Code plugin to build and launch real web apps. https://shipyard.6x7.gr · https://github.com/philipposk/shipyard
 - **6x7 Demo Studio** — Paste a live URL, get a polished demo video or screenshot grid — including two-voice product demos where an on-page assistant does the work live. https://demo.6x7.gr · https://github.com/philipposk/6x7-demo-platform
 - **Vibecoders Studio** — Describe an app and watch AI write the full stack as it streams — live in-browser preview, tests, and a zip export when you're done. https://studio.6x7.gr · https://github.com/philipposk/appmaker-studio
 - **Translator** — Speak it, get clean text in any language. https://translator.6x7.gr · https://github.com/philipposk/translator
@@ -61,7 +62,6 @@ He is unusual because he covers the full product surface himself: research, desi
 ## Health & learning
 
 - **Greenpert** — Breeding simulator and grow companion — predict cross outcomes from two strains, browse a scored library, rank pairings for a goal, and keep favourites and notes. https://greenpert.6x7.gr · https://github.com/philipposk/greenpert
-- **Shipyard** — A Claude Code plugin to build and launch real web apps. https://shipyard.6x7.gr · https://github.com/philipposk/shipyard
 - **Critical Thinking School** — Critical thinking, course-quality. https://school.6x7.gr · https://github.com/philipposk/School
 - **PsycScope** — Screen 32 well-known psychological disorders — self-report plus optional AI. Screening only, not diagnosis. https://psyc.6x7.gr · https://github.com/philipposk/psycscope
 - **Digestive Diary** — Track digestive symptoms without judgement. Find patterns, not blame. https://digestive.6x7.gr · https://github.com/philipposk/Digestive-Diary
@@ -71,8 +71,8 @@ He is unusual because he covers the full product surface himself: research, desi
 ## Games
 
 - **MiniGames** — Eight offline-friendly browser games. No ads, no tracking. https://minigames.6x7.gr · https://github.com/philipposk/MiniGames
-- **Ballpark** — Daily estimation game: one number to guess, hotter or colder with each try. https://ballpark.6x7.gr
-- **Dailies** — Three daily mini puzzles (word, meaning, size order), the same for everyone. https://dailies.6x7.gr
+- **Ballpark** — One number to guess a day. Get warmer with each try, then see how to estimate it. https://ballpark.6x7.gr
+- **Dailies** — Three small word and size puzzles a day, the same for everyone. About ten minutes. https://dailies.6x7.gr
 - **GameOfWorld** — First-person exploration of photoreal London, built in Unity. https://gameoflife.6x7.gr
 - **Lesvos Terrain** — DEM terrain of Lesvos island, ready to drop into Unity.
 
@@ -90,6 +90,7 @@ He is unusual because he covers the full product surface himself: research, desi
 ## Libraries & infra other developers use
 
 - **Daisy** — A polite voice assistant that lives on your Mac and gets things done without nagging. https://daisy.6x7.gr · https://github.com/philipposk/Daisy--AI-Assistant-
+- **Skills & Plugins** — My agent skills and plugins (Shipyard and more) for Claude Code, Cursor, Codex, OpenClaw and Hermes. Search them, read each SKILL.md, copy the install command. /skills · https://github.com/philipposk/shipyard
 - **llm-free-rotator** — Rotate across free-tier LLMs when one rate-limits you. https://llm-rotator.6x7.gr · https://github.com/philipposk/llm-free-rotator
 - **agent-feedback** — A tiny universal protocol that lets LLMs, agents, and in-app assistants send improvement tickets back to the apps they use — so apps get better every time they're used. https://agentfeedback.6x7.gr · https://github.com/philipposk/agent-feedback
 - **6x7 App Factory** — Say /new-app once in Cursor — get a deployed Next.js app on 6x7.gr with auth, SEO, mobile shell, verification, and a hub card. https://app-factory.6x7.gr · https://github.com/philipposk/app-factory
