@@ -36,6 +36,8 @@ He is unusual because he covers the full product surface himself: research, desi
 
 ## Life & productivity
 
+- **Sparks** — Every idea for every project in one notebook. Your GitHub repos become projects, and the notes you send yourself, typed or spoken, land in the right one. https://sparks.6x7.gr
+- **Recall** — A private archive for your imported WhatsApp, Messenger and Instagram chats, sorted and searchable. https://recall.6x7.gr
 - **BeenThere** — Mark the world you've seen. https://beenthere.6x7.gr · https://github.com/philipposk/BeenThere
 - **Week Number Widget** — What week is it? Now you know — from your home screen. https://weeknumber.6x7.gr · https://github.com/philipposk/WeekNumber-Widget
 - **Samos Companion** — A free four-language PWA for Samos visitors — places, events, day plans, and a direct channel for the local business behind it. https://samos.6x7.gr
