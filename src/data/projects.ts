@@ -554,6 +554,17 @@ export const PROJECTS: Project[] = [
     glyph: "✦",
   },
   {
+    slug: "scribe",
+    name: "scribe",
+    tagline:
+      "Shared speech-to-text service. Apps send audio, get text back, for under $0.10 an hour (Groq Whisper, OpenRouter backup).",
+    group: "infra",
+    status: "live",
+    live: "https://scribe.6x7.gr",
+    repo: "https://github.com/philipposk/scribe",
+    glyph: "✎",
+  },
+  {
     slug: "llm-free-rotator",
     name: "llm-free-rotator",
     tagline: "Rotate across free-tier LLMs when one rate-limits you.",
