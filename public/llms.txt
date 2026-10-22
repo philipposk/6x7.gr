@@ -91,6 +91,7 @@ He is unusual because he covers the full product surface himself: research, desi
 
 - **Daisy** — A polite voice assistant that lives on your Mac and gets things done without nagging. https://daisy.6x7.gr · https://github.com/philipposk/Daisy--AI-Assistant-
 - **Skills & Plugins** — My agent skills and plugins (Shipyard and more) for Claude Code, Cursor, Codex, OpenClaw and Hermes. Search them, read each SKILL.md, copy the install command. /skills · https://github.com/philipposk/shipyard
+- **scribe** — Shared speech-to-text service. Apps send audio, get text back, for under $0.10 an hour (Groq Whisper, OpenRouter backup). https://scribe.6x7.gr · https://github.com/philipposk/scribe
 - **llm-free-rotator** — Rotate across free-tier LLMs when one rate-limits you. https://llm-rotator.6x7.gr · https://github.com/philipposk/llm-free-rotator
 - **agent-feedback** — A tiny universal protocol that lets LLMs, agents, and in-app assistants send improvement tickets back to the apps they use — so apps get better every time they're used. https://agentfeedback.6x7.gr · https://github.com/philipposk/agent-feedback
 - **6x7 App Factory** — Say /new-app once in Cursor — get a deployed Next.js app on 6x7.gr with auth, SEO, mobile shell, verification, and a hub card. https://app-factory.6x7.gr · https://github.com/philipposk/app-factory
