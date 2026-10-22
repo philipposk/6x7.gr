@@ -4,6 +4,12 @@ import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { GoogleIdentityButton } from "@/components/GoogleIdentityButton";
 
+function callbackUrl() {
+  const next = new URLSearchParams(location.search).get("next");
+  const safe = next && next.startsWith("/") && !next.startsWith("//") ? next : null;
+  return `${location.origin}/auth/callback${safe ? `?next=${encodeURIComponent(safe)}` : ""}`;
+}
+
 export default function LoginPage() {
   const supabase = createClient();
   const [email, setEmail] = useState("");
@@ -17,7 +23,7 @@ export default function LoginPage() {
     setError(null);
     const { error } = await supabase.auth.signInWithOtp({
       email,
-      options: { emailRedirectTo: `${location.origin}/auth/callback` },
+      options: { emailRedirectTo: callbackUrl() },
     });
     setLoading(false);
     if (error) setError(error.message);
@@ -28,7 +34,7 @@ export default function LoginPage() {
     setError(null);
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
-      options: { redirectTo: `${location.origin}/auth/callback` },
+      options: { redirectTo: callbackUrl() },
     });
     if (error) setError(error.message);
   }

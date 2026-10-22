@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: "*",
         allow: "/",
         // Auth pages have no SEO value.
-        disallow: ["/login", "/auth/"],
+        disallow: ["/login", "/auth/", "/admin"],
       },
     ],
     sitemap: "https://6x7.gr/sitemap.xml",

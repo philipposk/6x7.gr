@@ -34,6 +34,20 @@ export async function POST(req: NextRequest) {
     return Response.json({ ok: false, error: "bad email" }, { status: 400 });
   }
 
+  // Optional: store for /admin/contact (needs docs/sql/contact_messages.sql applied).
+  if (process.env.SUPABASE_SERVICE_ROLE_KEY && process.env.NEXT_PUBLIC_SUPABASE_URL) {
+    await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/contact_messages`, {
+      method: "POST",
+      headers: {
+        apikey: process.env.SUPABASE_SERVICE_ROLE_KEY,
+        Authorization: `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY}`,
+        "Content-Type": "application/json",
+        Prefer: "return=minimal",
+      },
+      body: JSON.stringify({ name, email, message }),
+    }).catch(() => {});
+  }
+
   const key = process.env.RESEND_API_KEY;
   if (!key) {
     console.warn("[contact] RESEND_API_KEY is not set; cannot send mail");

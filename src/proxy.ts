@@ -37,7 +37,20 @@ export async function proxy(request: NextRequest) {
 
   // Refreshes the auth token and writes the rotated cookie onto the response.
   // Do not run logic between createServerClient and getUser().
-  await supabase.auth.getUser();
+  const { data } = await supabase.auth.getUser();
+
+  // /admin is owner-only. Checked here, before anything renders: in the App
+  // Router a layout's redirect does not stop sibling pages from streaming.
+  if (request.nextUrl.pathname === "/admin" || request.nextUrl.pathname.startsWith("/admin/")) {
+    const allowed = (process.env.ADMIN_EMAILS ?? "").split(",").map((e) => e.trim().toLowerCase()).filter(Boolean);
+    const email = data.user?.email?.toLowerCase();
+    if (!data.user?.email_confirmed_at || !email || !allowed.includes(email)) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/login";
+      url.search = "?next=/admin";
+      return NextResponse.redirect(url);
+    }
+  }
 
   return response;
 }
