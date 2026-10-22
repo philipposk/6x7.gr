@@ -38,3 +38,8 @@ test("generated skills are complete and slugs unique", () => {
     slugs.add(s.slug);
   }
 });
+
+test("parseSkillMd unescapes JSON-quoted descriptions", () => {
+  const { meta } = parseSkillMd('---\nname: x\ndescription: "Say \\"hi\\". Use for x."\n---\n');
+  assert.equal(meta.description, 'Say "hi". Use for x.');
+});

@@ -58,13 +58,13 @@ export const SKILL_SOURCES: SkillSource[] = [
         agent: "codex",
         label: "Codex",
         command:
-          'git clone --depth 1 https://github.com/philipposk/shipyard.git "$HOME/.local/share/shipyard" && node "$HOME/.local/share/shipyard/scripts/install-agents.mjs" --agent codex --yes',
+          'D="$HOME/.local/share/shipyard"; { git -C "$D" pull --ff-only 2>/dev/null || git clone --depth 1 https://github.com/philipposk/shipyard.git "$D"; } && node "$D/scripts/install-agents.mjs" --agent codex --yes',
       },
       {
         agent: "cursor",
         label: "Cursor",
         command:
-          'git clone --depth 1 https://github.com/philipposk/shipyard.git "$HOME/.local/share/shipyard" && node "$HOME/.local/share/shipyard/scripts/install-agents.mjs" --agent cursor --yes',
+          'D="$HOME/.local/share/shipyard"; { git -C "$D" pull --ff-only 2>/dev/null || git clone --depth 1 https://github.com/philipposk/shipyard.git "$D"; } && node "$D/scripts/install-agents.mjs" --agent cursor --yes',
       },
       { agent: "openclaw", label: "OpenClaw (ClawHub)", command: "clawhub install shipyard", planned: true },
       { agent: "hermes", label: "Hermes", command: "hermes skills tap add philipposk/shipyard", planned: true },

@@ -27,12 +27,12 @@
         {
           "agent": "codex",
           "label": "Codex",
-          "command": "git clone --depth 1 https://github.com/philipposk/shipyard.git \"$HOME/.local/share/shipyard\" && node \"$HOME/.local/share/shipyard/scripts/install-agents.mjs\" --agent codex --yes"
+          "command": "D=\"$HOME/.local/share/shipyard\"; { git -C \"$D\" pull --ff-only 2>/dev/null || git clone --depth 1 https://github.com/philipposk/shipyard.git \"$D\"; } && node \"$D/scripts/install-agents.mjs\" --agent codex --yes"
         },
         {
           "agent": "cursor",
           "label": "Cursor",
-          "command": "git clone --depth 1 https://github.com/philipposk/shipyard.git \"$HOME/.local/share/shipyard\" && node \"$HOME/.local/share/shipyard/scripts/install-agents.mjs\" --agent cursor --yes"
+          "command": "D=\"$HOME/.local/share/shipyard\"; { git -C \"$D\" pull --ff-only 2>/dev/null || git clone --depth 1 https://github.com/philipposk/shipyard.git \"$D\"; } && node \"$D/scripts/install-agents.mjs\" --agent cursor --yes"
         },
         {
           "agent": "openclaw",
@@ -76,12 +76,12 @@
         {
           "agent": "codex",
           "label": "Codex",
-          "command": "git clone --depth 1 https://github.com/philipposk/shipyard.git \"$HOME/.local/share/shipyard\" && node \"$HOME/.local/share/shipyard/scripts/install-agents.mjs\" --agent codex --yes"
+          "command": "D=\"$HOME/.local/share/shipyard\"; { git -C \"$D\" pull --ff-only 2>/dev/null || git clone --depth 1 https://github.com/philipposk/shipyard.git \"$D\"; } && node \"$D/scripts/install-agents.mjs\" --agent codex --yes"
         },
         {
           "agent": "cursor",
           "label": "Cursor",
-          "command": "git clone --depth 1 https://github.com/philipposk/shipyard.git \"$HOME/.local/share/shipyard\" && node \"$HOME/.local/share/shipyard/scripts/install-agents.mjs\" --agent cursor --yes"
+          "command": "D=\"$HOME/.local/share/shipyard\"; { git -C \"$D\" pull --ff-only 2>/dev/null || git clone --depth 1 https://github.com/philipposk/shipyard.git \"$D\"; } && node \"$D/scripts/install-agents.mjs\" --agent cursor --yes"
         },
         {
           "agent": "openclaw",
@@ -125,12 +125,12 @@
         {
           "agent": "codex",
           "label": "Codex",
-          "command": "git clone --depth 1 https://github.com/philipposk/shipyard.git \"$HOME/.local/share/shipyard\" && node \"$HOME/.local/share/shipyard/scripts/install-agents.mjs\" --agent codex --yes"
+          "command": "D=\"$HOME/.local/share/shipyard\"; { git -C \"$D\" pull --ff-only 2>/dev/null || git clone --depth 1 https://github.com/philipposk/shipyard.git \"$D\"; } && node \"$D/scripts/install-agents.mjs\" --agent codex --yes"
         },
         {
           "agent": "cursor",
           "label": "Cursor",
-          "command": "git clone --depth 1 https://github.com/philipposk/shipyard.git \"$HOME/.local/share/shipyard\" && node \"$HOME/.local/share/shipyard/scripts/install-agents.mjs\" --agent cursor --yes"
+          "command": "D=\"$HOME/.local/share/shipyard\"; { git -C \"$D\" pull --ff-only 2>/dev/null || git clone --depth 1 https://github.com/philipposk/shipyard.git \"$D\"; } && node \"$D/scripts/install-agents.mjs\" --agent cursor --yes"
         },
         {
           "agent": "openclaw",
@@ -174,12 +174,12 @@
         {
           "agent": "codex",
           "label": "Codex",
-          "command": "git clone --depth 1 https://github.com/philipposk/shipyard.git \"$HOME/.local/share/shipyard\" && node \"$HOME/.local/share/shipyard/scripts/install-agents.mjs\" --agent codex --yes"
+          "command": "D=\"$HOME/.local/share/shipyard\"; { git -C \"$D\" pull --ff-only 2>/dev/null || git clone --depth 1 https://github.com/philipposk/shipyard.git \"$D\"; } && node \"$D/scripts/install-agents.mjs\" --agent codex --yes"
         },
         {
           "agent": "cursor",
           "label": "Cursor",
-          "command": "git clone --depth 1 https://github.com/philipposk/shipyard.git \"$HOME/.local/share/shipyard\" && node \"$HOME/.local/share/shipyard/scripts/install-agents.mjs\" --agent cursor --yes"
+          "command": "D=\"$HOME/.local/share/shipyard\"; { git -C \"$D\" pull --ff-only 2>/dev/null || git clone --depth 1 https://github.com/philipposk/shipyard.git \"$D\"; } && node \"$D/scripts/install-agents.mjs\" --agent cursor --yes"
         },
         {
           "agent": "openclaw",
@@ -194,7 +194,7 @@
           "planned": true
         }
       ],
-      "html": "<h1>Shipyard new skill</h1>\n<p>You help the student turn something they keep doing with their coding agent into a skill (a folder of instructions an agent loads when a request matches) or a plugin (one or more skills plus scripts, hooks and a manifest). The student says what they want in plain words; you design it, push back when the idea is weak, build it, test it and get it ready to publish.</p>\n<h2>Rules (always)</h2>\n<ul>\n<li>You do the work. Run scripts yourself. Never hand the student a command you could run.</li>\n<li>Plain English, short messages, one question at a time with your recommended answer. Explain any new word in five words or fewer (&quot;front matter: the name and description block&quot;).</li>\n<li>Never read <code>~/.shipyard/secrets.env</code> or <code>.env*</code> files, and never put a key in a skill. A skill that needs a key reads it from a file or variable the student fills in themselves.</li>\n<li>Read the student&#39;s code and agent chats only with a yes, and only the parts you need: file lists, READMEs, the instruction files (<code>AGENTS.md</code>, <code>CLAUDE.md</code>, <code>.cursor/rules</code>), and summaries of chats, not whole transcripts. Say what you read.</li>\n<li>Publishing, pushing, opening pull requests on other people&#39;s repos and filling in submission forms: ask first, wait for a clear yes, once per action.</li>\n<li>Verify before saying done. Say what was checked and what was not.</li>\n<li>Helper agents: one model cheaper than yours, mechanical work only (listing files, running checks).</li>\n</ul>\n<h2>0. Find what they have</h2>\n<p>Check the current folder: is it a skill (<code>SKILL.md</code>), a plugin (<code>.claude-plugin/plugin.json</code> or <code>.cursor-plugin/plugin.json</code>), Shipyard itself, an app, or empty? If they already have a skill, offer to check it first: <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/skill-scaffold.mjs&quot; check &lt;folder&gt;</code>, and read the result as ticks and crosses.</p>\n<h2>1. Interview</h2>\n<p>Read <code>references/interview.md</code>. At most 5 questions, about outcomes: what job the skill does, who uses it, what words they type when they want it, what &quot;done&quot; looks like, and what it must never do. Rambling answers are fine; you write the spec.</p>\n<h2>2. Push back, then let them choose</h2>\n<p>Read <code>references/pushback.md</code> and check the spec against it. If something is weak (too broad, duplicates a skill they already have, needs keys in the chat, publishes without asking, could be a one-line rule instead), say so in one or two sentences, give your better version, and ask which they prefer. Their choice wins unless it is unsafe; then say plainly why you will not build that part.</p>\n<h2>3. Recommend where to build it</h2>\n<p>Read <code>references/build-or-extend.md</code>. With their yes, look at their codebase and agent chats (the instruction files, recent work, and repeated requests or mistakes in the chats). Recommend one of three, with one line of why:</p>\n<ol>\n<li><strong>A new skill inside Shipyard</strong> (it is about building, publishing or running web apps the Shipyard way).</li>\n<li><strong>A new plugin built on Shipyard&#39;s shape</strong> (their own name and repo, Shipyard&#39;s rules, tests and installer pattern).</li>\n<li><strong>A plugin from scratch</strong> (unrelated to apps, or they want nothing Shipyard does).</li>\n</ol>\n<h2>4. Write the spec</h2>\n<p>Write a short spec in the chat: name (lowercase words joined by dashes), the description with its trigger phrases, the steps, the rules, the scripts it needs (if any), and the tests. Read <code>references/anatomy.md</code> for what a good SKILL.md looks like. Ask &quot;Shall I build this?&quot; and wait.</p>\n<h2>5. Build it</h2>\n<ul>\n<li>From scratch or as its own plugin: <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/skill-scaffold.mjs&quot; create &lt;folder&gt; --name &lt;name&gt; --description &quot;&lt;description&gt;&quot; --plugin</code> (leave out <code>--plugin</code> for a single skill). It writes the skill, a test, both plugin manifests, a README with install and publishing notes and a licence, and never overwrites a file that is there.</li>\n<li>Inside Shipyard: read <code>references/in-shipyard.md</code> and follow it (the Codex and Cursor copy, the rewrite table, version and README).</li>\n<li>Then fill in the real steps. Keep SKILL.md under about 100 lines; detail goes in <code>references/</code>. Anything a script can check, a script checks.</li>\n</ul>\n<h2>6. Test it</h2>\n<p>Run <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/skill-scaffold.mjs&quot; check &lt;folder&gt;</code> and the skill&#39;s own tests (<code>node --test tests/*.test.mjs</code>). Then try it for real: start a new session, type one of the trigger phrases and see that the skill starts. Turn every lesson from the try into a rule or a test (<code>references/anatomy.md</code>, &quot;Lessons&quot;). After fixing review findings, review the fixed code again.</p>\n<h2>7. Publish</h2>\n<p>Read <code>references/publish.md</code>. Show the list of places, what each one needs, and which are automatic. Ask before each one. Bump the version and add a &quot;What changed&quot; line on every release.</p>\n<h2>Done when</h2>\n<ul>\n<li><code>skill-scaffold.mjs check</code> is all ticks, the tests pass, and the skill started from a trigger phrase in a fresh session.</li>\n<li>The student knows how to install it, how to update it and where it is published.</li>\n</ul>\n"
+      "html": "<h1>Shipyard new skill</h1>\n<p>You help the student turn something they keep doing with their coding agent into a skill (a folder of instructions an agent loads when a request matches) or a plugin (one or more skills plus scripts, hooks and a manifest). The student says what they want in plain words; you design it, push back when the idea is weak, build it, test it and get it ready to publish.</p>\n<h2>Rules (always)</h2>\n<ul>\n<li>You do the work. Run scripts yourself. Never hand the student a command you could run.</li>\n<li>Plain English, short messages, one question at a time with your recommended answer. Explain any new word in five words or fewer (&quot;front matter: the name and description block&quot;).</li>\n<li>Never read <code>~/.shipyard/secrets.env</code> or <code>.env*</code> files, and never put a key in a skill. A skill that needs a key reads it from a file or variable the student fills in themselves.</li>\n<li>Read the student&#39;s code and agent chats only with a yes, and only the parts you need: file lists, READMEs, the instruction files (<code>AGENTS.md</code>, <code>CLAUDE.md</code>, <code>.cursor/rules</code>), and summaries of chats, not whole transcripts. Say what you read.</li>\n<li>Publishing, pushing, opening pull requests on other people&#39;s repos and filling in submission forms: ask first, wait for a clear yes, once per action.</li>\n<li>Verify before saying done. Say what was checked and what was not.</li>\n<li>Helper agents: one model cheaper than yours, mechanical work only (listing files, running checks).</li>\n</ul>\n<h2>0. Find what they have</h2>\n<p>Check the current folder: is it a skill (<code>SKILL.md</code>), a plugin (a manifest in <code>.claude-plugin/</code> or <code>.cursor-plugin/</code>), Shipyard itself, an app, or empty? If they already have a skill, offer to check it first: <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/skill-scaffold.mjs&quot; check &lt;folder&gt;</code>, and read the result as ticks and crosses.</p>\n<h2>1. Interview</h2>\n<p>Read <code>references/interview.md</code>. At most 5 questions, about outcomes: what job the skill does, who uses it, what words they type when they want it, what &quot;done&quot; looks like, and what it must never do. Rambling answers are fine; you write the spec.</p>\n<h2>2. Push back, then let them choose</h2>\n<p>Read <code>references/pushback.md</code> and check the spec against it. If something is weak (too broad, duplicates a skill they already have, needs keys in the chat, publishes without asking, could be a one-line rule instead), say so in one or two sentences, give your better version, and ask which they prefer. Their choice wins unless it is unsafe; then say plainly why you will not build that part.</p>\n<h2>3. Recommend where to build it</h2>\n<p>Read <code>references/build-or-extend.md</code>. With their yes, look at their codebase and agent chats (the instruction files, recent work, and repeated requests or mistakes in the chats). Recommend one of three, with one line of why:</p>\n<ol>\n<li><strong>A new skill inside Shipyard</strong> (it is about building, publishing or running web apps the Shipyard way).</li>\n<li><strong>A new plugin built on Shipyard&#39;s shape</strong> (their own name and repo, Shipyard&#39;s rules, tests and installer pattern).</li>\n<li><strong>A plugin from scratch</strong> (unrelated to apps, or they want nothing Shipyard does).</li>\n</ol>\n<h2>4. Write the spec</h2>\n<p>Write a short spec in the chat: name (lowercase words joined by dashes), the description with its trigger phrases, the steps, the rules, the scripts it needs (if any), and the tests. Read <code>references/anatomy.md</code> for what a good SKILL.md looks like. Ask &quot;Shall I build this?&quot; and wait.</p>\n<h2>5. Build it</h2>\n<ul>\n<li>From scratch or as its own plugin: <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/skill-scaffold.mjs&quot; create &lt;folder&gt; --name &lt;name&gt; --description &quot;&lt;description&gt;&quot; --plugin</code> (leave out <code>--plugin</code> for a single skill). It writes the skill, a test, both plugin manifests, a README with install and publishing notes and a licence, and never overwrites a file that is there.</li>\n<li>Inside Shipyard: read <code>references/in-shipyard.md</code> and follow it (the Codex and Cursor copy, the rewrite table, version and README).</li>\n<li>Then fill in the real steps. Keep SKILL.md under about 100 lines; detail goes in <code>references/</code>. Anything a script can check, a script checks.</li>\n</ul>\n<h2>6. Test it</h2>\n<p>Run <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/skill-scaffold.mjs&quot; check &lt;folder&gt;</code> and the skill&#39;s own tests (<code>node --test tests/*.test.mjs</code>). Then try it for real: start a new session, type one of the trigger phrases and see that the skill starts. Turn every lesson from the try into a rule or a test (<code>references/anatomy.md</code>, &quot;Lessons&quot;). After fixing review findings, review the fixed code again.</p>\n<h2>7. Publish</h2>\n<p>Read <code>references/publish.md</code>. Show the list of places, what each one needs, and which are automatic. Ask before each one. Bump the version and add a &quot;What changed&quot; line on every release.</p>\n<h2>Done when</h2>\n<ul>\n<li><code>skill-scaffold.mjs check</code> is all ticks, the tests pass, and the skill started from a trigger phrase in a fresh session.</li>\n<li>The student knows how to install it, how to update it and where it is published.</li>\n</ul>\n"
     },
     {
       "slug": "shipyard-ops",
@@ -223,12 +223,12 @@
         {
           "agent": "codex",
           "label": "Codex",
-          "command": "git clone --depth 1 https://github.com/philipposk/shipyard.git \"$HOME/.local/share/shipyard\" && node \"$HOME/.local/share/shipyard/scripts/install-agents.mjs\" --agent codex --yes"
+          "command": "D=\"$HOME/.local/share/shipyard\"; { git -C \"$D\" pull --ff-only 2>/dev/null || git clone --depth 1 https://github.com/philipposk/shipyard.git \"$D\"; } && node \"$D/scripts/install-agents.mjs\" --agent codex --yes"
         },
         {
           "agent": "cursor",
           "label": "Cursor",
-          "command": "git clone --depth 1 https://github.com/philipposk/shipyard.git \"$HOME/.local/share/shipyard\" && node \"$HOME/.local/share/shipyard/scripts/install-agents.mjs\" --agent cursor --yes"
+          "command": "D=\"$HOME/.local/share/shipyard\"; { git -C \"$D\" pull --ff-only 2>/dev/null || git clone --depth 1 https://github.com/philipposk/shipyard.git \"$D\"; } && node \"$D/scripts/install-agents.mjs\" --agent cursor --yes"
         },
         {
           "agent": "openclaw",
@@ -272,12 +272,12 @@
         {
           "agent": "codex",
           "label": "Codex",
-          "command": "git clone --depth 1 https://github.com/philipposk/shipyard.git \"$HOME/.local/share/shipyard\" && node \"$HOME/.local/share/shipyard/scripts/install-agents.mjs\" --agent codex --yes"
+          "command": "D=\"$HOME/.local/share/shipyard\"; { git -C \"$D\" pull --ff-only 2>/dev/null || git clone --depth 1 https://github.com/philipposk/shipyard.git \"$D\"; } && node \"$D/scripts/install-agents.mjs\" --agent codex --yes"
         },
         {
           "agent": "cursor",
           "label": "Cursor",
-          "command": "git clone --depth 1 https://github.com/philipposk/shipyard.git \"$HOME/.local/share/shipyard\" && node \"$HOME/.local/share/shipyard/scripts/install-agents.mjs\" --agent cursor --yes"
+          "command": "D=\"$HOME/.local/share/shipyard\"; { git -C \"$D\" pull --ff-only 2>/dev/null || git clone --depth 1 https://github.com/philipposk/shipyard.git \"$D\"; } && node \"$D/scripts/install-agents.mjs\" --agent cursor --yes"
         },
         {
           "agent": "openclaw",
@@ -321,12 +321,12 @@
         {
           "agent": "codex",
           "label": "Codex",
-          "command": "git clone --depth 1 https://github.com/philipposk/shipyard.git \"$HOME/.local/share/shipyard\" && node \"$HOME/.local/share/shipyard/scripts/install-agents.mjs\" --agent codex --yes"
+          "command": "D=\"$HOME/.local/share/shipyard\"; { git -C \"$D\" pull --ff-only 2>/dev/null || git clone --depth 1 https://github.com/philipposk/shipyard.git \"$D\"; } && node \"$D/scripts/install-agents.mjs\" --agent codex --yes"
         },
         {
           "agent": "cursor",
           "label": "Cursor",
-          "command": "git clone --depth 1 https://github.com/philipposk/shipyard.git \"$HOME/.local/share/shipyard\" && node \"$HOME/.local/share/shipyard/scripts/install-agents.mjs\" --agent cursor --yes"
+          "command": "D=\"$HOME/.local/share/shipyard\"; { git -C \"$D\" pull --ff-only 2>/dev/null || git clone --depth 1 https://github.com/philipposk/shipyard.git \"$D\"; } && node \"$D/scripts/install-agents.mjs\" --agent cursor --yes"
         },
         {
           "agent": "openclaw",

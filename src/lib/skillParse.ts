@@ -16,7 +16,13 @@ export function parseSkillMd(raw: string): { meta: Frontmatter; body: string } {
     const kv = /^([A-Za-z0-9_-]+):\s*(.*)$/.exec(line);
     if (!kv) continue;
     let v = kv[2].trim();
-    if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) {
+    if (v.length >= 2 && v.startsWith('"') && v.endsWith('"')) {
+      try {
+        v = JSON.parse(v) as string;
+      } catch {
+        v = v.slice(1, -1);
+      }
+    } else if (v.length >= 2 && v.startsWith("'") && v.endsWith("'")) {
       v = v.slice(1, -1);
     }
     meta[kv[1]] = v;
