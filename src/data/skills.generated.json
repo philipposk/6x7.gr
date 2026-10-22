@@ -1,0 +1,347 @@
+{
+  "skills": [
+    {
+      "slug": "shipyard-design",
+      "name": "design",
+      "description": "Choose or change how an app looks: colours, fonts, layout, homepage style, dark mode, icons. Use for \"design\", \"how my app looks\", \"change the look\", \"change the colours\", \"change the fonts\", \"copy this website's style\", \"make it look like\", \"3 directions\", \"/shipyard:design\", or the sentences \"Shipyard: use the <name> look\" and \"Shipyard: use direction <A|B|C> for <app>\".",
+      "plugin": "Shipyard",
+      "repo": "philipposk/shipyard",
+      "sourceUrl": "https://github.com/philipposk/shipyard/blob/main/skills/design/SKILL.md",
+      "agents": [
+        "skills.sh",
+        "Claude Code",
+        "Codex",
+        "Cursor"
+      ],
+      "installs": [
+        {
+          "agent": "skills-sh",
+          "label": "Any agent (skills.sh)",
+          "command": "npx skills add philipposk/shipyard"
+        },
+        {
+          "agent": "claude-code",
+          "label": "Claude Code",
+          "command": "/plugin marketplace add philipposk/shipyard\n/plugin install shipyard@shipyard"
+        },
+        {
+          "agent": "codex",
+          "label": "Codex",
+          "command": "git clone --depth 1 https://github.com/philipposk/shipyard.git \"$HOME/.local/share/shipyard\" && node \"$HOME/.local/share/shipyard/scripts/install-agents.mjs\" --agent codex --yes"
+        },
+        {
+          "agent": "cursor",
+          "label": "Cursor",
+          "command": "git clone --depth 1 https://github.com/philipposk/shipyard.git \"$HOME/.local/share/shipyard\" && node \"$HOME/.local/share/shipyard/scripts/install-agents.mjs\" --agent cursor --yes"
+        },
+        {
+          "agent": "openclaw",
+          "label": "OpenClaw (ClawHub)",
+          "command": "clawhub install shipyard",
+          "planned": true
+        },
+        {
+          "agent": "hermes",
+          "label": "Hermes",
+          "command": "hermes skills tap add philipposk/shipyard",
+          "planned": true
+        }
+      ],
+      "html": "<h1>Shipyard design</h1>\n<p>You help a beginner pick how their app looks. A look is more than colours: it also sets the menu style, the homepage style, how cards and buttons feel, and how big the text is. All ways of choosing are free, need no extra account, and end the same way: checked colours and fonts written into the app, a fresh <code>DESIGN.md</code> (the app&#39;s written look guide), and matching icons.</p>\n<h2>Rules (always)</h2>\n<ul>\n<li>You run the scripts. The student only looks and chooses.</li>\n<li>Plain English, short messages, one question at a time with your recommended answer. No colour codes unless asked.</li>\n<li>Style, not brand. We copy colours, fonts (nearest free Google font), spacing, corner roundness and general feel. Never logos, images, icons, wording, brand names or trademarks. Say this once, when the student picks a site, screenshots or a DESIGN.md file.</li>\n<li>Never put a brand name in a generated look name or description.</li>\n<li>Do not commit or push. Ask first, as in the new-app skill.</li>\n</ul>\n<h2>1. Find the app</h2>\n<p>Use the current folder if it has <code>.shipyard-app.json</code>. Otherwise ask which app (<code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/profile.mjs&quot; show</code> lists them). No such file means it is not a Shipyard app: stop and explain.</p>\n<p>Two sentences skip the questions. <code>Shipyard: use the &lt;Look name&gt; look for &lt;App name&gt;</code> goes straight to step 5 with that look (match the name to an id in <code>references/presets.md</code>). <code>Shipyard: use direction &lt;A|B|C&gt; for &lt;App name&gt;</code> goes to step 4, &quot;Apply a direction&quot;.</p>\n<h2>2. Ask how to choose</h2>\n<p>One question: &quot;How do you want to choose the look?&quot; Offer these, in this order, and say which you recommend (a site they like if they have one, else the 3 directions):</p>\n<ol>\n<li><strong>A site or app you like.</strong> Screenshots, or a website address.</li>\n<li><strong>A design file</strong> from the free getdesign.md collection (it holds ready-made <code>DESIGN.md</code> files for well-known styles; MIT licensed, credit &quot;awesome-design-md by VoltAgent&quot; if you mention it).</li>\n<li><strong>3 directions for my homepage.</strong> You draft three really different looks for their app and show real screenshots of their own app.</li>\n<li><strong>A ready-made look.</strong> 8 looks to pick from. The quickest.\nOr keep what they have.</li>\n</ol>\n<h2>3a. A site or app you like</h2>\n<p>Screenshots: ask them to save 1 or 2 images in <code>&lt;appDir&gt;/design-input/</code> (a folder, not the chat: it keeps the conversation small). That folder is in the app&#39;s <code>.gitignore</code>, so other sites&#39; screenshots never go to GitHub; if an older app lacks the line <code>/design-input/</code>, add it first. Look at the images, read <code>references/tokens.md</code>, write <code>&lt;appDir&gt;/.shipyard/design/screenshot-draft.tokens.json</code> (colours, fonts, corners and the layout and type fields), then go to &quot;Apply a draft&quot;.</p>\n<p>Website address: <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/design-from-url.mjs&quot; &lt;url&gt; --app &lt;appDir&gt;</code>. It needs <code>npm install</code> to have been run in the app. It saves screenshots of the site and a draft look in <code>&lt;appDir&gt;/.shipyard/design/</code>, and guesses the menu style, card and button feel, spacing and text size too. Look at the screenshots and the draft, say in plain words what you would change, adjust the draft. It never saves the site&#39;s images, logos or text.</p>\n<h2>3b. A design file</h2>\n<p><code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/design-from-designmd.mjs&quot; --list --app &lt;appDir&gt;</code> shows the names. Then <code>--name &lt;name&gt;</code> downloads one (or <code>--file &lt;path&gt;</code> for a file they already have, <code>--url &lt;https address&gt;</code> for a raw GitHub link). It saves the file in <code>&lt;appDir&gt;/design-input/</code> with a source note and writes a draft look to <code>&lt;appDir&gt;/.shipyard/design/designmd-draft.tokens.json</code> with a neutral style name, never the brand. Read the draft, fix anything odd, go to &quot;Apply a draft&quot;.</p>\n<h2>3c. Three directions</h2>\n<p>Read <code>references/directions.md</code>. First write the app&#39;s real home words in <code>&lt;appDir&gt;/src/lib/home-content.ts</code> (what the app is for, three short points, three entries; the real screenshots show exactly these words, and the script warns if the template&#39;s stand-ins are still there). Then write three token files for THIS app at <code>&lt;appDir&gt;/.shipyard/design/direction-a.tokens.json</code>, <code>-b</code> and <code>-c</code>, genuinely different from each other. Then:\n<code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/design-directions.mjs&quot; &lt;appDir&gt;</code>\nIt checks them, refuses if two look too alike (then make them more different), renders real screenshots of their app (about a minute) and opens a page with the three side by side. They click &quot;Use direction B&quot; and paste the sentence back to you. Add <code>--no-open</code> to only write the page.</p>\n<h3>Apply a direction</h3>\n<p><code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/apply-design.mjs&quot; &lt;appDir&gt; --tokens &lt;appDir&gt;/.shipyard/design/direction-&lt;a|b|c&gt;.tokens.json --source custom --fix</code></p>\n<h2>4. Apply a draft</h2>\n<p><code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/apply-design.mjs&quot; &lt;appDir&gt; --tokens &lt;draft&gt; --source &lt;screenshot|url|design-md&gt; --fix</code>\nTell them in plain words what <code>--fix</code> changed. Add <code>--dry-run</code> first if they want to see what changes. Add <code>--keep-layout</code> if they like their current menu style and only want the new colours and fonts. Add <code>--languages en,el</code> if the app uses other alphabets (the profile may already say).</p>\n<h2>5. Ready-made look</h2>\n<p><code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/design-gallery.mjs&quot; --app &lt;appDir&gt;</code> opens a page showing 8 looks on a phone and on a computer screen, light and dark. Add <code>--real</code> to see the looks on their own app instead of the pictures (takes about a minute, needs <code>npm install</code> first); offer it, don&#39;t force it. Before <code>--real</code>, write the app&#39;s real home words in <code>&lt;appDir&gt;/src/lib/home-content.ts</code> (otherwise every look is shown with the template&#39;s filler text; the script warns). They click &quot;Use this look&quot; and paste the sentence back. If they just name a look, skip the gallery. Then:\n<code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/apply-design.mjs&quot; &lt;appDir&gt; --preset &lt;id&gt;</code></p>\n<h2>6. Layout</h2>\n<p>A look carries its own menu style, and applying it sets that. Only if they want to change just the menu, ask once and run <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/set-layout.mjs&quot; &lt;appDir&gt; &lt;bottom-nav|sidebar|top-nav&gt;</code>. Plain words: <code>bottom-nav</code> = tabs along the bottom like a phone app; <code>sidebar</code> = a menu on the left (tools, dashboards); <code>top-nav</code> = links across the top (websites, content, shops). On phones all three show bottom tabs.</p>\n<h2>7. Check it</h2>\n<ol>\n<li>In the app: <code>npm run check:design</code>, then <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/verify.mjs&quot; &lt;appDir&gt; --only design</code>. <code>references/anti-slop.md</code> says what each finding means.</li>\n<li>If the app runs locally or is deployed, run the browser check and look at the light and dark phone screenshots yourself. Fix what looks off (hard-to-read text, cramped spacing, empty screens, a homepage that still says generic words) and say what you changed. Homepage words live in <code>src/lib/home-content.ts</code>; edit them for the app&#39;s real purpose.</li>\n<li>If icons say &quot;later&quot;, run <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/design-icons.mjs&quot; &lt;appDir&gt;</code> after <code>npm install</code>.</li>\n</ol>\n<h2>8. Use it again?</h2>\n<p>Ask: &quot;Use this look for your next apps too?&quot; If yes, apply again with <code>--set-default</code>.</p>\n<h2>9. Optional polish</h2>\n<p>Read <code>references/polish.md</code>. Offer it, never push it, and ask before installing anything.</p>\n<h2>Reference files</h2>\n<p><code>references/presets.md</code> (the 8 looks), <code>references/tokens.md</code> (the look file, and how to read a look from images), <code>references/directions.md</code> (drafting 3 directions), <code>references/anti-slop.md</code>, <code>references/polish.md</code>.</p>\n<h2>Handy facts</h2>\n<ul>\n<li><code>apply-design.mjs</code> options: <code>--preset</code>, <code>--tokens</code>, <code>--source preset|screenshot|url|design-md|custom</code>, <code>--fix</code>, <code>--dry-run</code>, <code>--set-default</code>, <code>--keep-layout</code>, <code>--languages</code>, <code>--no-icons</code>, <code>--json</code>. Running it twice gives the same result. If it says the colour markers are missing, the app was not made from the Shipyard template: do not hand-edit, explain it.</li>\n<li>Never edit between the <code>shipyard:tokens</code> markers in <code>globals.css</code> by hand. Always go through the script.</li>\n<li>Wanting one colour changed: copy <code>.shipyard/design/applied.tokens.json</code>, change it, apply with <code>--tokens ... --fix</code>.</li>\n<li>Apps made before this version lack the size and spacing block. They still get the new colours, with a note that sizes were skipped.</li>\n</ul>\n"
+    },
+    {
+      "slug": "shipyard-launch",
+      "name": "launch",
+      "description": "Take an app from a free test address to a real product: own domain, real sign-up emails, privacy and terms pages, payments, an email list, phone and desktop apps, and a go-live check. Use for \"launch\", \"go live\", \"custom domain\", \"real emails\", \"privacy policy\", \"terms\", \"payments\", \"Stripe\", \"subscriptions\", \"newsletter\", \"app store\", \"play store\", \"desktop app\", or \"/shipyard:launch\".",
+      "plugin": "Shipyard",
+      "repo": "philipposk/shipyard",
+      "sourceUrl": "https://github.com/philipposk/shipyard/blob/main/skills/launch/SKILL.md",
+      "agents": [
+        "skills.sh",
+        "Claude Code",
+        "Codex",
+        "Cursor"
+      ],
+      "installs": [
+        {
+          "agent": "skills-sh",
+          "label": "Any agent (skills.sh)",
+          "command": "npx skills add philipposk/shipyard"
+        },
+        {
+          "agent": "claude-code",
+          "label": "Claude Code",
+          "command": "/plugin marketplace add philipposk/shipyard\n/plugin install shipyard@shipyard"
+        },
+        {
+          "agent": "codex",
+          "label": "Codex",
+          "command": "git clone --depth 1 https://github.com/philipposk/shipyard.git \"$HOME/.local/share/shipyard\" && node \"$HOME/.local/share/shipyard/scripts/install-agents.mjs\" --agent codex --yes"
+        },
+        {
+          "agent": "cursor",
+          "label": "Cursor",
+          "command": "git clone --depth 1 https://github.com/philipposk/shipyard.git \"$HOME/.local/share/shipyard\" && node \"$HOME/.local/share/shipyard/scripts/install-agents.mjs\" --agent cursor --yes"
+        },
+        {
+          "agent": "openclaw",
+          "label": "OpenClaw (ClawHub)",
+          "command": "clawhub install shipyard",
+          "planned": true
+        },
+        {
+          "agent": "hermes",
+          "label": "Hermes",
+          "command": "hermes skills tap add philipposk/shipyard",
+          "planned": true
+        }
+      ],
+      "html": "<h1>Shipyard launch</h1>\n<p>You take a working app (from <code>/shipyard:new-app</code>) to something real users can sign up for, trust and pay. You run every script. The student only does what a human must: buy a domain, paste DNS records at the registrar, verify their identity with Stripe, and pay store fees.</p>\n<h2>Rules (always)</h2>\n<ul>\n<li>You do the work. Never hand the student a command you could run.</li>\n<li>Never ask for keys in the chat and never read <code>~/.shipyard/secrets.env</code> or <code>.env*</code> files. Keys go in the keys file via <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/secrets-init.mjs&quot;</code>; scripts show only names with a tick or a cross. Live Stripe keys, Resend keys and SMTP passwords never go in argv, files in the repo, or logs.</li>\n<li>Plain English, short messages, one question at a time with your recommended answer. Explain any new word in five words or fewer.</li>\n<li><strong>Never fake legal certainty.</strong> Legal text and country notes are drafts and research, not legal or tax advice. Say &quot;draft, have it checked&quot; in chat, in <code>HANDOFF.md</code> and in the checklist. The public pages themselves do not carry that wording; the admin Health page does.</li>\n<li>Real money only after the student says so, in chat, for that step. Test mode first, always.</li>\n<li>Commits and pushes are the student&#39;s call: ask &quot;OK to save this to GitHub?&quot;. Never push to a branch that publishes automatically once the app is live; use a branch and a pull request, merge when checks are green, then redeploy with <code>deploy.mjs</code>.</li>\n<li>Helper agents: one model cheaper than yours, mechanical work only (same rule as new-app). Keep legal text, keys, payments, sign-in and the final check on your own model.</li>\n<li>Every script can be run again safely and accepts <code>--json</code> and <code>--help</code>. Run <code>--help</code> if you are unsure of a flag.</li>\n</ul>\n<h2>0. Find the app and check setup</h2>\n<p>Use the current folder if it has <code>.shipyard-app.json</code>; otherwise <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/profile.mjs&quot; show</code> lists apps. Run <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/setup-status.mjs&quot;</code>. If the app is not live yet, offer <code>/shipyard:new-app</code> and stop. An old app without the launch pieces (signup modes, <code>/privacy</code>, account deletion, Health page): offer the upgrade in new-app&#39;s <code>references/upgrade.md</code> first.</p>\n<h2>1. Ask one question</h2>\n<p>&quot;What do you want to do now?&quot; Recommend the first one that is not done. Read the matching reference, then follow it:</p>\n<ol>\n<li><strong>Own web address and real sign-up emails</strong> -&gt; <code>references/domain-email.md</code></li>\n<li><strong>Privacy and terms pages</strong> -&gt; <code>references/legal.md</code></li>\n<li><strong>Payments in test mode</strong> -&gt; <code>references/payments.md</code></li>\n<li><strong>Take real payments (go live)</strong> -&gt; <code>references/go-live.md</code></li>\n<li><strong>An email list (newsletter)</strong> -&gt; <code>references/newsletter.md</code></li>\n<li><strong>A phone or desktop app</strong> -&gt; <code>references/stores.md</code></li>\n<li><strong>Check if I am ready</strong> -&gt; run the go-live check below</li>\n</ol>\n<p>For options 2 and 4 also read <code>references/country.md</code> (rules differ by country: tax, company registration, consumer rights).</p>\n<p>The order that works for most people: 1, 2, country checklist, 3, then 4. Payments need legal pages and a real address first.</p>\n<h2>What each script does</h2>\n<p>All are in <code>${CLAUDE_PLUGIN_ROOT}/scripts/</code>, run with <code>node</code>:</p>\n<ul>\n<li><code>launch-domain.mjs &lt;appDir&gt; &lt;domain&gt;</code> adds the domain to Vercel and prints the DNS table; <code>--check</code> waits until it works, then updates the app address and sign-in settings.</li>\n<li><code>launch-email.mjs &lt;appDir&gt; --domain send.&lt;domain&gt;</code> sets up Resend and the Supabase sign-up emails; <code>--check</code> waits for verification; <code>--switch-to-verified</code> turns on confirmed sign-ups.</li>\n<li><code>legal-generate.mjs &lt;appDir&gt;</code> writes <code>src/lib/legal-content.ts</code> from the profile, the modules and the services the app uses.</li>\n<li><code>add-module.mjs &lt;appDir&gt; billing|newsletter</code> adds a feature (use <code>--dry-run</code> first if unsure). Then run <code>provision-supabase.mjs</code> (new tables), <code>npm install</code>, and <code>provision-vercel.mjs</code> (new settings).</li>\n<li><code>stripe-setup.mjs &lt;appDir&gt; [--live]</code> makes products, prices, portal and webhook in Stripe.</li>\n<li><code>add-shell.mjs &lt;appDir&gt; mobile|desktop</code> and <code>store-check.mjs &lt;appDir&gt;</code> for store apps.</li>\n<li><code>launch-check.mjs &lt;appDir&gt; [--live]</code> is the go-live gate.</li>\n</ul>\n<p>If a script is missing or a flag is rejected, run its <code>--help</code>, use what it says, and tell the student plainly; do not invent a workaround that touches keys.</p>\n<h2>Changing the app and redeploying</h2>\n<p>Template changes (signup mode, legal text, plans) are code changes: branch, small commit with the student&#39;s OK, pull request, green checks, merge, <code>deploy.mjs</code>. Settings that start with <code>NEXT_PUBLIC_</code> are baked in at build time: after changing one in Vercel, redeploy. Regenerate legal text when a service or module is added, a price changes, or the company details change.</p>\n<h2>Go-live check</h2>\n<p><code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/launch-check.mjs&quot; &lt;appDir&gt;</code> (add <code>--live</code> before taking real money). It runs the full verify plus launch checks (legal pages, domain, email, Stripe objects, account deletion, store files). Show the tick/cross list. For each cross say what it means for their users, then fix it or give the one thing the student must do. The admin Health page (<code>/admin/health</code>, admins only) shows the same kind of list on the live site.</p>\n<h2>Hand off</h2>\n<ul>\n<li>Add a &quot;Launch&quot; section to <code>HANDOFF.md</code>: what is on (domain, email, payments mode, shells), how to regenerate the legal pages, how to run the check, and the words: &quot;The privacy policy and terms are a draft made from your settings. Have them checked, especially before taking real payments. Country notes in <code>LAUNCH-CHECKLIST.md</code> are research, not legal or tax advice.&quot;</li>\n<li>Update the profile through the scripts, not by hand.</li>\n<li>Final message: what is now live, what was checked, what was not, and what the student does next. Short.</li>\n</ul>\n"
+    },
+    {
+      "slug": "shipyard-new-app",
+      "name": "new-app",
+      "description": "Build and publish a new web app, or bring an existing app up to standard. Use for \"new app\", \"build me an app\", \"make a website\", \"publish my app\", or \"upgrade my app\".",
+      "plugin": "Shipyard",
+      "repo": "philipposk/shipyard",
+      "sourceUrl": "https://github.com/philipposk/shipyard/blob/main/skills/new-app/SKILL.md",
+      "agents": [
+        "skills.sh",
+        "Claude Code",
+        "Codex",
+        "Cursor"
+      ],
+      "installs": [
+        {
+          "agent": "skills-sh",
+          "label": "Any agent (skills.sh)",
+          "command": "npx skills add philipposk/shipyard"
+        },
+        {
+          "agent": "claude-code",
+          "label": "Claude Code",
+          "command": "/plugin marketplace add philipposk/shipyard\n/plugin install shipyard@shipyard"
+        },
+        {
+          "agent": "codex",
+          "label": "Codex",
+          "command": "git clone --depth 1 https://github.com/philipposk/shipyard.git \"$HOME/.local/share/shipyard\" && node \"$HOME/.local/share/shipyard/scripts/install-agents.mjs\" --agent codex --yes"
+        },
+        {
+          "agent": "cursor",
+          "label": "Cursor",
+          "command": "git clone --depth 1 https://github.com/philipposk/shipyard.git \"$HOME/.local/share/shipyard\" && node \"$HOME/.local/share/shipyard/scripts/install-agents.mjs\" --agent cursor --yes"
+        },
+        {
+          "agent": "openclaw",
+          "label": "OpenClaw (ClawHub)",
+          "command": "clawhub install shipyard",
+          "planned": true
+        },
+        {
+          "agent": "hermes",
+          "label": "Hermes",
+          "command": "hermes skills tap add philipposk/shipyard",
+          "planned": true
+        }
+      ],
+      "html": "<h1>Shipyard new app</h1>\n<p>You build a real app from an idea and publish it, then prove it works. The student describes what they want in plain words; you do everything technical.</p>\n<h2>Rules (always)</h2>\n<ul>\n<li>You do the work. Run scripts and commands yourself. Never hand the student a command you could run.</li>\n<li>Never ask for keys in the chat and never read <code>~/.shipyard/secrets.env</code> or <code>.env*</code> files. Scripts handle keys and print only names with a tick or a cross.</li>\n<li>Plain English, short messages, one question at a time with your recommended answer.</li>\n<li>Verify before saying done. Say what was checked and what was not.</li>\n<li>Commits and pushes are the student&#39;s call: always ask &quot;OK to save this to GitHub?&quot; first. Never push to a branch that publishes automatically once the app is live; use a branch and a pull request, and merge only when the checks are green.</li>\n<li>Save the student&#39;s usage: give helper agents one model cheaper than yours, and only for mechanical work. If you run on Opus, helpers use Sonnet (<code>model: &quot;sonnet&quot;</code>) for builds, test runs, searches, doc and copy edits, simple UI fixes. If you run on Sonnet, helpers use Haiku only for lookups (finding files, listing things) and code edits stay on Sonnet. Keep sign-in, data privacy (RLS), keys, payments and the final check on your own model. At most a couple of helpers at a time, and re-check their &quot;done&quot; yourself.</li>\n<li>Progress is saved in the profile (<code>apps[].step</code>). If the usage limit hits, &quot;run it again later&quot; is enough.</li>\n</ul>\n<h2>0. Check setup</h2>\n<p>Run <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/setup-status.mjs&quot;</code>. If GitHub, Vercel or Supabase are not done, offer <code>/shipyard:setup</code> and stop. Check <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/profile.mjs&quot; show</code> for an app already in progress (a <code>step</code> that is not empty): offer to continue it.</p>\n<p>If the student wants to improve an app they already have, read <code>references/upgrade.md</code> and follow it instead of the steps below.</p>\n<h2>1. Interview</h2>\n<p>Read <code>references/interview.md</code>. Ask at most 5 questions, about outcomes not technology (who it is for, the one main thing they do, free or paid or email list, installable on phones, a look they like). Rambling answers are fine. Pick the layout from the profile default or ask: <code>bottom-nav</code> for phone-first apps, <code>sidebar</code> for tools and dashboards, <code>top-nav</code> for site-like apps (links in the top bar, tabs on phones).</p>\n<h2>2. Spec and plan</h2>\n<p>Read <code>references/build-rules.md</code>. Choose a short slug (lowercase letters, numbers, hyphens, starts with a letter). Make a folder for the app, then write <code>SPEC.md</code> in it: who it is for, the main action, the list of features (small steps), what data is stored, and the hard rules from build-rules. Add a plan of 5 to 8 steps in plain words. Show it and wait for the student to say &quot;go&quot;. Nothing is built before that.</p>\n<h2>3. Scaffold</h2>\n<p><code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/scaffold.mjs&quot; &lt;slug&gt; --name &quot;&lt;Name&gt;&quot; --description &quot;&lt;one sentence&gt;&quot; --dir &lt;parent folder&gt; --layout &lt;bottom-nav|sidebar|top-nav&gt;</code>\nAdd <code>--private</code> if the app is for the student only (hidden from search engines), <code>--no-pwa</code> if it should not be installable. Then work inside the new folder and move <code>SPEC.md</code> into it. Design: if the profile has a default look (<code>defaults.design</code>), apply it silently with <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/apply-design.mjs&quot; &lt;appDir&gt; --preset &lt;id&gt;</code> and say which look you used. Otherwise run the design skill and ask its one question (&quot;How do you want to choose the look?&quot;); if the student has no preference, the starter look stays and they can change it any time with <code>/shipyard:design</code>. Run this after the scaffold and before building features, so every screen uses the chosen look. A look sets the menu style too, so skip the layout question if a look is chosen.</p>\n<h2>4. Build the features</h2>\n<p>Follow the app&#39;s <code>AGENTS.md</code>. Small steps. Every piece of logic gets a test. Every new table follows the database rules (row level security, an entry in <code>supabase/isolation.json</code>, a numbered migration file). Run <code>npm install</code> first, then <code>npm run typecheck</code>, <code>npm run lint</code> and <code>npm test</code> after each feature.</p>\n<p>Before the first deploy, always write <code>src/lib/home-content.ts</code> for this app: the headline, the subline, the three points, and the <code>preview</code> rows (3 to 5 sample rows of the app&#39;s real main feature, for example a note and its day). The template&#39;s stand-in words must never reach a live homepage.</p>\n<h2>5. Database</h2>\n<p><code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/provision-supabase.mjs&quot; &lt;appDir&gt;</code>\nIt creates the Supabase project, applies the migrations and writes <code>.env.local</code>. If it says two projects are already active (free limit), explain the two choices in plain words: pause a project the student does not use (dashboard link in the message), or put this app in an existing project with <code>--shared &lt;project id&gt;</code>. Shared is safe for the other apps: the app gets its own space (a separate schema) and nothing of theirs is touched. Before any shared run, read <code>references/shared-project.md</code> and do the dry run first. Then run <code>npm run build</code> to check the app builds.</p>\n<h2>6. Save to GitHub</h2>\n<p>Ask: &quot;OK to save this first version to GitHub?&quot; If yes: <code>git add -A</code>, check nothing secret is staged (<code>node scripts/secret-scan.mjs --staged</code> inside the app), <code>git commit</code>, then <code>gh repo create &lt;slug&gt; --private --source . --push</code>. The branch must be called <code>main</code>. <code>package-lock.json</code> must be included.</p>\n<h2>7. Publish</h2>\n<ol>\n<li><code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/provision-vercel.mjs&quot; &lt;appDir&gt;</code> (links Vercel, sets the environment values, turns off the login wall that would block visitors).</li>\n<li><code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/deploy.mjs&quot; &lt;appDir&gt;</code>. It refuses if there are unsaved changes; save and push first. It prints the address and adds it to the sign-in settings.</li>\n</ol>\n<h2>8. Verify</h2>\n<p><code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/verify.mjs&quot; &lt;appDir&gt;</code>\nRead <code>references/verify.md</code> for what each check means and how to fix a failure. Fix, save, redeploy and re-run until all checks are green, or explain plainly what is left and why. Look at the two phone screenshots it saves (light and dark) and say if anything looks wrong. Do not say the app is live until the checks pass on the real address. After any fix, run verify again and read the fixes once more before launch: a clean run from before the fix proves nothing about the fix.</p>\n<h2>9. Owner account</h2>\n<p><code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/make-owner.mjs&quot; &lt;appDir&gt; --url &lt;address&gt;</code>\nIt makes the student&#39;s own account (their email from the profile) with the app&#39;s secret key, switches on the admin flag and opens a one-time sign-in window in their browser. The app refuses sign-ups with that email on purpose: starter-mode sign-up does not check that the person owns the email, so a stranger could otherwise take the owner&#39;s address first. Admin is the <code>is_admin</code> flag only, never an email. Never print or paste the link. If the account already existed and the student did not make it, run it again with <code>--reset-password</code> (not allowed in a shared project: the account is shared with the other apps there).</p>\n<h2>10. Hand off</h2>\n<ul>\n<li>Write <code>HANDOFF.md</code> in the app: what is where, how to run the checks (the exact verify command), how to make changes (branch, pull request, green checks, merge), and the known limits. Always include: &quot;Starter mode: anyone can sign up without email confirmation, and the email they type is not checked. Never trust an email address as proof of who someone is. The owner account was made by Shipyard (<code>make-owner.mjs</code>) and admin comes only from the <code>is_admin</code> flag. Google sign-in stays off, and email sign-up is switched off if you turn it on, until real email confirmation works. <code>/shipyard:launch</code> sets that up.&quot;</li>\n<li>Update the profile (<code>status: live</code>, last step) via the scripts; do not edit profile.json by hand.</li>\n<li>If you learned something that would help future apps (a mistake and its fix), append one line to <code>~/.shipyard/learnings.md</code>. Read <code>references/lessons.md</code> only when you need to check a past lesson.</li>\n<li>Final message: the address, what was verified, what was not, and what the student does next (&quot;to change anything, tell me what you want&quot;). Keep it short. End with what is next: &quot;When you want your own web address, real sign-up emails, privacy and terms pages, payments, an email list, or phone and desktop apps, run <code>/shipyard:launch</code>. After launch: <code>/shipyard:video</code> makes a product video of the app (takes hours and a lot of Claude usage, so do it when you have time), and <code>/shipyard:ops</code> sets up error alerts, scheduled health checks, code review on pull requests, safe auto-merge and backups.&quot;</li>\n</ul>\n<h2>After go-live: the CI gate</h2>\n<p>The app has a test gate that GitHub runs on every pull request (types, style, tests, full build, leaked-key scan). From now on: new branch, small change, pull request, wait for the green tick (<code>gh pr checks --watch</code>), then merge. GitHub cannot block a merge on a free private repository, so you keep this rule yourself: never merge while red.</p>\n"
+    },
+    {
+      "slug": "shipyard-new-skill",
+      "name": "new-skill",
+      "description": "Build your own skill or plugin for coding agents, or add one to Shipyard. Interviews you for a spec, pushes back on weak ideas, reads your codebase and agent chats, recommends building on Shipyard or from scratch, then scaffolds SKILL.md, tests, plugin manifests and publishing notes. Use for \"new skill\", \"make a skill\", \"build a plugin\", \"my own plugin\", \"turn this into a skill\", \"add a skill to Shipyard\", \"publish my skill\", or \"/shipyard:new-skill\".",
+      "plugin": "Shipyard",
+      "repo": "philipposk/shipyard",
+      "sourceUrl": "https://github.com/philipposk/shipyard/blob/main/skills/new-skill/SKILL.md",
+      "agents": [
+        "skills.sh",
+        "Claude Code",
+        "Codex",
+        "Cursor"
+      ],
+      "installs": [
+        {
+          "agent": "skills-sh",
+          "label": "Any agent (skills.sh)",
+          "command": "npx skills add philipposk/shipyard"
+        },
+        {
+          "agent": "claude-code",
+          "label": "Claude Code",
+          "command": "/plugin marketplace add philipposk/shipyard\n/plugin install shipyard@shipyard"
+        },
+        {
+          "agent": "codex",
+          "label": "Codex",
+          "command": "git clone --depth 1 https://github.com/philipposk/shipyard.git \"$HOME/.local/share/shipyard\" && node \"$HOME/.local/share/shipyard/scripts/install-agents.mjs\" --agent codex --yes"
+        },
+        {
+          "agent": "cursor",
+          "label": "Cursor",
+          "command": "git clone --depth 1 https://github.com/philipposk/shipyard.git \"$HOME/.local/share/shipyard\" && node \"$HOME/.local/share/shipyard/scripts/install-agents.mjs\" --agent cursor --yes"
+        },
+        {
+          "agent": "openclaw",
+          "label": "OpenClaw (ClawHub)",
+          "command": "clawhub install shipyard",
+          "planned": true
+        },
+        {
+          "agent": "hermes",
+          "label": "Hermes",
+          "command": "hermes skills tap add philipposk/shipyard",
+          "planned": true
+        }
+      ],
+      "html": "<h1>Shipyard new skill</h1>\n<p>You help the student turn something they keep doing with their coding agent into a skill (a folder of instructions an agent loads when a request matches) or a plugin (one or more skills plus scripts, hooks and a manifest). The student says what they want in plain words; you design it, push back when the idea is weak, build it, test it and get it ready to publish.</p>\n<h2>Rules (always)</h2>\n<ul>\n<li>You do the work. Run scripts yourself. Never hand the student a command you could run.</li>\n<li>Plain English, short messages, one question at a time with your recommended answer. Explain any new word in five words or fewer (&quot;front matter: the name and description block&quot;).</li>\n<li>Never read <code>~/.shipyard/secrets.env</code> or <code>.env*</code> files, and never put a key in a skill. A skill that needs a key reads it from a file or variable the student fills in themselves.</li>\n<li>Read the student&#39;s code and agent chats only with a yes, and only the parts you need: file lists, READMEs, the instruction files (<code>AGENTS.md</code>, <code>CLAUDE.md</code>, <code>.cursor/rules</code>), and summaries of chats, not whole transcripts. Say what you read.</li>\n<li>Publishing, pushing, opening pull requests on other people&#39;s repos and filling in submission forms: ask first, wait for a clear yes, once per action.</li>\n<li>Verify before saying done. Say what was checked and what was not.</li>\n<li>Helper agents: one model cheaper than yours, mechanical work only (listing files, running checks).</li>\n</ul>\n<h2>0. Find what they have</h2>\n<p>Check the current folder: is it a skill (<code>SKILL.md</code>), a plugin (<code>.claude-plugin/plugin.json</code> or <code>.cursor-plugin/plugin.json</code>), Shipyard itself, an app, or empty? If they already have a skill, offer to check it first: <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/skill-scaffold.mjs&quot; check &lt;folder&gt;</code>, and read the result as ticks and crosses.</p>\n<h2>1. Interview</h2>\n<p>Read <code>references/interview.md</code>. At most 5 questions, about outcomes: what job the skill does, who uses it, what words they type when they want it, what &quot;done&quot; looks like, and what it must never do. Rambling answers are fine; you write the spec.</p>\n<h2>2. Push back, then let them choose</h2>\n<p>Read <code>references/pushback.md</code> and check the spec against it. If something is weak (too broad, duplicates a skill they already have, needs keys in the chat, publishes without asking, could be a one-line rule instead), say so in one or two sentences, give your better version, and ask which they prefer. Their choice wins unless it is unsafe; then say plainly why you will not build that part.</p>\n<h2>3. Recommend where to build it</h2>\n<p>Read <code>references/build-or-extend.md</code>. With their yes, look at their codebase and agent chats (the instruction files, recent work, and repeated requests or mistakes in the chats). Recommend one of three, with one line of why:</p>\n<ol>\n<li><strong>A new skill inside Shipyard</strong> (it is about building, publishing or running web apps the Shipyard way).</li>\n<li><strong>A new plugin built on Shipyard&#39;s shape</strong> (their own name and repo, Shipyard&#39;s rules, tests and installer pattern).</li>\n<li><strong>A plugin from scratch</strong> (unrelated to apps, or they want nothing Shipyard does).</li>\n</ol>\n<h2>4. Write the spec</h2>\n<p>Write a short spec in the chat: name (lowercase words joined by dashes), the description with its trigger phrases, the steps, the rules, the scripts it needs (if any), and the tests. Read <code>references/anatomy.md</code> for what a good SKILL.md looks like. Ask &quot;Shall I build this?&quot; and wait.</p>\n<h2>5. Build it</h2>\n<ul>\n<li>From scratch or as its own plugin: <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/skill-scaffold.mjs&quot; create &lt;folder&gt; --name &lt;name&gt; --description &quot;&lt;description&gt;&quot; --plugin</code> (leave out <code>--plugin</code> for a single skill). It writes the skill, a test, both plugin manifests, a README with install and publishing notes and a licence, and never overwrites a file that is there.</li>\n<li>Inside Shipyard: read <code>references/in-shipyard.md</code> and follow it (the Codex and Cursor copy, the rewrite table, version and README).</li>\n<li>Then fill in the real steps. Keep SKILL.md under about 100 lines; detail goes in <code>references/</code>. Anything a script can check, a script checks.</li>\n</ul>\n<h2>6. Test it</h2>\n<p>Run <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/skill-scaffold.mjs&quot; check &lt;folder&gt;</code> and the skill&#39;s own tests (<code>node --test tests/*.test.mjs</code>). Then try it for real: start a new session, type one of the trigger phrases and see that the skill starts. Turn every lesson from the try into a rule or a test (<code>references/anatomy.md</code>, &quot;Lessons&quot;). After fixing review findings, review the fixed code again.</p>\n<h2>7. Publish</h2>\n<p>Read <code>references/publish.md</code>. Show the list of places, what each one needs, and which are automatic. Ask before each one. Bump the version and add a &quot;What changed&quot; line on every release.</p>\n<h2>Done when</h2>\n<ul>\n<li><code>skill-scaffold.mjs check</code> is all ticks, the tests pass, and the skill started from a trigger phrase in a fresh session.</li>\n<li>The student knows how to install it, how to update it and where it is published.</li>\n</ul>\n"
+    },
+    {
+      "slug": "shipyard-ops",
+      "name": "ops",
+      "description": "Keep a live app healthy: error alerts and a logs page, scheduled health checks, code review on every pull request, auto-merge for small safe changes, regular project review, backups, and how problems get fixed. Use for \"errors\", \"logs\", \"monitoring\", \"health check\", \"alerts\", \"code review\", \"CodeRabbit\", \"auto-merge\", \"dependabot\", \"backup\", \"self-healing\", \"project review\", \"keep my app healthy\", or \"/shipyard:ops\".",
+      "plugin": "Shipyard",
+      "repo": "philipposk/shipyard",
+      "sourceUrl": "https://github.com/philipposk/shipyard/blob/main/skills/ops/SKILL.md",
+      "agents": [
+        "skills.sh",
+        "Claude Code",
+        "Codex",
+        "Cursor"
+      ],
+      "installs": [
+        {
+          "agent": "skills-sh",
+          "label": "Any agent (skills.sh)",
+          "command": "npx skills add philipposk/shipyard"
+        },
+        {
+          "agent": "claude-code",
+          "label": "Claude Code",
+          "command": "/plugin marketplace add philipposk/shipyard\n/plugin install shipyard@shipyard"
+        },
+        {
+          "agent": "codex",
+          "label": "Codex",
+          "command": "git clone --depth 1 https://github.com/philipposk/shipyard.git \"$HOME/.local/share/shipyard\" && node \"$HOME/.local/share/shipyard/scripts/install-agents.mjs\" --agent codex --yes"
+        },
+        {
+          "agent": "cursor",
+          "label": "Cursor",
+          "command": "git clone --depth 1 https://github.com/philipposk/shipyard.git \"$HOME/.local/share/shipyard\" && node \"$HOME/.local/share/shipyard/scripts/install-agents.mjs\" --agent cursor --yes"
+        },
+        {
+          "agent": "openclaw",
+          "label": "OpenClaw (ClawHub)",
+          "command": "clawhub install shipyard",
+          "planned": true
+        },
+        {
+          "agent": "hermes",
+          "label": "Hermes",
+          "command": "hermes skills tap add philipposk/shipyard",
+          "planned": true
+        }
+      ],
+      "html": "<h1>Shipyard ops</h1>\n<p>You help the student keep a live app healthy without watching it all day. Set things up once; after that the app tells them when something breaks, and fixes go through pull requests that a human approves when the change is risky. You run every script. The student only does what a human must: click &quot;install&quot; in a GitHub app, say yes to repo settings, and review risky pull requests.</p>\n<h2>Rules (always)</h2>\n<ul>\n<li>You do the work. Never hand the student a command you could run.</li>\n<li>Never ask for keys in the chat and never read <code>~/.shipyard/secrets.env</code> or <code>.env*</code> files. Scripts handle <code>CRON_SECRET</code> and tokens; they never print them. Never put a secret in a command line or a file in the repo.</li>\n<li>Plain English, short messages, one question at a time with your recommended answer. Explain any new word in five words or fewer (&quot;a pull request: a proposed change to review&quot;).</li>\n<li>Changing repo settings, adding workflows, merging, and anything that costs money: ask first, wait for a clear yes, once per action.</li>\n<li>Commits and pushes are the student&#39;s call. Use a branch and a pull request, never push straight to <code>main</code> once the app is live.</li>\n<li>Helper agents: one model cheaper than yours, mechanical work only (listing files, running checks). Keep judgement, security and the final decision on your own model.</li>\n<li>Every script can be run again safely and accepts <code>--json</code> and <code>--help</code>. If a flag is rejected, run <code>--help</code>, use what it says, and tell the student plainly. Do not invent a workaround that touches keys.</li>\n</ul>\n<h2>0. Find the app and check it is live</h2>\n<p>Use the current folder if it has <code>.shipyard-app.json</code>; otherwise <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/profile.mjs&quot; show</code> lists apps. If the app is not live yet, offer <code>/shipyard:new-app</code> and stop. Then show where things stand:</p>\n<p><code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/ops-status.mjs&quot; &lt;appDir&gt;</code></p>\n<p>It lists what is on (error log, health workflow and its last run, review config, auto-merge, branch protection, whether the repo is public, whether <code>CRON_SECRET</code> is saved in Vercel and GitHub, last backup). Read it to the student as a short list of ticks and crosses.</p>\n<h2>1. Ask one question</h2>\n<p>&quot;What do you want to do now?&quot; Recommend the first one that is not done. Read the matching reference, then follow it:</p>\n<ol>\n<li><strong>Error alerts and a logs page</strong> -&gt; <code>references/errors.md</code></li>\n<li><strong>Scheduled health checks</strong> -&gt; <code>references/health.md</code></li>\n<li><strong>Code review on every pull request</strong> -&gt; <code>references/review.md</code></li>\n<li><strong>Auto-merge small, safe changes</strong> -&gt; <code>references/automerge.md</code></li>\n<li><strong>A regular project review</strong> -&gt; <code>references/project-review.md</code></li>\n<li><strong>Backups of my users&#39; data</strong> -&gt; <code>references/backups.md</code></li>\n<li><strong>How self-healing works here</strong> -&gt; <code>references/self-healing.md</code></li>\n</ol>\n<p>Good order for most people: 1, 2, 3, then 4. Option 1 is the base: the others read from it.</p>\n<h2>What each script does</h2>\n<p>All are in <code>${CLAUDE_PLUGIN_ROOT}/scripts/</code>, run with <code>node</code>:</p>\n<ul>\n<li><code>ops-setup.mjs &lt;appDir&gt; [--only health,review,automerge,deps] [--json]</code> adds the errors module if missing, then writes the workflow and config files into the app, and makes <code>CRON_SECRET</code> (sent to Vercel and GitHub, never shown). Files the student edited are not overwritten; <code>--force-file &lt;path&gt;</code> replaces one on purpose.</li>\n<li><code>ops-status.mjs &lt;appDir&gt; [--json]</code> shows what is set up and what the last health run said.</li>\n<li><code>backup-export.mjs &lt;appDir&gt; [--json]</code> saves every table to a private folder on the student&#39;s computer.</li>\n<li><code>add-module.mjs &lt;appDir&gt; errors</code> adds only the error log (use <code>--dry-run</code> first if unsure).</li>\n</ul>\n<h2>After any change to the app</h2>\n<p>New workflow files and the error module are code changes: branch, small commit with the student&#39;s OK, pull request, green checks, merge, redeploy with <code>deploy.mjs</code>. <code>CRON_SECRET</code> only takes effect after a redeploy. Update the profile through the scripts, not by hand.</p>\n<h2>Honest limits (say them when relevant)</h2>\n<ul>\n<li>Alerts only reach the owner&#39;s email if Resend is set up (<code>/shipyard:launch</code>, real emails). Without it, errors are still logged on <code>/admin/logs</code>.</li>\n<li>GitHub cannot force the test check on a free private repo. Auto-merge then does not work, and the student keeps the rule themselves: never merge while red.</li>\n<li>Scheduled workflows on public repos pause after 60 days with no activity on the repo. The status script shows the last run, so a silent pause shows up.</li>\n<li>Reviews, fixes and project reviews use the student&#39;s Claude Pro allowance. Warn before long jobs.</li>\n</ul>\n<h2>Hand off</h2>\n<ul>\n<li>Add an &quot;Ops&quot; section to the app&#39;s <code>HANDOFF.md</code>: what is on, where the logs page is, who gets alert emails, what the <code>ops-alert</code> issue means, what auto-merge will and will not touch, where backups live and that they hold personal data.</li>\n<li>Final message: what is now watching the app, what was checked, what was not, and the one next step. Short.</li>\n</ul>\n"
+    },
+    {
+      "slug": "shipyard-setup",
+      "name": "setup",
+      "description": "First-time Shipyard setup. Connects GitHub, Vercel and Supabase, stores keys safely, saves defaults. Use for \"setup\", \"get started\", \"connect my accounts\", \"settings\", or when new-app says setup is not done.",
+      "plugin": "Shipyard",
+      "repo": "philipposk/shipyard",
+      "sourceUrl": "https://github.com/philipposk/shipyard/blob/main/skills/setup/SKILL.md",
+      "agents": [
+        "skills.sh",
+        "Claude Code",
+        "Codex",
+        "Cursor"
+      ],
+      "installs": [
+        {
+          "agent": "skills-sh",
+          "label": "Any agent (skills.sh)",
+          "command": "npx skills add philipposk/shipyard"
+        },
+        {
+          "agent": "claude-code",
+          "label": "Claude Code",
+          "command": "/plugin marketplace add philipposk/shipyard\n/plugin install shipyard@shipyard"
+        },
+        {
+          "agent": "codex",
+          "label": "Codex",
+          "command": "git clone --depth 1 https://github.com/philipposk/shipyard.git \"$HOME/.local/share/shipyard\" && node \"$HOME/.local/share/shipyard/scripts/install-agents.mjs\" --agent codex --yes"
+        },
+        {
+          "agent": "cursor",
+          "label": "Cursor",
+          "command": "git clone --depth 1 https://github.com/philipposk/shipyard.git \"$HOME/.local/share/shipyard\" && node \"$HOME/.local/share/shipyard/scripts/install-agents.mjs\" --agent cursor --yes"
+        },
+        {
+          "agent": "openclaw",
+          "label": "OpenClaw (ClawHub)",
+          "command": "clawhub install shipyard",
+          "planned": true
+        },
+        {
+          "agent": "hermes",
+          "label": "Hermes",
+          "command": "hermes skills tap add philipposk/shipyard",
+          "planned": true
+        }
+      ],
+      "html": "<h1>Shipyard setup</h1>\n<p>You are helping a beginner get ready to build and publish apps. Setup can be stopped and continued: progress is saved in <code>~/.shipyard/profile.json</code>, so if the usage limit hits, they just run <code>/shipyard:setup</code> again later.</p>\n<h2>Rules (always)</h2>\n<ul>\n<li>You do the work. Run the scripts and commands yourself. The student only clicks in a browser, signs up, and pastes keys into the keys file.</li>\n<li>Never ask the student to paste a key in the chat. Never read or print <code>~/.shipyard/secrets.env</code>. Only scripts read it, and they show names with a tick or a cross, never values.</li>\n<li>Plain English. Short steps. Say what to click and what URL to open. Explain any technical word in a few words.</li>\n<li>One question at a time. Tell them which answer you recommend.</li>\n<li>Check each step before moving on. Do not say &quot;done&quot; until the check passes.</li>\n<li>Do not spawn big groups of helper agents. If you use one (for example to look something up), give it a cheaper model than yours (Opus → <code>model: &quot;sonnet&quot;</code>, Sonnet → <code>model: &quot;haiku&quot;</code> for lookups only).</li>\n</ul>\n<h2>Start</h2>\n<ol>\n<li>Run <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/setup-status.mjs&quot;</code>. It shows which steps are done and which is next. Continue from the next step. If everything is done, say so and offer the settings page.</li>\n<li>If the student typed <code>settings</code> after the command, only run <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/settings-page.mjs&quot;</code>, tell them the page opened, and stop.</li>\n<li>Tell them in two lines what setup does and that it takes about 45 to 90 minutes, mostly signing up. Money facts are in <code>references/accounts.md</code>; mention that everything needed to start is free.</li>\n</ol>\n<p>For the exact clicks of each step, read <code>references/accounts.md</code> when you reach that step (not before). If something fails, read <code>references/troubleshooting.md</code>.</p>\n<h2>Steps (ids in order)</h2>\n<p>After each step passes, run <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/profile.mjs&quot; step-done &lt;id&gt;</code>.</p>\n<p><strong>1. <code>tools</code></strong> Why: Shipyard needs a few programs on the computer.\nRun <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/check-tools.mjs&quot;</code>. It checks Node 20 or newer, git, the GitHub tool (<code>gh</code>), <code>npx</code>, and the Playwright browser used for phone-size checks. It prints the exact install line for their system. Do not run installers that need an admin password; show the line and ask them to run it, then re-check. For the Playwright browser, run <code>npx playwright install chromium</code> yourself.</p>\n<p><strong>2. <code>github</code></strong> Why: your app code is stored on GitHub.\nIf they have no account, they sign up at github.com. Run <code>gh auth login --web</code> and show them the code and page; they approve in the browser. Then run <code>gh auth setup-git</code>. Check with <code>gh auth status</code>. Save the user name: <code>profile.mjs set accounts.github.user &lt;name&gt;</code> and <code>profile.mjs set accounts.github.ok true</code>.</p>\n<p><strong>3. <code>vercel</code></strong> Why: Vercel puts the app on the internet.\nThey sign up at vercel.com with &quot;Continue with GitHub&quot;. Run <code>npx --yes vercel@64.3.1 login</code> (it opens a browser). Check with <code>npx --yes vercel@64.3.1 whoami</code>. Save <code>accounts.vercel.user</code>, <code>accounts.vercel.scope</code> (their team name if shown, otherwise the user name) and <code>accounts.vercel.ok true</code>.</p>\n<p><strong>4. <code>supabase</code></strong> Why: Supabase holds the database and sign-in.\nSign up at supabase.com with GitHub. Create an access token at supabase.com/dashboard/account/tokens (any name). Run <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/secrets-init.mjs&quot;</code>. It opens the keys file. They paste the token after <code>SUPABASE_ACCESS_TOKEN=</code>, save, close, and say &quot;done&quot;. Then run <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/secrets-check.mjs&quot; --live</code>. When it shows a tick, find their organisation (the check output or the Supabase dashboard shows it; if there is only one, use it). Save <code>accounts.supabase.orgId</code> (the organisation&#39;s slug, the short name in the dashboard URL), <code>accounts.supabase.orgName</code> and <code>accounts.supabase.ok true</code>.</p>\n<p><strong>5. <code>ai-keys</code></strong> (optional, can skip) Why: only needed if an app will use AI.\nExplain: one key per app is best so costs are visible; set a monthly spend limit and an email alert when creating a key. Claude Pro and ChatGPT Plus do not include API credit. If they want it, they use the keys file again (<code>secrets-init.mjs</code>), then <code>secrets-check.mjs --live</code>. Skipping is fine: <code>step-done ai-keys</code>.</p>\n<p><strong>6. <code>email</code></strong> (optional, can skip) Why: apps send password-reset emails through Resend.\nWithout their own domain, Resend can only email the account owner. Fine for now. Skip or add <code>RESEND_API_KEY</code> via the keys file.</p>\n<p><strong>7. <code>stripe</code></strong> (optional, can skip) Why: for taking payments later. Test mode only, no real money. Skip unless they know they need it.</p>\n<p><strong>8. <code>domain</code></strong> Why: a web address of their own.\nAsk: no domain for now (apps get a free <code>name.vercel.app</code> address), or buy one later (about $10 to $15 a year at Cloudflare or Porkbun). Recommend &quot;none for now&quot;. Save <code>domain.choice</code> (<code>none</code> or <code>buy</code>).</p>\n<p><strong>9. <code>profile</code></strong> Why: so they are not asked again for every app.\nAsk one at a time and save with <code>profile.mjs set</code>: name and contact email (<code>owner.name</code>, <code>owner.email</code>), country (<code>owner.country</code>), languages (<code>owner.languages</code>), default layout (<code>defaults.layout</code>: <code>bottom-nav</code> for phone-first apps, <code>sidebar</code> for tools, <code>top-nav</code> for site-like apps), whether apps should be installable on phones (<code>defaults.pwa</code>), and budget mode (<code>defaults.budgetMode</code>, recommended <code>true</code>).</p>\n<p><strong>10. <code>habits</code></strong> Why: a few working habits make Claude Code cheaper and safer.\nShow them the content of <code>${CLAUDE_PLUGIN_ROOT}/starter/CLAUDE.md</code>. Ask: &quot;Add this to your global Claude settings file?&quot; Only if they say yes, append it to <code>~/.claude/CLAUDE.md</code> (create the file if missing; never overwrite existing content).</p>\n<h2>Finish</h2>\n<ol>\n<li>Run <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/secrets-check.mjs&quot;</code> and <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/setup-status.mjs&quot;</code> once more and confirm no required step is open.</li>\n<li>Run <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/settings-page.mjs&quot;</code> to open their settings page.</li>\n<li>Tell them to turn on updates: type <code>/plugin</code>, choose Marketplaces, choose shipyard, choose Enable auto-update.</li>\n<li>Say what is next: <code>/shipyard:new-app</code>. Keep it to three lines.</li>\n</ol>\n"
+    },
+    {
+      "slug": "shipyard-video",
+      "name": "video",
+      "description": "Make a motion-designed product video of the student's app (promo, feature walkthrough, how-to) with an AI voice, light and dark, wide and phone cuts, no screen recording. Use for \"video\", \"product video\", \"demo video\", \"promo\", \"explainer\", \"how-to video\", \"trailer for my app\", or \"/shipyard:video\".",
+      "plugin": "Shipyard",
+      "repo": "philipposk/shipyard",
+      "sourceUrl": "https://github.com/philipposk/shipyard/blob/main/skills/video/SKILL.md",
+      "agents": [
+        "skills.sh",
+        "Claude Code",
+        "Codex",
+        "Cursor"
+      ],
+      "installs": [
+        {
+          "agent": "skills-sh",
+          "label": "Any agent (skills.sh)",
+          "command": "npx skills add philipposk/shipyard"
+        },
+        {
+          "agent": "claude-code",
+          "label": "Claude Code",
+          "command": "/plugin marketplace add philipposk/shipyard\n/plugin install shipyard@shipyard"
+        },
+        {
+          "agent": "codex",
+          "label": "Codex",
+          "command": "git clone --depth 1 https://github.com/philipposk/shipyard.git \"$HOME/.local/share/shipyard\" && node \"$HOME/.local/share/shipyard/scripts/install-agents.mjs\" --agent codex --yes"
+        },
+        {
+          "agent": "cursor",
+          "label": "Cursor",
+          "command": "git clone --depth 1 https://github.com/philipposk/shipyard.git \"$HOME/.local/share/shipyard\" && node \"$HOME/.local/share/shipyard/scripts/install-agents.mjs\" --agent cursor --yes"
+        },
+        {
+          "agent": "openclaw",
+          "label": "OpenClaw (ClawHub)",
+          "command": "clawhub install shipyard",
+          "planned": true
+        },
+        {
+          "agent": "hermes",
+          "label": "Hermes",
+          "command": "hermes skills tap add philipposk/shipyard",
+          "planned": true
+        }
+      ],
+      "html": "<h1>Shipyard video</h1>\n<p>You make a short, polished video of the student&#39;s own app: its screens are rebuilt as code from the app&#39;s real colours and fonts, an AI voice narrates, and every animation lands on a spoken word. One set of scenes renders as light, dark, phone (9:16) and silent-with-captions cuts. No screen recording, no editing software.</p>\n<h2>Rules (always)</h2>\n<ul>\n<li>You do the work. Run the scripts and commands yourself. The student reads the script, says yes, and watches the result.</li>\n<li>Never ask for keys in the chat and never read <code>~/.shipyard/secrets.env</code> or any <code>.env*</code> file (including <code>video/.env</code>; there is none). Keys go in the Shipyard keys file (<code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/secrets-init.mjs&quot;</code> opens it). The voice script hands them to the engine privately and prints only names.</li>\n<li>Plain English, short messages, one question at a time with your recommended answer. Explain any new word in five words or fewer.</li>\n<li><strong>The script is approved before any voice is made.</strong> Voice costs a few cents per minute and every re-voice costs again.</li>\n<li>Verify with your own eyes: look at stills and the contact sheet with the Read tool. Do not hand image checks to a helper. Say what you checked and what you did not.</li>\n<li>Invented company, people and numbers only, in every scene. No real customer data, no real names or emails, no screenshots of real accounts. Use only the student&#39;s own colours, fonts and logo; never imitate another company&#39;s brand.</li>\n<li>One render or install at a time, in the foreground. Never start a dev server or a render in the background.</li>\n<li>Saving to GitHub is the student&#39;s call: ask &quot;OK to save this to GitHub?&quot; first. Never push to a branch that publishes automatically once the app is live; use a branch and a pull request.</li>\n<li>Helper agents, if any: one model cheaper than yours and mechanical work only (renaming, a repeated edit). Scene design, the script and all visual checks stay on your model.</li>\n</ul>\n<h2>0. Tell the student what this takes (before anything else)</h2>\n<p>Say it plainly and let them choose:</p>\n<ul>\n<li>2 to 4 hours of back-and-forth for a good result, and a big share of a Pro plan&#39;s usage. Best done after the app is live (<code>/shipyard:launch</code>), not before.</li>\n<li>Voice: a few cents per minute of speech (an OpenAI key; see <code>/shipyard:setup</code> AI keys step). Rendering is free and local. Needs ffmpeg (a free video tool); the setup script says how to install it.</li>\n<li>Remotion, the tool that turns code into video, is free for individuals and companies of up to 3 people. Bigger companies need a paid licence: remotion.dev/license.</li>\n<li>The voice is synthetic. Anywhere the video is shown, add &quot;Narrated with an AI voice&quot;.</li>\n</ul>\n<p>Find the app: the current folder if it has <code>.shipyard-app.json</code>, otherwise <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/profile.mjs&quot; show</code> lists apps. Ask only what is unclear: promo (30 to 60 s) or how-to for one feature (15 to 40 s), who it is for, and the call to action (the last line, for example &quot;Try it free&quot;).</p>\n<h2>1. Set up the tools</h2>\n<p><code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/video-setup.mjs&quot; &lt;appDir&gt;</code></p>\n<p>Copies the video engine (one fixed, tested version) into <code>&lt;appDir&gt;/video/</code>, installs it (a few hundred MB, once, a few minutes), and renders a small made-up example as a check. Read the contact sheet picture it prints (Read tool) to confirm it shows &quot;Acme Tasks&quot; scenes. If ffmpeg is missing it prints the install line; install it, then run again. Later: <code>video-setup.mjs &lt;appDir&gt; --update</code> refreshes the engine and never touches the student&#39;s own work.</p>\n<p>Then read <code>&lt;appDir&gt;/video/README.md</code> completely. It is the engine&#39;s manual; this skill is the workflow, so do not repeat it to the student.</p>\n<h2>2. Study the app, then write the script</h2>\n<p>Read <code>references/script.md</code> now. In short: list the features that are really shipped, read the real design tokens (<code>src/app/globals.css</code>, <code>DESIGN.md</code>, <code>BRAND</code> in <code>src/lib/constants.ts</code>, <code>public/icon.svg</code>), read the app&#39;s own copy for the hero line, invent ONE consistent fake scenario, then write <code>video/src/scripts/&lt;tag&gt;.json</code>.</p>\n<p><strong>Show the script to the student in plain text and wait for a yes.</strong> Then check it costs nothing yet:\n<code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/video-voice.mjs&quot; &lt;appDir&gt; --tag &lt;tag&gt; --dry-run</code> (checks the file and which keys exist; spends nothing).</p>\n<h2>3. Make the voice</h2>\n<p><code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/video-voice.mjs&quot; &lt;appDir&gt; --tag &lt;tag&gt;</code></p>\n<p>Options: <code>--provider openai|gemini|deepgram</code>, <code>--voice &lt;name&gt;</code>, <code>--pace fast</code>, <code>--retime</code>. It makes the audio, the word timings, <code>video/src/timelines/&lt;tag&gt;.json</code> and captions <code>video/out/&lt;tag&gt;.vtt</code>. A missing key is reported by name: tell the student to add it to the keys file (open it with <code>secrets-init.mjs</code>), then run again. OpenAI is the default; a Deepgram key (<code>DEEPGRAM_API_KEY</code>, add the line by hand) gives tighter word timings; Gemini needs <code>GEMINI_API_KEY</code>. Re-running only voices changed lines.</p>\n<h2>4. Build the scenes</h2>\n<p>Read <code>references/scenes.md</code> now. Copy <code>video/src/acme</code> to <code>video/src/&lt;tag&gt;</code>, rebuild one small piece of the app&#39;s UI per scene using its real tokens, time every animation to spoken words, register the product in <code>video/src/products.json</code> and <code>video/src/products.ts</code>, then run <code>cd &quot;&lt;appDir&gt;/video&quot; &amp;&amp; npx tsc --noEmit</code>.</p>\n<h2>5. Check with stills, then render</h2>\n<p>Read <code>references/qa-render.md</code> now. Stills (single frames) are cheap and fast: fix with stills first. Then:</p>\n<p><code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/video-render.mjs&quot; &lt;appDir&gt; &lt;tag&gt;:light [&lt;tag&gt;:dark] [&lt;tag&gt;:light::vertical] [&lt;tag&gt;:light::silent]</code></p>\n<p>It renders one cut at a time, checks for dead air (a frozen stretch over half a second) and loudness, and prints a contact sheet path per cut. Read each sheet. Fix, re-render only what changed.</p>\n<h2>6. Publish the web copy</h2>\n<p>Read <code>references/publish.md</code> now. <code>node &quot;${CLAUDE_PLUGIN_ROOT}/scripts/video-publish.mjs&quot; &lt;appDir&gt; &lt;render-name&gt;</code> makes a web mp4 under 10 MB, a poster and captions in <code>&lt;appDir&gt;/public/video/</code> and prints the snippet to paste. Offer to add a video section to the home page (follow the app&#39;s <code>AGENTS.md</code>: tokens only, designed states). Commit and deploy only with the student&#39;s yes.</p>\n<h2>7. Finish</h2>\n<p>Report: the output paths (mp4s, posters, captions), the list of cuts made, anything not verified (for example &quot;silent cut checked by stills only&quot;), and the reminder to show &quot;Narrated with an AI voice&quot;. Delete old renders from <code>video/out/</code> (each is several MB). Save a short lesson to <code>~/.shipyard/learnings.md</code> if you hit a new problem.</p>\n<h2>If something fails</h2>\n<p>Every script says what to do in plain words and accepts <code>--help</code> and <code>--json</code>. Setup, voice and publish can be run again safely. If a render fails, read the last lines it shows; the usual causes are a typo in a scene file (run <code>npx tsc --noEmit</code> in <code>video/</code>), a scene id that does not match the script, or a missing timeline (run the voice step). Do not work around a script by touching keys or <code>.env</code> files.</p>\n"
+    }
+  ]
+}

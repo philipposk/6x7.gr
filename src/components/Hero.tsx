@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 // Quiet editorial hero: typography first, no 3D theatrics, no mascot mentions.
@@ -35,6 +36,12 @@ export function Hero() {
           >
             Browse the apps
           </a>
+          <Link
+            href="/skills"
+            className="px-5 py-2.5 rounded-full border border-[var(--border)] text-sm font-medium hover:bg-white/5 transition text-[var(--fg)]"
+          >
+            Skills & plugins
+          </Link>
           <a
             href="#contact"
             className="px-5 py-2.5 rounded-full border border-[var(--border)] text-sm font-medium hover:bg-white/5 transition text-[var(--fg)]"
