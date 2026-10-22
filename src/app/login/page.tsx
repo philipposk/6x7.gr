@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { GoogleIdentityButton } from "@/components/GoogleIdentityButton";
 
 export default function LoginPage() {
   const supabase = createClient();
@@ -48,12 +49,14 @@ export default function LoginPage() {
           </p>
         ) : (
           <>
-            <button
-              onClick={signInWithGoogle}
-              className="w-full rounded-lg border border-neutral-700 bg-white px-4 py-2.5 text-sm font-medium text-black transition hover:bg-neutral-100"
-            >
-              Continue with Google
-            </button>
+            <GoogleIdentityButton getSupabase={() => supabase} onSignedIn={() => window.location.assign("/")} onError={setError}>
+              <button
+                onClick={signInWithGoogle}
+                className="w-full rounded-lg border border-neutral-700 bg-white px-4 py-2.5 text-sm font-medium text-black transition hover:bg-neutral-100"
+              >
+                Continue with Google
+              </button>
+            </GoogleIdentityButton>
 
             <div className="flex items-center gap-3 text-xs text-neutral-500">
               <span className="h-px flex-1 bg-neutral-800" />
