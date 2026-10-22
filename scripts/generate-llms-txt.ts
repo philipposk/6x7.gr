@@ -1,13 +1,17 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { GROUPS, PROJECTS, type ProjectGroup } from "../src/data/projects.ts";
+import {
+  GROUPS,
+  projectsByGroup,
+  type ProjectGroup,
+} from "../src/data/projects.ts";
 
 const ROOT = join(import.meta.dirname, "..");
 const TEMPLATE_PATH = join(ROOT, "scripts/llms-template.md");
 const OUTPUT_PATH = join(ROOT, "public/llms.txt");
 
 const LLMS_SECTIONS: Record<ProjectGroup, string | null> = {
-  headline: "## Headline projects",
+  headline: "## Now",
   productivity: "## Life & productivity",
   creator: "## Creator tools",
   health: "## Health & learning",
@@ -15,6 +19,7 @@ const LLMS_SECTIONS: Record<ProjectGroup, string | null> = {
   wip: "## Work in progress",
   infra: "## Libraries & infra other developers use",
   this: null,
+  parked: "## Parked",
 };
 
 function formatProjectLine(project: (typeof PROJECTS)[number]): string {
@@ -33,7 +38,7 @@ function renderProjects(): string {
     const heading = LLMS_SECTIONS[group.id];
     if (!heading) continue;
 
-    const projects = PROJECTS.filter((p) => p.group === group.id);
+    const projects = projectsByGroup(group.id);
     if (!projects.length) continue;
 
     blocks.push(heading, "", ...projects.map(formatProjectLine), "");
@@ -52,7 +57,8 @@ function main() {
 
   const output = template.replace("<!-- PROJECTS -->", projectsBlock);
   writeFileSync(OUTPUT_PATH, output, "utf8");
-  console.log(`Wrote ${OUTPUT_PATH} (${PROJECTS.length} projects)`);
+  const count = GROUPS.flatMap((g) => projectsByGroup(g.id)).length;
+  console.log(`Wrote ${OUTPUT_PATH} (${count} projects)`);
 }
 
 main();

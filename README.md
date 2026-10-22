@@ -1,33 +1,37 @@
 # 6x7.gr — Filippos Ktistakis's Project Hub
 
-A personal website that gathers more than 30 of Filippos Ktistakis's apps and experiments in one place. Think of it as a friendly front door: visitors land on an animated home page, browse the projects grouped by topic, and can get in touch through a contact form. Two cartoon mascots, Pako and Pipo, greet you and chat as you explore.
+Personal site that lists Filippos's apps and experiments in one place. Visitors get a quiet editorial hero, a searchable card grid grouped by topic, a contact form, and optional sign-in shared with other 6x7 apps.
 
 ## What it does
-- Shows all of Filippos's projects as cards you can browse and click into
-- Greets visitors with two talking mascot characters that react as you look around
-- Has a moving, animated 3D background to make the site feel alive
-- Lets visitors send a message through a contact form
-- Keeps the old version of the site tucked away for reference
+
+- Shows projects as cards with live links, GitHub repos, and status labels
+- Groups cards (Now, productivity, creator tools, and the rest) with filters
+- Contact form backed by Resend when `RESEND_API_KEY` is set
+- Supabase auth for a single login across participating 6x7 apps
+- Publishes `public/llms.txt` from `src/data/projects.ts` at build time
 
 ## Status
-Working website. Built to be hosted online (for example at 6x7.gr). It runs fine even without any setup keys — the mascots fall back to pre-written lines and the contact form just logs messages instead of emailing them.
+
+Production site at [6x7.gr](https://6x7.gr). Deploys on Vercel.
 
 ---
+
 ### For developers
-Built with Next.js 16 (App Router), TypeScript, and Tailwind v4. The animated 3D background uses react-three-fiber and `@react-three/drei`; UI motion uses framer-motion. Mascot dialogue runs through Groq's free tier via `/api/pako` and `/api/pipo`; the contact form uses Resend via `/api/contact`. Older static apps are still served via rewrites in `next.config.ts`, and the original vanilla HTML site lives in `/legacy/`.
+
+Built with Next.js 16 (App Router), TypeScript, and Tailwind v4. UI motion uses framer-motion. Contact mail uses Resend via `/api/contact`. Older static apps may still be served via rewrites in `next.config.ts`; the original vanilla HTML site lives in `/legacy/`.
 
 Run locally with pnpm:
 
 ```bash
 pnpm install
 pnpm dev      # http://localhost:3000
-pnpm build    # production build
+pnpm build    # runs generate:llms, then next build
 pnpm start    # serve production build
 pnpm lint
 ```
 
-No env vars are required for local dev. In production (set in the Vercel dashboard), `GROQ_API_KEY` powers the mascots and `RESEND_API_KEY` sends contact-form mail to phktistakis@gmail.com — both are optional, with graceful fallbacks.
+Optional env vars (Vercel dashboard): `RESEND_API_KEY`, `CONTACT_FROM`, `CONTACT_TO` for contact mail; Supabase keys for auth.
 
-Key files: `src/data/projects.ts` (the project cards), `src/content/mascots/{pako,pipo}.md` (mascot personalities), `src/components/Hero.tsx` and `src/components/scene/HeroScene.tsx` (hero + 3D scene), `src/components/cards/*` (project grid), `src/components/mascot/*` (mascots), `src/components/Contact.tsx` (contact section), `public/llms.txt` (agent-readable manifest).
+Key files: `src/data/projects.ts` (card data), `src/components/Hero.tsx` (hero), `src/components/cards/*` (grid), `src/components/Contact.tsx`, `scripts/llms-template.md` + `scripts/generate-llms-txt.ts` → `public/llms.txt`.
 
 Deploys to Vercel. MIT licensed.

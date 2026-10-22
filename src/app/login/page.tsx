@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { GoogleIdentityButton } from "@/components/GoogleIdentityButton";
 
 function callbackUrl() {
   const next = new URLSearchParams(location.search).get("next");
@@ -44,7 +45,7 @@ export default function LoginPage() {
         <div className="space-y-1 text-center">
           <h1 className="text-2xl font-semibold">Sign in to 6x7</h1>
           <p className="text-sm text-neutral-400">
-            One login for every 6x7 app.
+            Signing in here signs you into the 6x7 apps that share this login.
           </p>
         </div>
 
@@ -54,12 +55,14 @@ export default function LoginPage() {
           </p>
         ) : (
           <>
-            <button
-              onClick={signInWithGoogle}
-              className="w-full rounded-lg border border-neutral-700 bg-white px-4 py-2.5 text-sm font-medium text-black transition hover:bg-neutral-100"
-            >
-              Continue with Google
-            </button>
+            <GoogleIdentityButton getSupabase={() => supabase} onSignedIn={() => window.location.assign("/")} onError={setError}>
+              <button
+                onClick={signInWithGoogle}
+                className="w-full rounded-lg border border-neutral-700 bg-white px-4 py-2.5 text-sm font-medium text-black transition hover:bg-neutral-100"
+              >
+                Continue with Google
+              </button>
+            </GoogleIdentityButton>
 
             <div className="flex items-center gap-3 text-xs text-neutral-500">
               <span className="h-px flex-1 bg-neutral-800" />

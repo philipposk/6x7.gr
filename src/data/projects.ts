@@ -6,7 +6,8 @@ export type ProjectGroup =
   | "games"
   | "wip"
   | "infra"
-  | "this";
+  | "this"
+  | "parked";
 
 export type ProjectStatus = "live" | "beta" | "wip" | "archived";
 
@@ -20,10 +21,14 @@ export interface Project {
   live?: string;
   glyph?: string;
   comingSoon?: boolean;
+  /** Lower sorts first within a group (before status). */
+  rank?: number;
+  /** Optional one-line caption on the card. */
+  note?: string;
 }
 
 export const GROUPS: { id: ProjectGroup; label: string; blurb: string }[] = [
-  { id: "headline", label: "Headliners", blurb: "The ones I keep iterating on." },
+  { id: "headline", label: "Now", blurb: "What I'm shipping." },
   { id: "productivity", label: "Life & productivity", blurb: "Calm tools for messy days." },
   { id: "creator", label: "Creator tools", blurb: "For people who make things." },
   { id: "health", label: "Health & learning", blurb: "Quiet help for body and mind." },
@@ -31,30 +36,59 @@ export const GROUPS: { id: ProjectGroup; label: string; blurb: string }[] = [
   { id: "wip", label: "Work in progress", blurb: "Half-built, but real." },
   { id: "infra", label: "Libraries & infra", blurb: "Small tools other apps lean on." },
   { id: "this", label: "Meta", blurb: "This site." },
+  {
+    id: "parked",
+    label: "Parked",
+    blurb: "Not in the working set right now.",
+  },
 ];
 
 export const PROJECTS: Project[] = [
-  // Headliners — 6x7 Studio, Vibecoders Studio, then Catchy, Riffscribe, Topia, EventNow
+  // Now — explicit rank order
   {
-    slug: "studio",
-    name: "6x7 Studio",
+    slug: "chatfix",
+    name: "ChatFix",
     tagline:
-      "Websites and web apps for businesses — from a taverna's menu and booking requests to a full SaaS product. I design them, build them and keep them running. In Greek and English.",
+      "Upload a WhatsApp chat. ChatFix finds the real English mistakes you made, explains them in Brazilian Portuguese, and helps you practice them.",
     group: "headline",
     status: "live",
-    live: "https://work.6x7.gr",
+    rank: 1,
+    live: "https://chatfix.6x7.gr",
+    repo: "https://github.com/philipposk/babi-english",
     glyph: "◈",
   },
   {
-    slug: "vibecoders-studio",
-    name: "Vibecoders Studio",
-    tagline:
-      "Describe an app and watch AI write the full stack as it streams — live in-browser preview, tests, and a zip export when you're done.",
+    slug: "journal-find",
+    name: "Journal Find",
+    tagline: "Paste your abstract — get an enriched journal shortlist (Excel, PDF, CSV).",
     group: "headline",
-    status: "beta",
-    live: "https://studio.6x7.gr",
-    repo: "https://github.com/philipposk/appmaker-studio",
-    glyph: "◳",
+    status: "live",
+    rank: 2,
+    live: "https://journal-find.6x7.gr",
+    glyph: "◎",
+  },
+  {
+    slug: "daybook",
+    name: "Daybook",
+    tagline:
+      "A shared book of the day's takings, expenses and profit — one person files the register, everyone sees it on their phone.",
+    group: "headline",
+    status: "live",
+    rank: 3,
+    live: "https://daybook.6x7.gr",
+    glyph: "▥",
+  },
+  {
+    slug: "page-assistant",
+    name: "Page Assistant",
+    tagline:
+      "A talking, grounded assistant you drop into any web app — it reads the page, runs real actions, never hallucinates, and publishes an llm.txt so other agents can use your app too.",
+    group: "headline",
+    status: "live",
+    rank: 4,
+    live: "https://pageassistant.6x7.gr",
+    repo: "https://github.com/philipposk/page-assistant",
+    glyph: "◉",
   },
   {
     slug: "catchy",
@@ -63,6 +97,7 @@ export const PROJECTS: Project[] = [
       "Record a meeting on your phone or upload audio — get a speaker-labeled transcript, action notes, and an assistant that knows your projects. Click any word to hear it.",
     group: "headline",
     status: "live",
+    rank: 5,
     live: "https://catchy.6x7.gr",
     repo: "https://github.com/philipposk/catchy",
     glyph: "◖",
@@ -74,6 +109,7 @@ export const PROJECTS: Project[] = [
       "Drop in a song — get the sheet music and the tab for your instrument, mute the part you are learning, slow it down without dropping the pitch, and read along as it scrolls itself. Record yourself over the top and it marks the take against the part: what was flat, what was late, which bars still need the work.",
     group: "headline",
     status: "live",
+    rank: 6,
     live: "https://riffscribe.6x7.gr",
     repo: "https://github.com/philipposk/riffscribe",
     glyph: "♪",
@@ -85,6 +121,7 @@ export const PROJECTS: Project[] = [
       "Multilingual mobile guides to Samos, Lesbos and Copenhagen — hand-checked places, live events, and an AI day-planner grounded in the catalogue.",
     group: "headline",
     status: "live",
+    rank: 7,
     live: "https://topia.6x7.gr",
     glyph: "◬",
   },
@@ -92,8 +129,8 @@ export const PROJECTS: Project[] = [
     slug: "eventnow",
     name: "EventNow",
     tagline: "What's on near you, right now — events and open places within walking distance.",
-    group: "headline",
-    status: "live",
+    group: "wip",
+    status: "beta",
     live: "https://eventnow.6x7.gr",
     repo: "https://github.com/philipposk/eventnow",
     glyph: "◷",
@@ -103,7 +140,7 @@ export const PROJECTS: Project[] = [
     name: "LifeHub",
     tagline:
       "A dashboard above your life and your tools — so you stop losing things.",
-    group: "headline",
+    group: "productivity",
     status: "beta",
     live: "https://lifehub.6x7.gr",
     repo: "https://github.com/philipposk/LifeHub",
@@ -114,7 +151,7 @@ export const PROJECTS: Project[] = [
     name: "Cosmo",
     tagline:
       "A quiet creative home for stories, art, and goals — AI baked in, privacy on by default.",
-    group: "headline",
+    group: "productivity",
     status: "beta",
     live: "https://cosmo.6x7.gr",
     repo: "https://github.com/philipposk/cosmo-frontend",
@@ -125,7 +162,7 @@ export const PROJECTS: Project[] = [
     name: "Daisy",
     tagline:
       "A polite voice assistant that lives on your Mac and gets things done without nagging.",
-    group: "headline",
+    group: "infra",
     status: "live",
     live: "https://daisy.6x7.gr",
     repo: "https://github.com/philipposk/Daisy--AI-Assistant-",
@@ -136,7 +173,7 @@ export const PROJECTS: Project[] = [
     name: "AI OS",
     tagline:
       "Many AI agents, one team. Plans, writes, ships code — with you in the loop.",
-    group: "headline",
+    group: "infra",
     status: "beta",
     live: "https://aios.6x7.gr",
     repo: "https://github.com/philipposk/AI-OS",
@@ -146,7 +183,7 @@ export const PROJECTS: Project[] = [
     slug: "praiser",
     name: "Praiser",
     tagline: "Free, multilingual hype machine for the people you love.",
-    group: "headline",
+    group: "creator",
     status: "live",
     live: "https://praiser.6x7.gr",
     repo: "https://github.com/philipposk/Praiser",
@@ -175,21 +212,13 @@ export const PROJECTS: Project[] = [
     glyph: "▤",
   },
   {
-    slug: "journal-find",
-    name: "Journal Find",
-    tagline: "Paste your abstract — get an enriched journal shortlist (Excel, PDF, CSV).",
-    group: "productivity",
-    status: "live",
-    live: "https://journal-find.6x7.gr",
-    glyph: "◎",
-  },
-  {
     slug: "projecthub",
     name: "ProjectHub",
     tagline: "Your research projects, finally in one place.",
     group: "productivity",
     status: "wip",
     comingSoon: true,
+    note: "A dashboard that was planned and never built.",
     glyph: "▦",
   },
   {
@@ -216,24 +245,35 @@ export const PROJECTS: Project[] = [
     slug: "postbox",
     name: "Postbox",
     tagline: "An inbox that respects you back.",
-    group: "productivity",
+    group: "parked",
     status: "beta",
     live: "https://postbox.6x7.gr",
     repo: "https://github.com/philipposk/postbox",
     glyph: "✉",
   },
-  {
-    slug: "daybook",
-    name: "Daybook",
-    tagline:
-      "A shared book of the day's takings, expenses and profit — one person files the register, everyone sees it on their phone.",
-    group: "productivity",
-    status: "live",
-    live: "https://daybook.6x7.gr",
-    glyph: "▥",
-  },
 
   // Creator tools
+  {
+    slug: "studio",
+    name: "6x7 Studio",
+    tagline:
+      "Websites and web apps for businesses — from a taverna's menu and booking requests to a full SaaS product. I design them, build them and keep them running. In Greek and English.",
+    group: "creator",
+    status: "live",
+    live: "https://work.6x7.gr",
+    glyph: "◳",
+  },
+  {
+    slug: "vibecoders-studio",
+    name: "Vibecoders Studio",
+    tagline:
+      "Describe an app and watch AI write the full stack as it streams — live in-browser preview, tests, and a zip export when you're done.",
+    group: "creator",
+    status: "beta",
+    live: "https://studio.6x7.gr",
+    repo: "https://github.com/philipposk/appmaker-studio",
+    glyph: "◰",
+  },
   {
     slug: "translator",
     name: "Translator",
@@ -283,6 +323,7 @@ export const PROJECTS: Project[] = [
     status: "beta",
     live: "https://appblueprints.6x7.gr",
     repo: "https://github.com/philipposk/harness-forge",
+    note: "Wrote the instruction files for coding assistants. An early version of what the app factory does now.",
     glyph: "▩",
   },
   {
@@ -330,6 +371,16 @@ export const PROJECTS: Project[] = [
     glyph: "♣",
   },
   {
+    slug: "shipyard",
+    name: "Shipyard",
+    tagline: "A Claude Code plugin to build and launch real web apps.",
+    group: "creator",
+    status: "live",
+    live: "https://shipyard.6x7.gr",
+    repo: "https://github.com/philipposk/shipyard",
+    glyph: "⚓",
+  },
+  {
     slug: "school",
     name: "Critical Thinking School",
     tagline: "Critical thinking, course-quality.",
@@ -372,6 +423,24 @@ export const PROJECTS: Project[] = [
     live: "https://minigames.6x7.gr",
     repo: "https://github.com/philipposk/MiniGames",
     glyph: "◆",
+  },
+  {
+    slug: "ballpark",
+    name: "Ballpark",
+    tagline: "One number to guess a day. Get warmer with each try, then see how to estimate it.",
+    group: "games",
+    status: "live",
+    live: "https://ballpark.6x7.gr",
+    glyph: "≈",
+  },
+  {
+    slug: "dailies",
+    name: "Dailies",
+    tagline: "Three small word and size puzzles a day, the same for everyone. About ten minutes.",
+    group: "games",
+    status: "live",
+    live: "https://dailies.6x7.gr",
+    glyph: "⊞",
   },
   {
     slug: "game-of-world",
@@ -474,6 +543,17 @@ export const PROJECTS: Project[] = [
 
   // Infra
   {
+    slug: "skills",
+    name: "Skills & Plugins",
+    tagline:
+      "My agent skills and plugins (Shipyard and more) for Claude Code, Cursor, Codex, OpenClaw and Hermes. Search them, read each SKILL.md, copy the install command.",
+    group: "infra",
+    status: "live",
+    live: "/skills",
+    repo: "https://github.com/philipposk/shipyard",
+    glyph: "✦",
+  },
+  {
     slug: "llm-free-rotator",
     name: "llm-free-rotator",
     tagline: "Rotate across free-tier LLMs when one rate-limits you.",
@@ -482,17 +562,6 @@ export const PROJECTS: Project[] = [
     live: "https://llm-rotator.6x7.gr",
     repo: "https://github.com/philipposk/llm-free-rotator",
     glyph: "◎",
-  },
-  {
-    slug: "page-assistant",
-    name: "Page Assistant",
-    tagline:
-      "A talking, grounded assistant you drop into any web app — it reads the page, runs real actions, never hallucinates, and publishes an llm.txt so other agents can use your app too.",
-    group: "infra",
-    status: "live",
-    live: "https://pageassistant.6x7.gr",
-    repo: "https://github.com/philipposk/page-assistant",
-    glyph: "◉",
   },
   {
     slug: "agent-feedback",
@@ -517,6 +586,16 @@ export const PROJECTS: Project[] = [
     glyph: "⬡",
   },
   {
+    slug: "commitr",
+    name: "CommitR",
+    tagline: "Dating for people who overthink commitment.",
+    group: "infra",
+    status: "beta",
+    live: "https://commitr.6x7.gr",
+    repo: "https://github.com/philipposk/CommitR",
+    glyph: "◔",
+  },
+  {
     slug: "demo",
     name: "6x7 Demo Studio",
     tagline:
@@ -532,7 +611,7 @@ export const PROJECTS: Project[] = [
     name: "Screenshot Grid",
     tagline:
       "Screenshot any list of web apps and build a clickable grid. No API keys, no cost — Playwright-based and reusable.",
-    group: "creator",
+    group: "parked",
     status: "live",
     live: "https://screenshotgrid.6x7.gr",
     repo: "https://github.com/philipposk/screenshot-grid",
@@ -551,6 +630,9 @@ export function projectsByGroup(group: ProjectGroup) {
   return PROJECTS.filter((p) => p.group === group).sort((a, b) => {
     // Coming-soon cards always sink to the bottom of their group.
     if (!!a.comingSoon !== !!b.comingSoon) return a.comingSoon ? 1 : -1;
+    const rankA = a.rank ?? Number.MAX_SAFE_INTEGER;
+    const rankB = b.rank ?? Number.MAX_SAFE_INTEGER;
+    if (rankA !== rankB) return rankA - rankB;
     return STATUS_ORDER[a.status] - STATUS_ORDER[b.status];
   });
 }

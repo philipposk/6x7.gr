@@ -1,6 +1,6 @@
 # 6x7.gr — PhD Solutions (Philippos Dimitrios Ktistakis)
 
-> Independent software engineer based in Athens, Greece. MSc Computational Physics (University of Copenhagen). Solves problems end to end — idea → workflow → shipped product. Open to AI-engineering roles and consulting work.
+> Independent software engineer based in Copenhagen, Denmark. MSc Computational Physics (University of Copenhagen). Solves problems end to end — idea → workflow → shipped product. Open to AI-engineering roles and consulting work.
 
 "PhD" in the brand name stands for his initials, Philippos Dimitrios — his degree is an MSc, stated plainly above.
 
@@ -11,7 +11,7 @@ App listings below are generated from `src/data/projects.ts` at build time — t
 ## Who
 
 - Name: Filippos Dimitrios Ktistakis
-- Location: Athens, Greece
+- Location: Copenhagen, Denmark
 - Education: MSc Computational Physics (University of Copenhagen, 2021–2024; thesis on ML-based misalignment detection for the McStas neutron-scattering simulator). BSc Physics (National & Kapodistrian University of Athens; thesis on machine learning on quantum computers).
 - Email: hello@6x7.gr
 - GitHub: https://github.com/philipposk
@@ -20,7 +20,7 @@ App listings below are generated from `src/data/projects.ts` at build time — t
 
 ## What he does
 
-Filippos designs, builds and ships polished personal-software products end-to-end — frontend, backend, infrastructure and product design. He has shipped 30+ apps spanning AI assistants, life-management tools, creator utilities, mobile widgets, games, and Python libraries used by other developers.
+Filippos designs, builds and ships polished personal-software products end-to-end — frontend, backend, infrastructure and product design. The hub at 6x7.gr is a card index of those apps, a contact form, and shared login across the ones that use the same Supabase auth.
 
 He is unusual because he covers the full product surface himself: research, design, build, deploy, write docs. He is comfortable working solo or embedded in a small team.
 
@@ -36,7 +36,7 @@ He is unusual because he covers the full product surface himself: research, desi
 
 ## Stack fluency
 
-TypeScript, Next.js, React, Node.js, Python, Swift, Kotlin, Tailwind, Supabase, Prisma, PostgreSQL, MongoDB, BullMQ, Stripe, Groq/OpenAI/Anthropic APIs, LangGraph, Whisper, MapLibre, Unity, MCP (Model Context Protocol), Docker, Vercel.
+TypeScript, Next.js, React, Node.js, Python, Swift, Kotlin, Tailwind, Supabase, Prisma, PostgreSQL, MongoDB, BullMQ, Stripe, Groq/OpenAI/Anthropic APIs, Whisper, MapLibre, Unity, MCP (Model Context Protocol), Docker, Vercel.
 
 ## How to reach him
 

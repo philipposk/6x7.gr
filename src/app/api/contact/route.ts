@@ -50,14 +50,22 @@ export async function POST(req: NextRequest) {
 
   const key = process.env.RESEND_API_KEY;
   if (!key) {
-    console.log("[contact] no RESEND_API_KEY; would send:", { name, email, message });
-    return Response.json({ ok: true, dryRun: true });
+    console.warn("[contact] RESEND_API_KEY is not set; cannot send mail");
+    return Response.json(
+      { ok: false, error: "Contact email is not configured on the server." },
+      { status: 503 },
+    );
   }
+
+  const from =
+    process.env.CONTACT_FROM?.trim() || "6x7.gr <hello@6x7.gr>";
+  const to =
+    process.env.CONTACT_TO?.trim() || "phktistakis@gmail.com";
 
   const resend = new Resend(key);
   const { error } = await resend.emails.send({
-    from: "6x7.gr contact <onboarding@resend.dev>",
-    to: ["phktistakis@gmail.com"],
+    from,
+    to: [to],
     replyTo: email,
     subject: `[6x7.gr] ${name}`,
     text: `From: ${name} <${email}>\n\n${message}`,

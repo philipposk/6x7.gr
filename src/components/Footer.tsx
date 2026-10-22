@@ -1,9 +1,11 @@
+import Link from "next/link";
+
 export function Footer() {
   return (
     <footer className="px-6 md:px-12 py-12 pb-32 md:pb-16 border-t border-[var(--border)] text-sm text-[var(--fg-muted)]">
       <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-4">
         <div>
-          Filippos Dimitrios Ktistakis · Athens
+          Filippos Dimitrios Ktistakis · Copenhagen
         </div>
         <div className="flex gap-4">
           <a
@@ -14,6 +16,9 @@ export function Footer() {
           >
             View source
           </a>
+          <Link href="/skills" className="hover:text-[var(--fg)] transition">
+            Skills
+          </Link>
           <a href="/llms.txt" className="hover:text-[var(--fg)] transition">
             llms.txt
           </a>

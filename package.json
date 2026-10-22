@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "npm run generate:llms",
+    "prebuild": "npm run generate:llms && npm run generate:skills",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "generate:llms": "node --experimental-strip-types scripts/generate-llms-txt.ts",
+    "generate:skills": "node --experimental-strip-types scripts/generate-skills.ts",
     "test": "tsx --test tests/*.test.ts"
   },
   "dependencies": {
@@ -38,6 +39,7 @@
     "@types/three": "^0.184.1",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
+    "marked": "^18.1.1",
     "tailwindcss": "^4",
     "tsx": "^4.23.15",
     "typescript": "^5"

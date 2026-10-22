@@ -64,6 +64,11 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
       <p className="text-sm text-[var(--fg-muted)] leading-relaxed flex-1">
         {project.tagline}
       </p>
+      {project.note ? (
+        <p className="text-xs text-[var(--fg-muted)] leading-relaxed border-t border-[var(--border)] pt-3">
+          {project.note}
+        </p>
+      ) : null}
     </div>
   );
 
