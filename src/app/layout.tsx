@@ -15,7 +15,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://6x7.gr"),
+  metadataBase: new URL("https://www.6x7.gr"),
+  // The apex 307-redirects to www on Vercel, so www is the canonical host.
+  alternates: { canonical: "./" },
+  robots: { index: true, follow: true },
   title: {
     default: "6x7 — Filippos Ktistakis",
     template: "%s · 6x7",
@@ -24,7 +27,7 @@ export const metadata: Metadata = {
     "Filippos Ktistakis — independent software engineer in Copenhagen, Denmark. Card index of apps, contact form, and shared login across 6x7.gr.",
   openGraph: {
     type: "website",
-    url: "https://6x7.gr",
+    url: "https://www.6x7.gr",
     title: "6x7 — Filippos Ktistakis",
     description:
       "Apps and experiments by Filippos Ktistakis — browse the grid, get in touch, or sign in once for every 6x7 app.",
