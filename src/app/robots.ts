@@ -10,6 +10,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/login", "/auth/", "/admin"],
       },
     ],
-    sitemap: "https://6x7.gr/sitemap.xml",
+    sitemap: "https://www.6x7.gr/sitemap.xml",
   };
 }
