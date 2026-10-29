@@ -19,6 +19,7 @@ export const metadata: Metadata = {
   // The apex 307-redirects to www on Vercel, so www is the canonical host.
   alternates: { canonical: "./" },
   robots: { index: true, follow: true },
+  appleWebApp: { capable: true, title: "6x7", statusBarStyle: "black-translucent" },
   title: {
     default: "6x7 — Filippos Ktistakis",
     template: "%s · 6x7",
