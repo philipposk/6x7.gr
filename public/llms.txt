@@ -33,6 +33,7 @@ He is unusual because he covers the full product surface himself: research, desi
 - **Catchy** — Record a meeting on your phone or upload audio — get a speaker-labeled transcript, action notes, and an assistant that knows your projects. Click any word to hear it. https://catchy.6x7.gr · https://github.com/philipposk/catchy
 - **Riffscribe** — Drop in a song — get the sheet music and the tab for your instrument, mute the part you are learning, slow it down without dropping the pitch, and read along as it scrolls itself. Record yourself over the top and it marks the take against the part: what was flat, what was late, which bars still need the work. https://riffscribe.6x7.gr · https://github.com/philipposk/riffscribe
 - **Topia** — Multilingual mobile guides to Samos, Lesbos and Copenhagen — hand-checked places, live events, and an AI day-planner grounded in the catalogue. https://topia.6x7.gr
+- **J-dag Copenhagen** — Find the closest listed J-Day bar on a map — share your location or type a place, then walk there. https://j-dag.6x7.gr · https://github.com/philipposk/j-dag
 
 ## Life & productivity
 
