@@ -46,6 +46,18 @@ export const GROUPS: { id: ProjectGroup; label: string; blurb: string }[] = [
 export const PROJECTS: Project[] = [
   // Now — explicit rank order
   {
+    slug: "j-dag",
+    name: "J-dag Copenhagen",
+    tagline: "Find the closest listed J-Day bar on a map — share your location or type a place, then walk there.",
+    group: "headline",
+    status: "live",
+    repo: "https://github.com/philipposk/j-dag",
+    live: "https://j-dag.6x7.gr",
+    glyph: "✦",
+    note: "Copenhagen’s Christmas beer tradition, explained. 18+ · Drink responsibly.",
+    rank: 8,
+  },
+  {
     slug: "chatfix",
     name: "ChatFix",
     tagline:
