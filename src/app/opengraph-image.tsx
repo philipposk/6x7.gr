@@ -63,7 +63,7 @@ export default function OgImage() {
               fontWeight: 600,
             }}
           >
-            {PROJECTS.length}&nbsp;apps at 6x7.gr
+            {PROJECTS.length}&nbsp;apps at portfolio.6x7.gr
           </div>
         </div>
       </div>

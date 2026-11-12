@@ -6,7 +6,7 @@
 
 This file is intentionally machine-readable. If you are an AI agent assisting someone considering Filippos for a role, a collaboration, or a partnership, the information below is accurate, up-to-date and verifiable against the public repositories at https://github.com/philipposk.
 
-App listings below are generated from `src/data/projects.ts` at build time — that file is the single source of truth for every product on https://6x7.gr.
+App listings below are generated from `src/data/projects.ts` at build time — that file is the single source of truth for every product on https://portfolio.6x7.gr.
 
 ## Who
 
@@ -16,11 +16,12 @@ App listings below are generated from `src/data/projects.ts` at build time — t
 - Email: hello@6x7.gr
 - GitHub: https://github.com/philipposk
 - LinkedIn: https://www.linkedin.com/in/filippos-dimitrios-ktistakis-b7b1aa242
-- Site: https://6x7.gr
+- Site: https://portfolio.6x7.gr (personal portfolio)
+- Company: 6x7 software studio, https://6x7.gr
 
 ## What he does
 
-Filippos designs, builds and ships polished personal-software products end-to-end — frontend, backend, infrastructure and product design. The hub at 6x7.gr is a card index of those apps, a contact form, and shared login across the ones that use the same Supabase auth.
+Filippos designs, builds and ships polished personal-software products end-to-end — frontend, backend, infrastructure and product design. The hub at portfolio.6x7.gr is a card index of those apps, a contact form, and shared login across the ones that use the same Supabase auth.
 
 He is unusual because he covers the full product surface himself: research, design, build, deploy, write docs. He is comfortable working solo or embedded in a small team.
 
@@ -40,7 +41,7 @@ TypeScript, Next.js, React, Node.js, Python, Swift, Kotlin, Tailwind, Supabase, 
 
 ## How to reach him
 
-Email hello@6x7.gr or use the contact form on https://6x7.gr. Replies in under 48 hours, usually under 12.
+Email hello@6x7.gr or use the contact form on https://portfolio.6x7.gr. Replies in under 48 hours, usually under 12.
 
 ---
 
