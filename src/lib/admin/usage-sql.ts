@@ -3,14 +3,19 @@ export interface UserTable { schema: string; table: string; hasCreatedAt: boolea
 const q = (s: string) => '"' + s.replace(/"/g, '""') + '"';
 const lit = (s: string) => "'" + s.replace(/'/g, "''") + "'";
 
+// pg_catalog instead of information_schema: same result, far faster on a big catalog.
+// has_table_privilege keeps it to tables this (read-only) role can actually select from.
 export const DISCOVER_SQL = `
-select c.table_schema as schema, c.table_name as table,
-  exists(select 1 from information_schema.columns c2 where c2.table_schema=c.table_schema
-    and c2.table_name=c.table_name and c2.column_name='created_at') as has_created_at
-from information_schema.columns c
-join information_schema.tables t using (table_schema, table_name)
-where c.column_name='user_id' and c.data_type='uuid' and t.table_type='BASE TABLE'
-  and c.table_schema not in ('auth','storage','realtime','extensions','vault','pg_catalog','information_schema')`;
+select n.nspname as schema, c.relname as table,
+  exists(select 1 from pg_attribute a2 where a2.attrelid = c.oid and a2.attname = 'created_at'
+    and a2.attnum > 0 and not a2.attisdropped) as has_created_at
+from pg_attribute a
+join pg_class c on c.oid = a.attrelid
+join pg_namespace n on n.oid = c.relnamespace
+where a.attname = 'user_id' and a.atttypid = 'uuid'::regtype and a.attnum > 0 and not a.attisdropped
+  and c.relkind in ('r', 'p')
+  and n.nspname not in ('auth','storage','realtime','extensions','vault','pg_catalog','information_schema')
+  and has_table_privilege(c.oid, 'SELECT')`;
 
 export function usageSql(tables: UserTable[]): string {
   if (!tables.length) return "select null::uuid user_id, null::text app, null::timestamptz first, null::timestamptz last, 0::int rows where false";
