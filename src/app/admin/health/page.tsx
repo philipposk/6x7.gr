@@ -6,7 +6,7 @@ import { Card, Notice, ago } from "../ui";
 
 const FIND = `select n.nspname s, c.relname t
  from pg_attribute a join pg_class c on c.oid = a.attrelid join pg_namespace n on n.oid = c.relnamespace
- where a.attname = 'created_at' and a.attnum > 0 and not a.attisdropped and c.relkind in ('r','p','v','m')
+ where a.attname = 'created_at' and a.attnum > 0 and not a.attisdropped and c.relkind in ('r','p') and not c.relispartition
    and (c.relname like '%error_log%' or c.relname like '%health_runs%' or c.relname like '%source_runs%' or c.relname like '%webhook_events%')
    and n.nspname not in ('auth','storage','realtime','pg_catalog','information_schema')
    and has_table_privilege(c.oid, 'SELECT')`;
@@ -16,11 +16,12 @@ async function logTables(p: DbProject) {
   const sql = db(p);
   if (!sql) return null;
   const ts = await sql.unsafe<{ s: string; t: string }[]>(FIND);
-  return Promise.all(ts.map(async ({ s, t }) => {
-    const [r] = await sql.unsafe<{ d1: number; d7: number; last: Date | null }[]>(
-      `select count(*) filter (where created_at > now()-interval '1 day')::int d1, count(*) filter (where created_at > now()-interval '7 days')::int d7, max(created_at) last from ${q(s)}.${q(t)}`);
-    return { name: `${s}.${t}`, ...r };
-  }));
+  if (!ts.length) return [];
+  // One round trip instead of one query per table.
+  const parts = ts.map(({ s, t }, i) =>
+    `select ${i} i, count(*) filter (where created_at > now()-interval '1 day')::int d1, count(*) filter (where created_at > now()-interval '7 days')::int d7, max(created_at) last from ${q(s)}.${q(t)}`);
+  const rows = await sql.unsafe<{ i: number; d1: number; d7: number; last: Date | null }[]>(parts.join("\nunion all\n"));
+  return rows.sort((x, y) => x.i - y.i).map(({ i, d1, d7, last }) => ({ name: `${ts[i].s}.${ts[i].t}`, d1, d7, last }));
 }
 
 async function supabaseProjects() {
