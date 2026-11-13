@@ -1,4 +1,5 @@
 import "server-only";
+import { swr } from "./cache";
 
 export interface Probe { url: string; ok: boolean; status: number | null; ms: number | null; error?: string }
 
@@ -12,6 +13,7 @@ export async function probe(url: string): Promise<Probe> {
   }
 }
 
-export async function probeAll(urls: string[]) {
-  return Promise.all(Array.from(new Set(urls)).map(probe));
+export function probeAll(urls: string[]) {
+  const list = Array.from(new Set(urls)).sort();
+  return swr(`probes:${list.join(",")}`, () => Promise.all(list.map(probe)), { freshMs: 2 * 60_000 });
 }

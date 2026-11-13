@@ -3,6 +3,7 @@ import { APPS, EXTERNAL_USER_TABLES, IGNORE_TABLES, appForTable, type DbProject 
 import { classifyEmail, type EmailClass } from "./classify";
 import { adminEmails } from "./auth";
 import { db, withDeadline } from "./db";
+import { swr } from "./cache";
 import { DISCOVER_SQL, usageSql, type UserTable } from "./usage-sql";
 
 export interface UserApp { app: string; first: string | null; last: string | null; rows: number }
@@ -77,7 +78,12 @@ async function projectDirectory(project: DbProject) {
   return { users, unmapped, configured: true };
 }
 
-export async function directory() {
+/** Cached: every admin page needs this and it scans every user table. */
+export function directory() {
+  return swr("directory", loadDirectory, { keep: (d) => d.sources.every((s) => !s.error) });
+}
+
+async function loadDirectory() {
   const projects: DbProject[] = Array.from(new Set(APPS.map((a) => a.db)));
   const results = await Promise.all(projects.map(async (p) => {
     try { return { p, ...(await withDeadline(p, projectDirectory(p))), error: null as string | null }; }

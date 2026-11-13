@@ -1,11 +1,15 @@
 import { requireAdmin } from "@/lib/admin/auth";
 import { db, withDeadline } from "@/lib/admin/db";
+import { swr } from "@/lib/admin/cache";
 import { APPS, type DbProject } from "@/lib/admin/config";
 import { Card, Notice, ago } from "../ui";
 
-const FIND = `select table_schema s, table_name t from information_schema.columns
- where column_name='created_at' and (table_name like '%error_log%' or table_name like '%health_runs%' or table_name like '%source_runs%' or table_name like '%webhook_events%')
- and table_schema not in ('auth','storage','realtime')`;
+const FIND = `select n.nspname s, c.relname t
+ from pg_attribute a join pg_class c on c.oid = a.attrelid join pg_namespace n on n.oid = c.relnamespace
+ where a.attname = 'created_at' and a.attnum > 0 and not a.attisdropped and c.relkind in ('r','p','v','m')
+   and (c.relname like '%error_log%' or c.relname like '%health_runs%' or c.relname like '%source_runs%' or c.relname like '%webhook_events%')
+   and n.nspname not in ('auth','storage','realtime','pg_catalog','information_schema')
+   and has_table_privilege(c.oid, 'SELECT')`;
 const q = (s: string) => '"' + s.replace(/"/g, '""') + '"';
 
 async function logTables(p: DbProject) {
@@ -23,18 +27,18 @@ async function supabaseProjects() {
   const t = process.env.SUPABASE_ACCESS_TOKEN;
   if (!t) return null;
   const r = await fetch("https://api.supabase.com/v1/projects", { headers: { Authorization: `Bearer ${t}` }, next: { revalidate: 300 } });
-  if (!r.ok) return null;
+  if (!r.ok) return { error: `Supabase API ${r.status} (SUPABASE_ACCESS_TOKEN expired or wrong?)` } as const;
   return (await r.json()) as { id: string; name: string; status: string; region: string }[];
 }
 
 export default async function Health() {
   await requireAdmin(); // per-page guard (layouts do not gate parallel page rendering)
   const projects: DbProject[] = Array.from(new Set(APPS.map((a) => a.db)));
-  const [logs, sb] = await Promise.all([Promise.all(projects.map(async (p) => ({ p, rows: await withDeadline(p, logTables(p)).catch((e) => e as Error) }))), supabaseProjects()]);
+  const [logs, sb] = await Promise.all([Promise.all(projects.map(async (p) => ({ p, rows: await swr(`health:${p}`, () => withDeadline(p, logTables(p))).catch((e) => e as Error) }))), supabaseProjects()]);
   return (
     <div className="space-y-4">
       <Card title="Supabase projects">
-        {sb ? <ul>{sb.map((p) => <li key={p.id}>{p.name} <span className={p.status === "ACTIVE_HEALTHY" ? "text-emerald-400" : "text-amber-400"}>{p.status}</span> <span className="text-neutral-500">{p.region}</span></li>)}</ul>
+        {sb && "error" in sb ? <Notice>{sb.error}</Notice> : sb ? <ul>{sb.map((p) => <li key={p.id}>{p.name} <span className={p.status === "ACTIVE_HEALTHY" ? "text-emerald-400" : "text-amber-400"}>{p.status}</span> <span className="text-neutral-500">{p.region}</span></li>)}</ul>
           : <Notice>Set SUPABASE_ACCESS_TOKEN (personal access token) to see project status.</Notice>}
       </Card>
       {logs.map(({ p, rows }) => (
