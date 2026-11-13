@@ -2,7 +2,7 @@ import "server-only";
 import { APPS, EXTERNAL_USER_TABLES, IGNORE_TABLES, appForTable, type DbProject } from "./config";
 import { classifyEmail, type EmailClass } from "./classify";
 import { adminEmails } from "./auth";
-import { db } from "./db";
+import { db, withDeadline } from "./db";
 import { DISCOVER_SQL, usageSql, type UserTable } from "./usage-sql";
 
 export interface UserApp { app: string; first: string | null; last: string | null; rows: number }
@@ -80,7 +80,7 @@ async function projectDirectory(project: DbProject) {
 export async function directory() {
   const projects: DbProject[] = Array.from(new Set(APPS.map((a) => a.db)));
   const results = await Promise.all(projects.map(async (p) => {
-    try { return { p, ...(await projectDirectory(p)), error: null as string | null }; }
+    try { return { p, ...(await withDeadline(p, projectDirectory(p))), error: null as string | null }; }
     catch (e) { return { p, users: [], unmapped: [], configured: true, error: (e as Error).message }; }
   }));
   return {
