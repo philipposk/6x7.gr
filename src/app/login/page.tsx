@@ -1,12 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { GoogleIdentityButton } from "@/components/GoogleIdentityButton";
 
-function callbackUrl() {
+function safeNext() {
   const next = new URLSearchParams(location.search).get("next");
-  const safe = next && next.startsWith("/") && !next.startsWith("//") ? next : null;
+  return next && next.startsWith("/") && !next.startsWith("//") && !next.startsWith("/\\") ? next : null;
+}
+
+function callbackUrl() {
+  const safe = safeNext();
   return `${location.origin}/auth/callback${safe ? `?next=${encodeURIComponent(safe)}` : ""}`;
 }
 
@@ -16,6 +20,16 @@ export default function LoginPage() {
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  // Show why a magic link or OAuth return failed (expired/used link etc.) instead of a silent form.
+  useEffect(() => {
+    const desc = new URLSearchParams(location.hash.slice(1)).get("error_description");
+    const msg = desc ? desc.replace(/\+/g, " ")
+      : new URLSearchParams(location.search).get("error") === "auth" ? "Sign-in failed. Please try again." : null;
+    if (!msg) return;
+    const t = setTimeout(() => setError(msg), 0); // after hydration; the URL only exists in the browser
+    return () => clearTimeout(t);
+  }, []);
 
   async function signInWithEmail(e: React.FormEvent) {
     e.preventDefault();
@@ -55,7 +69,7 @@ export default function LoginPage() {
           </p>
         ) : (
           <>
-            <GoogleIdentityButton getSupabase={() => supabase} onSignedIn={() => window.location.assign("/")} onError={setError}>
+            <GoogleIdentityButton getSupabase={() => supabase} onSignedIn={() => window.location.assign(safeNext() ?? "/")} onError={setError}>
               <button
                 onClick={signInWithGoogle}
                 className="w-full rounded-lg border border-neutral-700 bg-white px-4 py-2.5 text-sm font-medium text-black transition hover:bg-neutral-100"
