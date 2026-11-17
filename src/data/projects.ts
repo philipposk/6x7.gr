@@ -46,6 +46,18 @@ export const GROUPS: { id: ProjectGroup; label: string; blurb: string }[] = [
 export const PROJECTS: Project[] = [
   // Now — explicit rank order
   {
+    slug: "ops-akademi",
+    name: "OPS Akademi",
+    tagline:
+      "An AI masterclass for private investors, run with OPS Akademi. First class 24 Nov 2026 in Copenhagen. I'm preparing the course material and slides, organising the class day and the groups, and building the hands-on case demos in Deal Agent.",
+    group: "headline",
+    status: "live",
+    live: "https://opsakademi.dk",
+    glyph: "❖",
+    note: "Deal Agent is an AI investment agent by AI Group. opsakademi.dk is the class website.",
+    rank: 0,
+  },
+  {
     slug: "j-dag",
     name: "J-dag Copenhagen",
     tagline: "Find the closest listed J-Day bar on a map — share your location or type a place, then walk there.",
