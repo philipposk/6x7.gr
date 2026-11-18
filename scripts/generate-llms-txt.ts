@@ -27,6 +27,7 @@ function formatProjectLine(project: (typeof PROJECTS)[number]): string {
   const links: string[] = [];
   if (project.live) links.push(project.live);
   if (project.repo) links.push(project.repo);
+  if (project.caseStudy) links.push(`case study: ${project.caseStudy}`);
   const linkPart = links.length ? ` ${links.join(" · ")}` : "";
   return `- **${project.name}**${suffix} — ${project.tagline}${linkPart}`;
 }

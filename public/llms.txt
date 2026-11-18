@@ -27,7 +27,7 @@ He is unusual because he covers the full product surface himself: research, desi
 
 ## Now
 
-- **OPS Akademi** — An AI masterclass for private investors, run with OPS Akademi. First class 24 Nov 2026 in Copenhagen. I'm preparing the course material and slides, organising the class day and the groups, and building the hands-on case demos in Deal Agent. https://opsakademi.dk
+- **OPS Akademi** — An AI masterclass for private investors, run with OPS Akademi. First class 24 Nov 2026 in Copenhagen. I'm preparing the course material and slides, organising the class day and the groups, and building the hands-on case demos in Deal Agent. https://opsakademi.dk · case study: https://6x7.gr/case-studies/ops-akademi
 - **ChatFix** — Upload a WhatsApp chat. ChatFix finds the real English mistakes you made, explains them in Brazilian Portuguese, and helps you practice them. https://chatfix.6x7.gr · https://github.com/philipposk/babi-english
 - **Journal Find** — Paste your abstract — get an enriched journal shortlist (Excel, PDF, CSV). https://journal-find.6x7.gr
 - **Daybook** — A shared book of the day's takings, expenses and profit — one person files the register, everyone sees it on their phone. https://daybook.6x7.gr
