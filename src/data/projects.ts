@@ -25,6 +25,8 @@ export interface Project {
   rank?: number;
   /** Optional one-line caption on the card. */
   note?: string;
+  /** Optional link to a written case study, shown as a small link on the card. */
+  caseStudy?: string;
 }
 
 export const GROUPS: { id: ProjectGroup; label: string; blurb: string }[] = [
@@ -56,6 +58,7 @@ export const PROJECTS: Project[] = [
     glyph: "❖",
     note: "Deal Agent is an AI investment agent by AI Group. opsakademi.dk is the class website.",
     rank: 0,
+    caseStudy: "https://6x7.gr/case-studies/ops-akademi",
   },
   {
     slug: "j-dag",

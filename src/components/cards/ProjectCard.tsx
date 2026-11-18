@@ -43,7 +43,7 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
   const clickable = !project.comingSoon && !!primary;
 
   const inner = (
-    <div className="glass rounded-2xl p-5 h-full flex flex-col gap-3 transition-all duration-300 group-hover:border-[var(--border-strong)] group-hover:glow-ring min-h-[210px]">
+    <div className={`glass rounded-2xl p-5 ${project.caseStudy ? "pb-12 " : ""}h-full flex flex-col gap-3 transition-all duration-300 group-hover:border-[var(--border-strong)] group-hover:glow-ring min-h-[210px]`}>
       <div className="flex items-start justify-between">
         <div
           className="text-3xl opacity-90 group-hover:opacity-100 transition"
@@ -88,6 +88,17 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
     </button>
   ) : null;
 
+  // Case study link — bottom-left corner, a sibling of the card link for the
+  // same reason as the GitHub button.
+  const caseLink = project.caseStudy ? (
+    <a
+      href={project.caseStudy}
+      className="absolute bottom-4 left-5 z-10 text-xs font-medium text-[var(--fg-muted)] hover:text-[var(--fg)] underline underline-offset-4 transition"
+    >
+      Read the case study →
+    </a>
+  ) : null;
+
   const wrapClass =
     "group relative block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]";
 
@@ -103,6 +114,7 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
         >
           {inner}
         </motion.div>
+        {caseLink}
         {ghButton}
       </div>
     );
@@ -123,6 +135,7 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
       >
         {inner}
       </a>
+      {caseLink}
       {ghButton}
     </motion.div>
   );
