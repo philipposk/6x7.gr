@@ -1,10 +1,10 @@
-import { GROUPS, PROJECTS, type Project } from "@/data/projects";
+import { GROUPS, projectsByGroup, type Project } from "@/data/projects";
 
 /**
  * Projects that get a public page at /apps/<slug>: an external live URL, not parked, not "coming soon".
- * Entries whose `live` is an internal path (e.g. "/skills") already have their own page here.
+ * Same order as the home page (group, then rank). Entries whose `live` is an internal path (e.g. "/skills") already have their own page here.
  */
-export const APP_PAGES: Project[] = PROJECTS.filter(
+export const APP_PAGES: Project[] = GROUPS.flatMap((g) => projectsByGroup(g.id)).filter(
   (p) => !!p.live && /^https?:\/\//.test(p.live) && !p.comingSoon && p.group !== "parked",
 );
 
