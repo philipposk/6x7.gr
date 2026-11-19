@@ -16,6 +16,9 @@ export function Footer() {
           >
             View source
           </a>
+          <Link href="/apps" className="hover:text-[var(--fg)] transition">
+            All apps
+          </Link>
           <Link href="/skills" className="hover:text-[var(--fg)] transition">
             Skills
           </Link>
