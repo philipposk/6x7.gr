@@ -1,7 +1,12 @@
 import { GROUPS, PROJECTS, type Project } from "@/data/projects";
 
-/** Projects that get a public page at /apps/<slug>: live, not parked, not "coming soon". */
-export const APP_PAGES: Project[] = PROJECTS.filter((p) => p.live && !p.comingSoon && p.group !== "parked");
+/**
+ * Projects that get a public page at /apps/<slug>: an external live URL, not parked, not "coming soon".
+ * Entries whose `live` is an internal path (e.g. "/skills") already have their own page here.
+ */
+export const APP_PAGES: Project[] = PROJECTS.filter(
+  (p) => !!p.live && /^https?:\/\//.test(p.live) && !p.comingSoon && p.group !== "parked",
+);
 
 export function appBySlug(slug: string): Project | undefined {
   return APP_PAGES.find((p) => p.slug === slug);
