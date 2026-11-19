@@ -61,6 +61,17 @@ export const PROJECTS: Project[] = [
     caseStudy: "https://6x7.gr/case-studies/ops-akademi",
   },
   {
+    slug: "yfos",
+    name: "Yfos",
+    tagline:
+      "Give it a few texts you wrote yourself. Yfos learns how you write and rewrites any draft, from AI or anywhere, so it sounds like you. Greek first, English too.",
+    group: "headline",
+    status: "live",
+    rank: 9,
+    live: "https://yfos.6x7.gr",
+    glyph: "ύ",
+  },
+  {
     slug: "j-dag",
     name: "J-dag Copenhagen",
     tagline: "Find the closest listed J-Day bar on a map — share your location or type a place, then walk there.",
