@@ -396,6 +396,16 @@ export const PROJECTS: Project[] = [
 
   // Health & learning
   {
+    slug: "snak",
+    name: "Snak",
+    tagline:
+      "Practise speaking 20 languages with an AI tutor — gentle corrections, a report after each session, and review drills from your own mistakes.",
+    group: "health",
+    status: "live",
+    live: "https://snak.6x7.gr",
+    glyph: "◍",
+  },
+  {
     slug: "digestive-diary",
     name: "Digestive Diary",
     tagline:

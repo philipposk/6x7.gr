@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { APP_PAGES, appBySlug, groupLabel, relatedApps, STATUS_LABEL } from "@/data/app-pages";
+import { APP_PAGES, appBySlug, appTitle, groupLabel, relatedApps, STATUS_LABEL } from "@/data/app-pages";
 import { Footer } from "@/components/Footer";
 
 export const dynamicParams = false;
@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const p = appBySlug((await params).slug);
   if (!p) return {};
   return {
-    title: `${p.name}: ${groupLabel(p.group).toLowerCase()} app`,
+    title: appTitle(p),
     description: p.tagline.slice(0, 160),
     alternates: { canonical: `/apps/${p.slug}` },
     openGraph: { title: p.name, description: p.tagline.slice(0, 200), url: `/apps/${p.slug}` },
